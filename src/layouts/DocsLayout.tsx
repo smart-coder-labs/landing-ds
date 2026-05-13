@@ -39,7 +39,7 @@ function SidebarLink({ to, children }: { to: string; children: React.ReactNode }
 
 function Sidebar() {
   return (
-    <aside className="fixed top-14 left-0 bottom-0 w-60 border-r border-border-primary bg-background-primary overflow-y-auto z-40">
+    <aside className="fixed top-11 left-0 bottom-0 w-60 border-r border-border-primary bg-background-primary overflow-y-auto z-40">
       <div className="p-4 space-y-1">
         <Collapsible defaultOpen>
           <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-2 text-xs font-semibold uppercase tracking-wider text-text-tertiary hover:text-text-secondary transition-colors">
@@ -92,7 +92,7 @@ export default function DocsLayout() {
     <div className="min-h-screen bg-background-primary text-text-primary">
       <SiteNav />
       <Sidebar />
-      <main className="ml-60 pt-14 min-h-screen">
+      <main className="ml-60 pt-11 min-h-screen">
         <div className="max-w-3xl mx-auto px-8 py-10">
           <Outlet />
         </div>

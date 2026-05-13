@@ -12,7 +12,7 @@ export default function CTASection() {
   React.useEffect(() => { setMounted(true) }, [])
 
   return (
-    <section id="cta" className="relative py-24 md:py-32 bg-surface-secondary/50">
+    <section id="cta" className="relative py-16 md:py-20 bg-surface-secondary/50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

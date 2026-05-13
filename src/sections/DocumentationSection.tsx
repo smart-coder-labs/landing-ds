@@ -163,11 +163,11 @@ const designTokens = [
 
 export default function DocumentationSection() {
   return (
-    <section id="docs" className="relative py-24 md:py-32 bg-surface-secondary/50">
+    <section id="docs" className="relative py-16 md:py-20 bg-surface-secondary/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-10 md:mb-14"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}

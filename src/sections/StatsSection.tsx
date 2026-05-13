@@ -31,12 +31,12 @@ export default function StatsSection() {
   React.useEffect(() => { setMounted(true) }, [])
 
   return (
-    <section id="stats" className="relative py-24 md:py-32">
+    <section id="stats" className="relative py-16 md:py-20">
       <div className="absolute inset-0 hero-gradient-secondary" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}

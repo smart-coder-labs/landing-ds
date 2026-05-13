@@ -414,13 +414,13 @@ const itemVariants: Variants = {
 
 export default function ComponentsGallery() {
   return (
-    <section id="components" className="relative py-24 md:py-32">
+    <section id="components" className="relative py-16 md:py-20">
       <div className="absolute inset-0 hero-gradient" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
-          className="text-center mb-16 md:mb-20"
+          className="text-center mb-10 md:mb-14"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
