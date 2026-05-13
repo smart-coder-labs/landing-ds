@@ -109,13 +109,13 @@ function MobileMenu({ landingMode }: { landingMode: boolean }) {
 export default function SiteNav({ landingMode = false }: SiteNavProps) {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border-primary">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-11 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 text-sm font-semibold text-text-primary">
           <LogoIcon />
           Design System
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-5">
           {landingMode ? (
             <>
               <a href="#features" className="text-sm text-text-secondary hover:text-text-primary transition-colors">Features</a>

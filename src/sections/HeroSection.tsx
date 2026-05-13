@@ -33,36 +33,13 @@ export default function HeroSection() {
   React.useEffect(() => { setMounted(true) }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-14">
-      {/* Background layers */}
+    <section className="relative flex items-center justify-center overflow-hidden pt-11 pb-20">
+      {/* Background */}
       <div className="absolute inset-0 hero-gradient" />
-      <div className="absolute inset-0 grid-pattern opacity-30" />
-
-      {/* Animated glow orbs */}
-      {mounted && (
-        <>
-          <motion.div
-            className="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-accent-blue/5 blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 10, 0],
-            }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <motion.div
-            className="absolute bottom-1/4 -right-32 w-80 h-80 rounded-full bg-purple-500/5 blur-3xl"
-            animate={{
-              scale: [1, 1.15, 1],
-              rotate: [0, -10, 0],
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          />
-        </>
-      )}
 
       {/* Content */}
       <motion.div
-        className="relative z-10 max-w-4xl mx-auto px-6 text-center"
+        className="relative z-10 max-w-3xl mx-auto px-6 text-center pt-16"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -75,7 +52,7 @@ export default function HeroSection() {
 
         <motion.h1
           variants={itemVariants}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-6"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight leading-[1.05] mb-5"
         >
           <span className="text-gradient">Build Beautiful</span>
           <br />
@@ -84,7 +61,7 @@ export default function HeroSection() {
 
         <motion.p
           variants={itemVariants}
-          className="text-lg sm:text-xl md:text-2xl text-text-secondary max-w-2xl mx-auto leading-relaxed mb-10"
+          className="text-base sm:text-lg md:text-xl text-text-secondary max-w-xl mx-auto leading-relaxed mb-8"
         >
           A production-ready React design system inspired by Apple's human interface
           guidelines. Components that feel native, look premium, and ship fast.
@@ -117,7 +94,7 @@ export default function HeroSection() {
         {/* Tech stack badges */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap items-center justify-center gap-3 mt-12"
+          className="flex flex-wrap items-center justify-center gap-2 mt-10"
         >
           {['React 19', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Radix UI'].map((tech) => (
             <span
@@ -130,28 +107,6 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-      >
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <svg width="20" height="30" viewBox="0 0 20 30" fill="none" className="text-text-tertiary">
-            <rect x="1.5" y="1.5" width="17" height="27" rx="8.5" stroke="currentColor" strokeWidth="2" />
-            <motion.circle
-              cx="10" cy="10" r="2.5"
-              fill="currentColor"
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </svg>
-        </motion.div>
-      </motion.div>
     </section>
   )
 }
