@@ -2,6 +2,9 @@ import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import SiteNav from '../components/SiteNav'
 import { useTheme } from '../hooks/useTheme'
+import { useHeadings } from '../hooks/useHeadings'
+import { useActiveHeading } from '../hooks/useActiveHeading'
+import { TableOfContents } from '../components/ui/TableOfContents'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '../components/ui/Collapsible'
 import { COMPONENT_CATEGORIES } from '../data/components'
 
@@ -29,9 +32,9 @@ function SidebarLink({ to, children }: { to: string; children: React.ReactNode }
   )
 }
 
-function Sidebar() {
+function Sidebar({ className }: { className?: string }) {
   return (
-    <aside className="fixed top-11 left-0 bottom-0 w-60 border-r border-border-primary bg-background-primary overflow-y-auto z-40">
+    <aside className={`${className} fixed md:static top-11 md:top-0 left-0 md:left-auto bottom-0 w-60 border-r border-border-primary bg-background-primary overflow-y-auto z-40 md:z-auto`}>
       <div className="p-3 space-y-0.5">
         <Collapsible defaultOpen>
           <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-text-tertiary hover:text-text-secondary transition-colors rounded-lg hover:bg-surface-secondary">
@@ -74,16 +77,35 @@ function Sidebar() {
 
 export default function DocsLayout() {
   useTheme()
+  
+  // Extract headings from main content
+  const headings = useHeadings('[role="main"]')
+  
+  // Track which heading is currently in view
+  const activeHeadingId = useActiveHeading(headings)
 
   return (
     <div className="min-h-screen bg-background-primary text-text-primary">
       <SiteNav />
-      <Sidebar />
-      <main className="ml-60 pt-11 min-h-screen">
-        <div className="max-w-3xl mx-auto px-8 py-10">
-          <Outlet />
-        </div>
-      </main>
+      
+      {/* 3-column grid: sidebar | content | toc */}
+      {/* Mobile: 1 column (content only) */}
+      {/* Tablet: 2 columns (sidebar + content) */}
+      {/* Desktop: 3 columns (sidebar + content + toc) */}
+      <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] lg:grid-cols-[240px_1fr_280px] gap-4 pt-11">
+        {/* Sidebar */}
+        <Sidebar className="hidden md:block" />
+        
+        {/* Main content */}
+        <main role="main" className="min-h-screen">
+          <div className="max-w-3xl mx-auto px-8 py-10">
+            <Outlet />
+          </div>
+        </main>
+        
+        {/* Table of Contents */}
+        <TableOfContents headings={headings} activeId={activeHeadingId} />
+      </div>
     </div>
   )
 }
