@@ -18,6 +18,21 @@ const fadeUp = {
   }),
 }
 
+// Helper to generate scoped heading IDs
+const slugify = (text: string): string => {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
+const generateHeadingId = (componentName: string, sectionName: string): string => {
+  return `doc-${componentName.toLowerCase()}-${slugify(sectionName)}`
+}
+
 interface ComponentExampleProps {
   title: string
   description?: string
@@ -110,7 +125,7 @@ export default function ComponentDetailPageV2() {
           <ChevronLeft size={16} />
           Back to Components
         </Button>
-        <Title level={2}>Component not found</Title>
+        <Title level={2} id="component-not-found">Component not found</Title>
       </div>
     )
   }
@@ -154,7 +169,7 @@ export default function ComponentDetailPageV2() {
       {/* EXAMPLES SECTION */}
       <div className="space-y-8 border-t border-border-primary pt-8">
         <div>
-          <Title level={2} className="mb-1">Examples</Title>
+          <Title id={generateHeadingId(component.name, 'Examples')} level={2} className="mb-1">Examples</Title>
           <Text color="secondary">Interactive examples and their code snippets.</Text>
         </div>
 
@@ -164,7 +179,7 @@ export default function ComponentDetailPageV2() {
 
       {/* PROPS SECTION */}
       <div className="space-y-4 border-t border-border-primary pt-8">
-        <Title level={2}>API Reference</Title>
+        <Title id={generateHeadingId(component.name, 'API Reference')} level={2}>API Reference</Title>
         <div className="rounded-lg border border-border-primary overflow-hidden">
           <div className="p-4 bg-surface-secondary border-b border-border-primary">
             <Text weight="medium" variant="small">Component Props</Text>
