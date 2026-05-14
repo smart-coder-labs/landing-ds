@@ -120,12 +120,12 @@ export default function ComponentDetailPageV2() {
       variants={fadeUp}
     >
       {/* HEADER */}
-      <div className="space-y-4">
+      <div className="space-y-4 mt-16">
         {/* Breadcrumb - shadcn style: subtle, almost same color as background */}
-        <div className="text-xs font-medium text-text-tertiary/70 uppercase tracking-widest">
-          <span className="text-text-tertiary/60">Components</span>
-          <span className="mx-2 text-text-tertiary/50">/</span>
-          <span className="text-text-tertiary/80">{component.name}</span>
+        <div className="text-sm text-text-secondary">
+          <span>Components</span>
+          <span className="mx-2">/</span>
+          <span className="text-text-primary">{component.name}</span>
         </div>
 
         <div className="space-y-2">
