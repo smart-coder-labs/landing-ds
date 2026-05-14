@@ -1,60 +1,87 @@
-import { useEffect, useState } from 'react'
-import type { Heading } from './useHeadings'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 /**
- * Track the active heading based on scroll position
- * Uses IntersectionObserver for efficient detection
- * @param headings - Array of heading objects from useHeadings
- * @param offset - Offset (in pixels) from top where a heading is considered "active" (default: 100)
- * @returns ID of the currently active heading
+ * Hook that tracks which heading is currently visible in the viewport.
+ * Uses Intersection Observer to efficiently detect visible headings.
+ *
+ * @returns The ID of the currently active (most visible) heading, or null if none
  */
-export function useActiveHeading(
-  headings: Heading[],
-  offset: number = 100,
-): string {
-  const [activeId, setActiveId] = useState<string>('')
+export function useActiveHeading(): string | null {
+  const [activeHeading, setActiveHeading] = useState<string | null>(null)
+  const entriesMapRef = useRef<Map<string, IntersectionObserverEntry>>(new Map())
 
-  useEffect(() => {
-    if (!headings.length) return
+  const updateActiveHeading = useCallback(() => {
+    const entries = Array.from(entriesMapRef.current.values())
 
-    // Collect all heading IDs (including nested ones)
-    const getAllIds = (heads: Heading[]): string[] => {
-      return heads.flatMap((h) => [h.id, ...getAllIds(h.children)])
+    // Find the heading that is most visible (highest intersection ratio)
+    let topHeading: IntersectionObserverEntry | null = null
+    let maxRatio = 0
+
+    for (const entry of entries) {
+      if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+        maxRatio = entry.intersectionRatio
+        topHeading = entry
+      }
     }
 
-    const headingIds = getAllIds(headings)
-    const headingElements = headingIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null)
+    // If no heading is intersecting, find the one closest to the top
+    if (!topHeading) {
+      let smallestDistance = Infinity
 
-    if (!headingElements.length) return
-
-    // Create intersection observer to detect visible headings
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Find entries that are visible
-        const visibleEntries = entries.filter((entry) => entry.isIntersecting)
-
-        if (visibleEntries.length > 0) {
-          // Use the topmost visible heading
-          const topEntry = visibleEntries.reduce((top, current) => {
-            return current.boundingClientRect.top < top.boundingClientRect.top
-              ? current
-              : top
-          })
-
-          setActiveId(topEntry.target.id)
+      for (const entry of entries) {
+        const distance = Math.abs(entry.boundingClientRect.top)
+        if (distance < smallestDistance) {
+          smallestDistance = distance
+          topHeading = entry
         }
-      },
-      {
-        rootMargin: `-${offset}px 0px -66%`,
-      },
-    )
+      }
+    }
 
-    headingElements.forEach((el) => observer.observe(el))
+    if (topHeading && topHeading.target instanceof HTMLElement) {
+      setActiveHeading(topHeading.target.id || null)
+    } else {
+      setActiveHeading(null)
+    }
+  }, [])
 
-    return () => observer.disconnect()
-  }, [headings, offset])
+  useEffect(() => {
+    const observerOptions: IntersectionObserverInit = {
+      root: null,
+      rootMargin: '0px 0px -80% 0px', // Trigger when heading enters top 20% of viewport
+      threshold: [0, 0.25, 0.5, 0.75, 1],
+    }
 
-  return activeId
+    const observer = new IntersectionObserver((entries) => {
+      // Update our entries map
+      entries.forEach((entry) => {
+        if (entry.target instanceof HTMLElement) {
+          const id = entry.target.id
+          if (id) {
+            entriesMapRef.current.set(id, entry)
+          }
+        }
+      })
+
+      // Update active heading
+      updateActiveHeading()
+    }, observerOptions)
+
+    // Get all h2, h3, h4 elements that have IDs
+    const headings = Array.from(document.querySelectorAll('h2[id], h3[id], h4[id]'))
+
+    // Observe all headings
+    headings.forEach((heading) => {
+      observer.observe(heading)
+    })
+
+    // Initial update
+    updateActiveHeading()
+
+    return () => {
+      entriesMapRef.current.clear()
+      observer.disconnect()
+    }
+  }, [updateActiveHeading])
+
+  return activeHeading
 }

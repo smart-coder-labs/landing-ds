@@ -1,33 +1,26 @@
 import React from 'react'
-import type { Heading } from '../../hooks/useHeadings'
+import { cn } from '../../lib/utils'
 
-export interface TableOfContentsProps {
-  headings: Heading[]
-  activeId: string
+export interface HeadingNode {
+  id: string
+  level: 2 | 3 | 4
+  text: string
+  children: HeadingNode[]
 }
 
-interface TOCNodeProps {
-  node: Heading
-  activeId: string
+interface TableOfContentsProps {
+  headings: HeadingNode[]
+  activeId: string | null
+  onNavigate?: (id: string) => void
+}
+
+const TOCNode: React.FC<{
+  node: HeadingNode
+  activeId: string | null
+  onNavigate?: (id: string) => void
   depth: number
-}
-
-/**
- * Recursive component for rendering a single ToC node and its children
- */
-const TOCNode: React.FC<TOCNodeProps> = ({ node, activeId, depth }) => {
+}> = ({ node, activeId, onNavigate, depth }) => {
   const isActive = node.id === activeId
-  const indentAmount = depth * 12 // 12px per nesting level
-
-  // Scale font size: h2 (base = 14px), h3 (13px), h4 (12.6px)
-  const fontSizeScale = {
-    2: 1,
-    3: 0.95,
-    4: 0.9,
-  }
-
-  const scale = fontSizeScale[node.level as keyof typeof fontSizeScale] || 1
-  const fontSize = `${14 * scale}px`
 
   const handleNavigate = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
@@ -41,6 +34,8 @@ const TOCNode: React.FC<TOCNodeProps> = ({ node, activeId, depth }) => {
       behavior: prefersReducedMotion ? 'auto' : 'smooth',
       block: 'start',
     })
+
+    onNavigate?.(node.id)
   }
 
   return (
@@ -48,31 +43,26 @@ const TOCNode: React.FC<TOCNodeProps> = ({ node, activeId, depth }) => {
       <a
         href={`#${node.id}`}
         onClick={handleNavigate}
+        className={cn(
+          'block text-sm py-1.5 px-2.5 rounded-md transition-colors no-underline',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-accent-green',
+          isActive
+            ? 'font-bold text-accent-green border-l-2 border-accent-green pl-2'
+            : 'text-text-tertiary hover:text-text-secondary hover:bg-surface-secondary'
+        )}
         aria-current={isActive ? 'page' : undefined}
-        className={`
-          block px-2.5 py-1.5 rounded-md transition-colors
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-accent-blue
-          ${
-            isActive
-              ? 'font-bold text-accent-blue border-l-2 border-accent-blue pl-2'
-              : 'text-text-tertiary hover:text-text-secondary hover:bg-surface-secondary'
-          }
-        `}
-        style={{
-          marginLeft: `${indentAmount}px`,
-          fontSize,
-        }}
+        style={{ paddingLeft: `${depth * 12 + 10}px` }}
       >
         {node.text}
       </a>
-
       {node.children.length > 0 && (
-        <ul className="space-y-1">
-          {node.children.map((child: Heading) => (
+        <ul className="list-none">
+          {node.children.map(child => (
             <TOCNode
               key={child.id}
               node={child}
               activeId={activeId}
+              onNavigate={onNavigate}
               depth={depth + 1}
             />
           ))}
@@ -82,43 +72,36 @@ const TOCNode: React.FC<TOCNodeProps> = ({ node, activeId, depth }) => {
   )
 }
 
-/**
- * Table of Contents component
- * Renders a sticky, hierarchical list of h2→h3→h4 headings
- * Only visible on desktop (lg breakpoint)
- * 
- * Accessibility:
- * - Semantic <nav> with aria-label for screen readers
- * - aria-current="page" on active link
- * - Keyboard navigation: Tab through links, Enter to navigate
- * - Focus-visible styling with ring for visibility
- * - Respects prefers-reduced-motion for scroll animation
- */
 export const TableOfContents = React.memo<TableOfContentsProps>(
-  ({ headings, activeId }) => {
-    if (!headings?.length) return null
+  ({ headings, activeId, onNavigate }) => {
+    if (!headings?.length) {
+      return null
+    }
 
     return (
       <nav
         aria-label="On this page"
-        className="hidden lg:block sticky top-11 h-[calc(100vh-44px)] overflow-y-auto pr-4 py-6 border-l border-border-primary"
+        className="hidden lg:block sticky top-11 h-[calc(100vh-44px)] overflow-y-auto pr-4 border-l border-border-primary"
       >
-        <div className="text-xs font-semibold uppercase tracking-wider text-text-tertiary mb-4 px-3">
-          On this page
+        <div className="py-6 pr-4">
+          <p className="text-xs font-semibold uppercase tracking-wider text-text-tertiary mb-4">
+            On this page
+          </p>
+          <ul className="list-none space-y-1">
+            {headings.map(heading => (
+              <TOCNode
+                key={heading.id}
+                node={heading}
+                activeId={activeId}
+                onNavigate={onNavigate}
+                depth={0}
+              />
+            ))}
+          </ul>
         </div>
-        <ul className="space-y-1">
-          {headings.map((heading) => (
-            <TOCNode
-              key={heading.id}
-              node={heading}
-              activeId={activeId}
-              depth={0}
-            />
-          ))}
-        </ul>
       </nav>
     )
-  },
+  }
 )
 
 TableOfContents.displayName = 'TableOfContents'
