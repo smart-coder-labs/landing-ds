@@ -83,7 +83,7 @@ export const TableOfContents = React.memo<TableOfContentsProps>(
         aria-label="On this page"
         className="hidden lg:block sticky top-11 h-[calc(100vh-44px)] overflow-y-auto pr-4 border-l border-border-primary"
       >
-        <div className="py-6 pr-4">
+        <div className="py-6 pr-4 pl-4">
           <p className="text-xs font-semibold uppercase tracking-wider text-text-tertiary mb-4">
             On this page
           </p>

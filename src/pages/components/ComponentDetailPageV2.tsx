@@ -154,7 +154,7 @@ export default function ComponentDetailPageV2() {
         </div>
 
         <div className="space-y-2">
-          <Title level={1}>{component.name}</Title>
+          <Title level={2}>{component.name}</Title>
           <Text color="secondary" className="text-base">{component.description}</Text>
         </div>
 
@@ -172,7 +172,7 @@ export default function ComponentDetailPageV2() {
       {/* EXAMPLES SECTION */}
       <div className="space-y-8 border-t border-border-primary pt-8">
         <div>
-          <Title id={generateHeadingId(component.name, 'Examples')} level={2} className="mb-1">Examples</Title>
+          <Title id={generateHeadingId(component.name, 'Examples')} level={3} className="mb-1">Examples</Title>
           <Text color="secondary">Interactive examples and their code snippets.</Text>
         </div>
 
@@ -182,7 +182,7 @@ export default function ComponentDetailPageV2() {
 
       {/* PROPS SECTION */}
       <div className="space-y-4 border-t border-border-primary pt-8">
-        <Title id={generateHeadingId(component.name, 'API Reference')} level={2}>API Reference</Title>
+        <Title id={generateHeadingId(component.name, 'API Reference')} level={3}>API Reference</Title>
         <div className="rounded-lg border border-border-primary overflow-hidden">
           <div className="p-4 bg-surface-secondary border-b border-border-primary">
             <Text weight="medium" variant="small">Component Props</Text>
