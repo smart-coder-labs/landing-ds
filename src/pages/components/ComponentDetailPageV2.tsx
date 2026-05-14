@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Copy, Check, ChevronLeft } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
 
 import { Title } from '../../components/ui/Title'
 import Text from '../../components/ui/Text'
 import { Button } from '../../components/ui/Button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../components/ui/Tabs'
+import { CodeBlock } from '../../components/ui/CodeBlock'
 import { ALL_COMPONENTS, COMPONENT_CATEGORIES, ComponentEntry } from '../../data/components'
 
 const fadeUp = {
@@ -41,14 +42,6 @@ interface ComponentExampleProps {
 }
 
 function ComponentExample({ title, description, preview, code }: ComponentExampleProps) {
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText(code)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
   return (
     <div className="space-y-4 mb-8">
       <div>
@@ -73,29 +66,7 @@ function ComponentExample({ title, description, preview, code }: ComponentExampl
         </TabsContent>
 
         <TabsContent value="code" className="p-0 border-t-0 bg-background-primary">
-          <div className="relative">
-            <pre className="overflow-x-auto p-4 bg-surface-secondary text-sm font-mono text-text-primary max-h-96">
-              <code>{code}</code>
-            </pre>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="absolute top-3 right-3"
-              onClick={handleCopy}
-            >
-              {copied ? (
-                <>
-                  <Check size={14} className="mr-1" />
-                  Copied
-                </>
-              ) : (
-                <>
-                  <Copy size={14} className="mr-1" />
-                  Copy
-                </>
-              )}
-            </Button>
-          </div>
+          <CodeBlock code={code} language="typescript" showLineNumbers={true} />
         </TabsContent>
       </Tabs>
     </div>
