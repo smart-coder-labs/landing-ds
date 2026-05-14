@@ -45,18 +45,22 @@ function ComponentExample({ title, description, preview, code }: ComponentExampl
   const [showCode, setShowCode] = React.useState(false)
 
   return (
-    <div className="space-y-6 mb-8">
-      <div>
+    <div className="mb-8">
+      <div className="mb-6">
         <h3 className="text-base font-medium text-text-primary mb-1">{title}</h3>
         {description && (
           <p className="text-sm text-text-secondary">{description}</p>
         )}
       </div>
 
-      {/* Preview Card */}
+      {/* Preview Card with Gradient Fade */}
       <div className="border border-border-primary rounded-lg overflow-hidden bg-background-primary">
-        <div className="px-6 py-8 min-h-[280px] flex items-center justify-center bg-background-primary border-b border-border-primary">
+        {/* Preview Area with Gradient Overlay */}
+        <div className="relative px-6 py-8 min-h-[280px] flex items-center justify-center bg-background-primary">
           {preview}
+          
+          {/* Gradient fade overlay at bottom */}
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background-primary via-background-primary/50 to-transparent pointer-events-none" />
         </div>
 
         {/* View Code Button */}
@@ -68,14 +72,14 @@ function ComponentExample({ title, description, preview, code }: ComponentExampl
             {showCode ? 'Hide Code' : 'View Code'}
           </button>
         </div>
-      </div>
 
-      {/* Code Block - shown below */}
-      {showCode && (
-        <div className="border border-border-primary rounded-lg overflow-hidden">
-          <CodeBlock code={code} language="typescript" showLineNumbers={true} />
-        </div>
-      )}
+        {/* Code Block - expands directly below, no gap */}
+        {showCode && (
+          <div className="border-t border-border-primary">
+            <CodeBlock code={code} language="typescript" showLineNumbers={true} />
+          </div>
+        )}
+      </div>
     </div>
   )
 }
