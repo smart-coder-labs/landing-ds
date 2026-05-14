@@ -42,8 +42,10 @@ interface ComponentExampleProps {
 }
 
 function ComponentExample({ title, description, preview, code }: ComponentExampleProps) {
+  const [showCode, setShowCode] = React.useState(false)
+
   return (
-    <div className="space-y-4 mb-8">
+    <div className="space-y-6 mb-8">
       <div>
         <h3 className="text-base font-medium text-text-primary mb-1">{title}</h3>
         {description && (
@@ -51,29 +53,29 @@ function ComponentExample({ title, description, preview, code }: ComponentExampl
         )}
       </div>
 
-      <div className="border border-border-primary rounded-xl overflow-hidden bg-background-primary">
-        <div className="flex border-b border-border-primary bg-surface-secondary">
-          <button className="px-4 py-2 text-sm font-medium text-text-primary border-b-2 border-accent-green bg-surface-secondary">
-            Preview
-          </button>
-          <button className="px-4 py-2 text-sm font-medium text-text-tertiary hover:text-text-secondary">
-            Code
-          </button>
+      {/* Preview Card */}
+      <div className="border border-border-primary rounded-lg overflow-hidden bg-background-primary">
+        <div className="px-6 py-8 min-h-[280px] flex items-center justify-center bg-background-primary border-b border-border-primary">
+          {preview}
         </div>
 
-        <div className="p-8 bg-background-primary">
-          <div className="flex items-center justify-center min-h-[200px]">
-            {preview}
-          </div>
+        {/* View Code Button */}
+        <div className="px-6 py-4 bg-surface-secondary border-t border-border-primary flex justify-end">
+          <button
+            onClick={() => setShowCode(!showCode)}
+            className="px-4 py-2 text-sm font-medium rounded-lg border border-border-primary hover:bg-background-primary text-text-primary transition-colors"
+          >
+            {showCode ? 'Hide Code' : 'View Code'}
+          </button>
         </div>
       </div>
 
-      <div className="border border-border-primary rounded-xl overflow-hidden">
-        <div className="px-4 py-2 bg-surface-secondary border-b border-border-primary">
-          <span className="text-xs font-medium text-text-tertiary uppercase tracking-wider">Code</span>
+      {/* Code Block - shown below */}
+      {showCode && (
+        <div className="border border-border-primary rounded-lg overflow-hidden">
+          <CodeBlock code={code} language="typescript" showLineNumbers={true} />
         </div>
-        <CodeBlock code={code} language="typescript" showLineNumbers={true} />
-      </div>
+      )}
     </div>
   )
 }
@@ -115,10 +117,15 @@ export default function ComponentDetailPageV2() {
     >
       {/* HEADER */}
       <div className="space-y-4">
+        {/* Breadcrumb */}
+        <div className="text-sm text-text-secondary">
+          <span>Components</span>
+          <span className="mx-2">/</span>
+          <span className="text-text-primary">{component.name}</span>
+        </div>
+
         <div className="space-y-2">
-          <div className="flex items-center gap-3">
-            <Title level={1}>{component.name}</Title>
-          </div>
+          <Title level={1}>{component.name}</Title>
           <Text color="secondary" className="text-base">{component.description}</Text>
         </div>
 
