@@ -1,0 +1,14 @@
+import React from 'react'
+import { MarkdownEditor } from '../../../components/ui/MarkdownEditor'
+
+export function MarkdownEditorPreview() {
+  try {
+    return (
+      <div className="overflow-auto max-h-[400px] max-w-full">
+        <MarkdownEditor />
+      </div>
+    )
+  } catch (error) {
+    return <div className="p-4 text-red-500 text-sm">Preview error: {String(error)}</div>
+  }
+}
