@@ -1,9 +1,19 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { Title } from '../../components/ui/Title'
-import { Text } from '../../components/ui/Text'
+import Text from '../../components/ui/Text'
 import { Card, CardContent } from '../../components/ui/Card'
 import { Badge } from '../../components/ui/Badge'
 import { Button } from '../../components/ui/Button'
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] },
+  }),
+}
 
 const features = [
   {
@@ -69,16 +79,33 @@ const features = [
 
 export default function IntroductionPage() {
   return (
-    <div className="space-y-10">
-      <div className="space-y-4">
+    <motion.div
+      className="space-y-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.35 }}
+    >
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={0}
+      >
         <Badge variant="info" size="sm">Documentation</Badge>
         <Title level={1} weight="bold">Introduction</Title>
         <Text variant="lead" color="secondary">
           An Apple-inspired design system for React, built with Tailwind CSS v4.
         </Text>
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={1}
+      >
         <Title level={4} weight="semibold">What is it?</Title>
         <Text color="secondary">
           The Apple Design System is an open-source React component library that brings the clarity, depth, and elegance
@@ -90,9 +117,15 @@ export default function IntroductionPage() {
           work without any JavaScript overhead. Components ship with Framer Motion animations that feel
           physical and natural.
         </Text>
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={2}
+      >
         <Title level={4} weight="semibold">Philosophy</Title>
         <Text color="secondary">
           Most design systems give you unstyled primitives and leave the design work to you.
@@ -104,44 +137,65 @@ export default function IntroductionPage() {
           We believe the best developer experience is one where you can go from zero to a beautiful UI
           in minutes, not days.
         </Text>
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={3}
+      >
         <Title level={4} weight="semibold">Features</Title>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {features.map((feature) => (
-            <Card key={feature.title} variant="outlined" padding="md">
-              <CardContent>
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 text-accent-blue flex-shrink-0">{feature.icon}</div>
-                  <div>
-                    <Text weight="semibold" className="mb-1">{feature.title}</Text>
-                    <Text variant="small" color="secondary">{feature.description}</Text>
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-40px' }}
+          variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
+        >
+          {features.map((feature, index) => (
+            <motion.div key={feature.title} variants={fadeUp} custom={index}>
+              <Card variant="outlined" padding="md">
+                <CardContent>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 text-accent-blue flex-shrink-0">{feature.icon}</div>
+                    <div>
+                      <Text weight="semibold" className="mb-1">{feature.title}</Text>
+                      <Text variant="small" color="secondary">{feature.description}</Text>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      <Card variant="flat" padding="md">
-        <CardContent>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <Text weight="semibold" className="mb-1">Quick install</Text>
-              <code className="text-sm font-mono text-accent-blue bg-accent-blue/10 px-3 py-1 rounded-lg">
-                npx @smart-coder-labs/apple-design-system add Button
-              </code>
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={4}
+      >
+        <Card variant="flat" padding="md">
+          <CardContent>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <Text weight="semibold" className="mb-1">Quick install</Text>
+                <code className="text-sm font-mono text-accent-blue bg-accent-blue/10 px-3 py-1 rounded-lg">
+                  npx @smart-coder-labs/apple-design-system add Button
+                </code>
+              </div>
+              <Link to="/docs/installation">
+                <Button variant="primary" size="sm">
+                  Installation guide
+                </Button>
+              </Link>
             </div>
-            <Link to="/docs/installation">
-              <Button variant="primary" size="sm">
-                Installation guide
-              </Button>
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </motion.div>
   )
 }

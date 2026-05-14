@@ -1,8 +1,18 @@
+import { motion } from 'framer-motion'
 import { Title } from '../../components/ui/Title'
-import { Text } from '../../components/ui/Text'
+import Text from '../../components/ui/Text'
 import { Card, CardContent } from '../../components/ui/Card'
 import { Badge } from '../../components/ui/Badge'
 import { CodeBlock } from '../../components/ui/CodeBlock'
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] },
+  }),
+}
 
 const steps = [
   {
@@ -49,16 +59,33 @@ export default function MyPage() {
 
 export default function InstallationPage() {
   return (
-    <div className="space-y-10">
-      <div className="space-y-4">
+    <motion.div
+      className="space-y-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.35 }}
+    >
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={0}
+      >
         <Badge variant="info" size="sm">Getting Started</Badge>
         <Title level={1} weight="bold">Installation</Title>
         <Text variant="lead" color="secondary">
           Get the design system running in your project in under two minutes.
         </Text>
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={1}
+      >
         <Title level={4} weight="semibold">Requirements</Title>
         <div className="flex flex-wrap gap-2">
           <Badge variant="default">React 18+</Badge>
@@ -66,50 +93,71 @@ export default function InstallationPage() {
           <Badge variant="default">Tailwind CSS v4</Badge>
           <Badge variant="default">Vite or Next.js</Badge>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="space-y-6">
+      <motion.div
+        className="space-y-6"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={2}
+      >
         <Title level={4} weight="semibold">Steps</Title>
-        {steps.map((step) => (
-          <Card key={step.number} variant="outlined" padding="none">
-            <CardContent>
-              <div className="p-6 border-b border-border-primary flex items-start gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent-blue text-white flex items-center justify-center text-sm font-bold">
-                  {step.number}
+        {steps.map((step, stepIndex) => (
+          <motion.div
+            key={step.number}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={stepIndex + 3}
+          >
+            <Card variant="outlined" padding="none">
+              <CardContent>
+                <div className="p-6 border-b border-border-primary flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-accent-blue text-white flex items-center justify-center text-sm font-bold">
+                    {step.number}
+                  </div>
+                  <div>
+                    <Text weight="semibold" className="mb-1">{step.title}</Text>
+                    <Text variant="small" color="secondary">{step.description}</Text>
+                  </div>
                 </div>
-                <div>
-                  <Text weight="semibold" className="mb-1">{step.title}</Text>
-                  <Text variant="small" color="secondary">{step.description}</Text>
+                <div className="p-4">
+                  <CodeBlock code={step.code} language={step.language} />
                 </div>
-              </div>
-              <div className="p-4">
-                <CodeBlock code={step.code} language={step.language} />
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
-      <Card variant="flat" padding="md">
-        <CardContent>
-          <div className="flex items-start gap-3">
-            <div className="mt-0.5 text-status-warning flex-shrink-0">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                <line x1="12" y1="9" x2="12" y2="13" />
-                <line x1="12" y1="17" x2="12.01" y2="17" />
-              </svg>
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={7}
+      >
+        <Card variant="flat" padding="md">
+          <CardContent>
+            <div className="flex items-start gap-3">
+              <div className="mt-0.5 text-status-warning flex-shrink-0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+              </div>
+              <div>
+                <Text weight="semibold" className="mb-1">You own the code</Text>
+                <Text variant="small" color="secondary">
+                  Unlike traditional component libraries, the CLI copies component source files directly into your project.
+                  You can modify them freely — there is no external dependency to keep in sync.
+                </Text>
+              </div>
             </div>
-            <div>
-              <Text weight="semibold" className="mb-1">You own the code</Text>
-              <Text variant="small" color="secondary">
-                Unlike traditional component libraries, the CLI copies component source files directly into your project.
-                You can modify them freely — there is no external dependency to keep in sync.
-              </Text>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </motion.div>
   )
 }

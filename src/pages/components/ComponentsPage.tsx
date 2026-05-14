@@ -1,77 +1,80 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { Title } from '../../components/ui/Title'
-import { Text } from '../../components/ui/Text'
-import { Card, CardContent } from '../../components/ui/Card'
+import Text from '../../components/ui/Text'
 import { Badge } from '../../components/ui/Badge'
+import { Card, CardContent } from '../../components/ui/Card'
+import { ALL_COMPONENTS, COMPONENT_CATEGORIES, ComponentEntry } from '../../data/components'
 
-const INSTALLED = new Set([
-  'button', 'card', 'badge', 'title', 'text', 'tabs', 'switch',
-  'divider', 'footer', 'gridsystem', 'codeblock', 'collapsible',
-])
-
-interface RegistryComponent {
-  name: string
-  description?: string
-  category?: string
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] },
+  }),
 }
 
-const FALLBACK_COMPONENTS: RegistryComponent[] = [
-  { name: 'Button', description: 'Trigger actions and navigate between pages.', category: 'inputs' },
-  { name: 'Card', description: 'Contain and group related content.', category: 'layout' },
-  { name: 'Badge', description: 'Display status, counts, or short labels.', category: 'display' },
-  { name: 'Title', description: 'Semantic heading with typographic scale.', category: 'typography' },
-  { name: 'Text', description: 'Body and utility text with color variants.', category: 'typography' },
-  { name: 'Tabs', description: 'Switch between sections in the same context.', category: 'navigation' },
-  { name: 'Switch', description: 'Toggle a boolean setting on or off.', category: 'inputs' },
-  { name: 'Divider', description: 'Separate content with a horizontal or vertical rule.', category: 'layout' },
-  { name: 'Footer', description: 'Site-wide footer with columns and links.', category: 'layout' },
-  { name: 'GridSystem', description: 'Responsive column grid built on CSS Grid.', category: 'layout' },
-  { name: 'CodeBlock', description: 'Display syntax-highlighted code with copy button.', category: 'display' },
-  { name: 'Collapsible', description: 'Reveal or hide sections of content.', category: 'disclosure' },
+const CATEGORY_ORDER = [
+  'Inputs', 'Layout', 'Typography', 'Navigation', 'Feedback', 'Data', 'Media',
+  'Charts', 'Animations', 'AI', 'Auth', 'Commerce', 'Fintech', 'Communication',
+  'Scheduling', 'Misc',
 ]
 
+function ComponentCard({ component }: { component: ComponentEntry }) {
+  return (
+    <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.15 }}>
+      <Link to={`/components/${component.name.toLowerCase()}`}>
+        <Card variant="outlined" padding="sm" hoverable className="h-full group">
+          <CardContent className="flex flex-col gap-1.5 p-3">
+            <div className="flex items-center justify-between gap-1">
+              <span className="text-sm font-medium text-text-primary truncate">{component.name}</span>
+              <Badge variant="success" size="sm" className="flex-shrink-0 text-[10px]">✓</Badge>
+            </div>
+            <p className="text-xs text-text-secondary line-clamp-2 leading-relaxed">{component.description}</p>
+          </CardContent>
+        </Card>
+      </Link>
+    </motion.div>
+  )
+}
+
 export default function ComponentsPage() {
-  const [components, setComponents] = React.useState<RegistryComponent[]>(FALLBACK_COMPONENTS)
-  const [loading, setLoading] = React.useState(true)
   const [query, setQuery] = React.useState('')
 
-  React.useEffect(() => {
-    const controller = new AbortController()
+  const isSearching = query.trim().length > 0
 
-    fetch(
-      'https://raw.githubusercontent.com/smart-coder-labs/design-system/main/registry.json',
-      { signal: controller.signal }
-    )
-      .then((res) => {
-        if (!res.ok) throw new Error('fetch failed')
-        return res.json()
-      })
-      .then((data: RegistryComponent[]) => {
-        if (Array.isArray(data) && data.length > 0) setComponents(data)
-      })
-      .catch(() => {
-        // stay with fallback
-      })
-      .finally(() => setLoading(false))
+  const filtered = isSearching
+    ? ALL_COMPONENTS.filter((c) =>
+        c.name.toLowerCase().includes(query.toLowerCase()) ||
+        c.description.toLowerCase().includes(query.toLowerCase())
+      )
+    : []
 
-    return () => controller.abort()
-  }, [])
-
-  const filtered = components.filter((c) =>
-    c.name.toLowerCase().includes(query.toLowerCase())
-  )
+  const totalCount = ALL_COMPONENTS.length
+  const categoryCount = Object.keys(COMPONENT_CATEGORIES).length
 
   return (
     <div className="space-y-8">
-      <div className="space-y-3">
+      <motion.div
+        className="space-y-3"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={0}
+      >
         <Title level={1} weight="bold">Components</Title>
-        <Text variant="lead" color="secondary">
-          {components.length} components available. {INSTALLED.size} installed in this project.
-        </Text>
-      </div>
+        <Text color="secondary">{totalCount} components across {categoryCount} categories.</Text>
+      </motion.div>
 
-      <div className="relative">
+      <motion.div
+        className="relative"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={1}
+      >
         <input
           type="search"
           placeholder="Search components..."
@@ -93,48 +96,50 @@ export default function ComponentsPage() {
           <circle cx="11" cy="11" r="8" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
-      </div>
+      </motion.div>
 
-      {loading && (
-        <div className="flex items-center gap-2 text-text-secondary text-sm">
-          <svg className="animate-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 12a9 9 0 1 1-6.219-8.56" />
-          </svg>
-          Loading registry...
+      {isSearching ? (
+        <div>
+          {filtered.length === 0 ? (
+            <Text color="secondary">No components match "{query}".</Text>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {filtered.map((component) => (
+                <ComponentCard key={component.name} component={component} />
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="space-y-10">
+          {CATEGORY_ORDER.map((category) => {
+            const items = ALL_COMPONENTS.filter((c) => c.category === category)
+            if (items.length === 0) return null
+            return (
+              <motion.section
+                key={category}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <h2 className="uppercase text-xs tracking-widest text-text-tertiary font-medium whitespace-nowrap">
+                    {category}
+                  </h2>
+                  <div className="h-px flex-1 bg-border-primary" />
+                  <span className="text-xs text-text-tertiary">{items.length}</span>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {items.map((component) => (
+                    <ComponentCard key={component.name} component={component} />
+                  ))}
+                </div>
+              </motion.section>
+            )
+          })}
         </div>
       )}
-
-      {filtered.length === 0 && !loading && (
-        <Text color="secondary">No components match "{query}".</Text>
-      )}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((component) => {
-          const key = component.name.toLowerCase()
-          const installed = INSTALLED.has(key)
-
-          return (
-            <Link key={component.name} to={`/components/${key}`} className="block group">
-              <Card variant="outlined" padding="md" hoverable className="h-full">
-                <CardContent>
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <Text weight="semibold">{component.name}</Text>
-                    {installed && <Badge variant="success" size="sm">Installed</Badge>}
-                  </div>
-                  {component.description && (
-                    <Text variant="small" color="secondary" lineClamp={2}>{component.description}</Text>
-                  )}
-                  <div className="mt-3">
-                    <code className="text-xs font-mono text-text-tertiary">
-                      add {component.name}
-                    </code>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          )
-        })}
-      </div>
     </div>
   )
 }
