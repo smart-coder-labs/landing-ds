@@ -1,8 +1,9 @@
 import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import SiteNav from '../components/SiteNav'
-import { useTheme } from '../hooks/useTheme'
+import { useTheme, useHeadings, useActiveHeading } from '../hooks'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '../components/ui/Collapsible'
+import { TableOfContents } from '../components/ui/TableOfContents'
 import { COMPONENT_CATEGORIES } from '../data/components'
 
 const CATEGORY_ORDER = [
@@ -74,16 +75,23 @@ function Sidebar() {
 
 export default function DocsLayout() {
   useTheme()
+  const headings = useHeadings()
+  const activeHeadingId = useActiveHeading()
 
   return (
     <div className="min-h-screen bg-background-primary text-text-primary">
       <SiteNav />
-      <Sidebar />
-      <main className="ml-60 pt-11 min-h-screen">
-        <div className="max-w-3xl mx-auto px-8 py-10">
-          <Outlet />
+      <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] lg:grid-cols-[240px_1fr_280px]">
+        <div className="hidden md:block">
+          <Sidebar />
         </div>
-      </main>
+        <main role="main" className="pt-11 md:pt-0 min-h-screen">
+          <div className="max-w-3xl mx-auto px-8 py-10">
+            <Outlet />
+          </div>
+        </main>
+        <TableOfContents headings={headings} activeId={activeHeadingId} />
+      </div>
     </div>
   )
 }
