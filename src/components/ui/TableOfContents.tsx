@@ -29,20 +29,32 @@ const TOCNode: React.FC<TOCNodeProps> = ({ node, activeId, depth }) => {
   const scale = fontSizeScale[node.level as keyof typeof fontSizeScale] || 1
   const fontSize = `${14 * scale}px`
 
+  const handleNavigate = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    const element = document.getElementById(node.id)
+    if (!element) return
+
+    // Detect user preference for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    element.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      block: 'start',
+    })
+  }
+
   return (
     <li>
       <a
         href={`#${node.id}`}
-        onClick={(e) => {
-          e.preventDefault()
-          document.getElementById(node.id)?.scrollIntoView({ behavior: 'smooth' })
-        }}
+        onClick={handleNavigate}
         aria-current={isActive ? 'page' : undefined}
         className={`
-          block px-3 py-1.5 rounded-md transition-all
+          block px-2.5 py-1.5 rounded-md transition-colors
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-accent-blue
           ${
             isActive
-              ? 'font-semibold text-accent-blue bg-accent-blue/10 border-l-2 border-accent-blue'
+              ? 'font-bold text-accent-blue border-l-2 border-accent-blue pl-2'
               : 'text-text-tertiary hover:text-text-secondary hover:bg-surface-secondary'
           }
         `}
@@ -55,7 +67,7 @@ const TOCNode: React.FC<TOCNodeProps> = ({ node, activeId, depth }) => {
       </a>
 
       {node.children.length > 0 && (
-        <ul className="space-y-0">
+        <ul className="space-y-1">
           {node.children.map((child: Heading) => (
             <TOCNode
               key={child.id}
@@ -74,6 +86,13 @@ const TOCNode: React.FC<TOCNodeProps> = ({ node, activeId, depth }) => {
  * Table of Contents component
  * Renders a sticky, hierarchical list of h2→h3→h4 headings
  * Only visible on desktop (lg breakpoint)
+ * 
+ * Accessibility:
+ * - Semantic <nav> with aria-label for screen readers
+ * - aria-current="page" on active link
+ * - Keyboard navigation: Tab through links, Enter to navigate
+ * - Focus-visible styling with ring for visibility
+ * - Respects prefers-reduced-motion for scroll animation
  */
 export const TableOfContents = React.memo<TableOfContentsProps>(
   ({ headings, activeId }) => {
@@ -82,12 +101,12 @@ export const TableOfContents = React.memo<TableOfContentsProps>(
     return (
       <nav
         aria-label="On this page"
-        className="hidden lg:block sticky top-11 h-[calc(100vh-44px)] overflow-y-auto pr-3 py-4 border-l border-border-primary"
+        className="hidden lg:block sticky top-11 h-[calc(100vh-44px)] overflow-y-auto pr-4 py-6 border-l border-border-primary"
       >
-        <div className="text-xs font-semibold uppercase tracking-wider text-text-tertiary mb-3 px-3">
+        <div className="text-xs font-semibold uppercase tracking-wider text-text-tertiary mb-4 px-3">
           On this page
         </div>
-        <ul className="space-y-0">
+        <ul className="space-y-1">
           {headings.map((heading) => (
             <TOCNode
               key={heading.id}
