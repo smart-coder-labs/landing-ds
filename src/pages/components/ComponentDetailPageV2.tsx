@@ -34,6 +34,16 @@ const generateHeadingId = (componentName: string, sectionName: string): string =
   return `doc-${componentName.toLowerCase()}-${slugify(sectionName)}`
 }
 
+// Helper to find component category
+const findComponentCategory = (componentName: string): string | undefined => {
+  for (const [category, components] of Object.entries(COMPONENT_CATEGORIES)) {
+    if (components.includes(componentName)) {
+      return category
+    }
+  }
+  return undefined
+}
+
 interface ComponentExampleProps {
   title: string
   description?: string
@@ -119,13 +129,28 @@ export default function ComponentDetailPageV2() {
       animate="visible"
       variants={fadeUp}
     >
-      {/* HEADER */}
+       {/* HEADER */}
       <div className="space-y-4 mt-16">
-        {/* Breadcrumb - shadcn style: subtle, almost same color as background */}
-        <div className="text-sm text-text-secondary">
-          <span>Components</span>
-          <span className="mx-2">/</span>
-          <span className="text-text-primary">{component.name}</span>
+        {/* Breadcrumb - clickable and navigable */}
+        <div className="text-sm text-text-secondary flex items-center gap-2">
+          <button
+            onClick={() => navigate('/components')}
+            className="hover:text-text-primary transition-colors cursor-pointer"
+          >
+            Components
+          </button>
+          <span className="text-text-tertiary">/</span>
+          <button
+            onClick={() => {
+              const category = findComponentCategory(component.name)
+              navigate(`/components?category=${category}`)
+            }}
+            className="hover:text-text-primary transition-colors cursor-pointer"
+          >
+            {findComponentCategory(component.name)}
+          </button>
+          <span className="text-text-tertiary">/</span>
+          <span className="text-text-primary font-medium">{component.name}</span>
         </div>
 
         <div className="space-y-2">
