@@ -130,7 +130,7 @@ export default function FeaturesSection() {
           {features.map((feature, index) => (
             <motion.div key={index} variants={itemVariants as any}>
               <Card
-                variant="elevated"
+                variant="glass"
                 padding="lg"
                 hoverable
                 className="h-full group"

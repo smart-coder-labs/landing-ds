@@ -63,32 +63,47 @@ function ComponentExample({ title, description, preview, code }: ComponentExampl
         )}
       </div>
 
-      {/* Preview Card with Gradient Fade */}
+      {/* Preview Card */}
       <div className="border border-border-primary rounded-lg overflow-hidden bg-background-primary">
-        {/* Preview Area with Gradient Overlay */}
+        {/* Preview Area */}
         <div className="relative px-6 py-8 min-h-[280px] flex items-center justify-center bg-background-primary">
           {preview}
-          
-          {/* Gradient fade overlay at bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background-primary via-background-primary/50 to-transparent pointer-events-none" />
         </div>
 
-        {/* View Code Button */}
-        <div className="px-6 py-4 bg-surface-secondary border-t border-border-primary flex justify-end">
-          <button
-            onClick={() => setShowCode(!showCode)}
-            className="px-4 py-2 text-sm font-medium rounded-lg border border-border-primary hover:bg-background-primary text-text-primary transition-colors"
-          >
-            {showCode ? 'Hide Code' : 'View Code'}
-          </button>
+        {/* Code section — always renders a collapsed glimpse, expands on toggle */}
+        <div className="border-t border-border-primary">
+          {/* Collapsed: partial code + gradient + centered button */}
+          {!showCode ? (
+            <div className="relative overflow-hidden" style={{ height: '140px' }}>
+              <div className="pointer-events-none">
+                <CodeBlock code={code} language="typescript" showLineNumbers={false} className="rounded-none" />
+              </div>
+              {/* Gradient fade */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1e1e1e] via-[#1e1e1e]/70 to-transparent pointer-events-none" />
+              {/* Centered button inside gradient */}
+              <div className="absolute inset-0 flex items-end justify-center pb-4">
+                <button
+                  onClick={() => setShowCode(true)}
+                  className="px-4 py-2 text-sm font-medium rounded-lg border border-[#3e3e42] bg-[#252526]/90 hover:bg-[#2d2d30] text-[#cccccc] transition-colors backdrop-blur-sm"
+                >
+                  View Code
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <CodeBlock code={code} language="typescript" showLineNumbers={false} className="rounded-none" />
+              <div className="flex justify-center py-3 bg-[#1e1e1e] border-t border-[#3e3e42]">
+                <button
+                  onClick={() => setShowCode(false)}
+                  className="px-4 py-2 text-sm font-medium rounded-lg border border-[#3e3e42] bg-[#252526]/90 hover:bg-[#2d2d30] text-[#cccccc] transition-colors backdrop-blur-sm"
+                >
+                  Hide Code
+                </button>
+              </div>
+            </>
+          )}
         </div>
-
-        {/* Code Block - expands directly below, no gap */}
-        {showCode && (
-          <div className="border-t border-border-primary">
-            <CodeBlock code={code} language="typescript" showLineNumbers={true} />
-          </div>
-        )}
       </div>
     </div>
   )
@@ -159,13 +174,11 @@ export default function ComponentDetailPageV2() {
         </div>
 
         {/* QUICK INSTALL */}
-        <div className="mt-6 p-4 rounded-lg bg-surface-secondary border border-border-primary">
-          <Text variant="small" weight="medium" className="mb-2">Installation</Text>
-          <div className="relative">
-            <pre className="text-sm font-mono text-text-primary overflow-x-auto bg-background-primary rounded p-3">
-              <code>{`import { ${component.name} } from '@/components/ui/${component.name}'`}</code>
-            </pre>
-          </div>
+        <div className="mt-6 px-4 py-3 rounded-lg bg-white/[0.03] border border-border-primary/50 backdrop-blur-sm flex items-center gap-4">
+          <Text variant="small" weight="medium" className="shrink-0 text-text-tertiary">Installation</Text>
+          <pre className="text-sm font-mono text-text-secondary overflow-x-auto m-0 p-0 bg-transparent">
+            <code>{`import { ${component.name} } from '@/components/ui/${component.name}'`}</code>
+          </pre>
         </div>
       </div>
 

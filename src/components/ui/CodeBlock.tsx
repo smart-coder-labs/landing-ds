@@ -68,33 +68,31 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
             }}
           >
             {showLineNumbers
-              ? lines
-                  .map((line, i) => (
-                    <div key={i} style={{ display: 'table-row' }}>
-                      <span
-                        style={{
-                          display: 'table-cell',
-                          textAlign: 'right',
-                          paddingRight: '1rem',
-                          color: '#858585',
-                          userSelect: 'none',
-                          width: '2.5rem',
-                          fontVariantNumeric: 'tabular-nums',
-                        }}
-                      >
-                        {i + 1}
-                      </span>
-                      <span
-                        style={{
-                          display: 'table-cell',
-                          whiteSpace: 'pre',
-                        }}
-                      >
-                        {line || ' '}
-                      </span>
-                    </div>
-                  ))
-                  .join('')
+              ? lines.map((line, i) => (
+                  <div key={i} style={{ display: 'table-row' }}>
+                    <span
+                      style={{
+                        display: 'table-cell',
+                        textAlign: 'right',
+                        paddingRight: '1rem',
+                        color: '#858585',
+                        userSelect: 'none',
+                        width: '2.5rem',
+                        fontVariantNumeric: 'tabular-nums',
+                      }}
+                    >
+                      {i + 1}
+                    </span>
+                    <span
+                      style={{
+                        display: 'table-cell',
+                        whiteSpace: 'pre',
+                      }}
+                    >
+                      {line || ' '}
+                    </span>
+                  </div>
+                ))
               : code}
           </code>
         </pre>
