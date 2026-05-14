@@ -13,7 +13,7 @@ import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '../../compo
 import { Divider } from '../../components/ui/Divider'
 import { ALL_COMPONENTS } from '../../data/components'
 import { COMPONENT_META } from '../../data/componentMeta'
-import { getPreviewForComponent } from './allPreviews'
+import { getPreviewComponent } from './previews'
 
 // Import story components
 import {

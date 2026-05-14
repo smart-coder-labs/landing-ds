@@ -8,7 +8,7 @@ import IntroductionPage from './pages/docs/IntroductionPage'
 import InstallationPage from './pages/docs/InstallationPage'
 import ThemingPage from './pages/docs/ThemingPage'
 import ComponentsPage from './pages/components/ComponentsPage'
-import ComponentDetailPage from './pages/components/ComponentDetailPage'
+import ComponentDetailPageV2 from './pages/components/ComponentDetailPageV2'
 
 export default function App() {
   return (
@@ -22,7 +22,7 @@ export default function App() {
           <Route path="/docs/installation" element={<InstallationPage />} />
           <Route path="/docs/theming" element={<ThemingPage />} />
           <Route path="/components" element={<ComponentsPage />} />
-          <Route path="/components/:name" element={<ComponentDetailPage />} />
+          <Route path="/components/:componentName" element={<ComponentDetailPageV2 />} />
         </Route>
       </Routes>
     </BrowserRouter>
