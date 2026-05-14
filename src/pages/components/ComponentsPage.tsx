@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Title } from '../../components/ui/Title'
 import Text from '../../components/ui/Text'
@@ -41,7 +41,21 @@ function ComponentCard({ component }: { component: ComponentEntry }) {
 }
 
 export default function ComponentsPage() {
+  const [searchParams] = useSearchParams()
   const [query, setQuery] = React.useState('')
+  const categoryParam = searchParams.get('category')
+
+  // Scroll to category when component mounts or categoryParam changes
+  React.useEffect(() => {
+    if (categoryParam) {
+      setTimeout(() => {
+        const element = document.getElementById(`category-${categoryParam}`)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+      }, 100)
+    }
+  }, [categoryParam])
 
   const isSearching = query.trim().length > 0
 
@@ -118,6 +132,7 @@ export default function ComponentsPage() {
             return (
               <motion.section
                 key={category}
+                id={`category-${category}`}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
