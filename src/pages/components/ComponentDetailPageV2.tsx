@@ -51,24 +51,29 @@ function ComponentExample({ title, description, preview, code }: ComponentExampl
         )}
       </div>
 
-      <Tabs defaultValue="preview" className="w-full border border-border-primary rounded-lg overflow-hidden">
-        <div className="border-b border-border-primary bg-surface-secondary">
-          <TabsList className="bg-transparent">
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-            <TabsTrigger value="code">Code</TabsTrigger>
-          </TabsList>
+      <div className="border border-border-primary rounded-xl overflow-hidden bg-background-primary">
+        <div className="flex border-b border-border-primary bg-surface-secondary">
+          <button className="px-4 py-2 text-sm font-medium text-text-primary border-b-2 border-accent-green bg-surface-secondary">
+            Preview
+          </button>
+          <button className="px-4 py-2 text-sm font-medium text-text-tertiary hover:text-text-secondary">
+            Code
+          </button>
         </div>
 
-        <TabsContent value="preview" className="p-6 border-t-0 bg-background-primary">
-          <div className="flex items-center justify-center min-h-[200px] rounded-lg p-4 bg-surface-secondary">
+        <div className="p-8 bg-background-primary">
+          <div className="flex items-center justify-center min-h-[200px]">
             {preview}
           </div>
-        </TabsContent>
+        </div>
+      </div>
 
-        <TabsContent value="code" className="p-0 border-t-0 bg-background-primary">
-          <CodeBlock code={code} language="typescript" showLineNumbers={true} />
-        </TabsContent>
-      </Tabs>
+      <div className="border border-border-primary rounded-xl overflow-hidden">
+        <div className="px-4 py-2 bg-surface-secondary border-b border-border-primary">
+          <span className="text-xs font-medium text-text-tertiary uppercase tracking-wider">Code</span>
+        </div>
+        <CodeBlock code={code} language="typescript" showLineNumbers={true} />
+      </div>
     </div>
   )
 }
@@ -110,15 +115,6 @@ export default function ComponentDetailPageV2() {
     >
       {/* HEADER */}
       <div className="space-y-4">
-        <Button
-          variant="ghost"
-          onClick={() => navigate('/components')}
-          className="gap-2"
-        >
-          <ChevronLeft size={16} />
-          Back
-        </Button>
-
         <div className="space-y-2">
           <div className="flex items-center gap-3">
             <Title level={1}>{component.name}</Title>
