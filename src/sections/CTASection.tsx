@@ -1,19 +1,17 @@
 'use client'
 
-import React from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '../components/ui/Button'
 import { Title } from '../components/ui/Title'
 import Text from '../components/ui/Text'
 import { Card, CardContent } from '../components/ui/Card'
+import AnimatedMesh from '../components/AnimatedMesh'
 
 export default function CTASection() {
-  const [mounted, setMounted] = React.useState(false)
-  React.useEffect(() => { setMounted(true) }, [])
-
   return (
-    <section id="cta" className="relative py-16 md:py-20 bg-surface-secondary/50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="cta" className="relative py-16 md:py-20 bg-surface-secondary/50 overflow-hidden">
+      <AnimatedMesh />
+      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -25,21 +23,6 @@ export default function CTASection() {
             padding="lg"
             className="text-center relative overflow-hidden"
           >
-            {/* Decorative blobs */}
-            {mounted && (
-              <>
-                <motion.div
-                  className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-accent-blue/5 blur-3xl"
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 8, repeat: Infinity }}
-                />
-                <motion.div
-                  className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-purple-500/5 blur-3xl"
-                  animate={{ scale: [1, 1.15, 1] }}
-                  transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-                />
-              </>
-            )}
 
             <CardContent className="relative z-10 flex flex-col items-center gap-6 py-8">
               <Title level={2} align="center" className="max-w-2xl">

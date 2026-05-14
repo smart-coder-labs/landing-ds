@@ -1,9 +1,19 @@
+import { motion } from 'framer-motion'
 import { Title } from '../../components/ui/Title'
-import { Text } from '../../components/ui/Text'
+import Text from '../../components/ui/Text'
 import { Card, CardContent } from '../../components/ui/Card'
 import { Badge } from '../../components/ui/Badge'
 import { CodeBlock } from '../../components/ui/CodeBlock'
 import ThemeToggle from '../../components/ThemeToggle'
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] },
+  }),
+}
 
 const colorTokens = [
   { token: '--color-background-primary', description: 'Page background', sample: 'bg-background-primary' },
@@ -46,16 +56,33 @@ const customThemeCode = `/* Override tokens in your own CSS */
 
 export default function ThemingPage() {
   return (
-    <div className="space-y-10">
-      <div className="space-y-4">
+    <motion.div
+      className="space-y-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.35 }}
+    >
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={0}
+      >
         <Badge variant="info" size="sm">Customization</Badge>
         <Title level={1} weight="bold">Theming</Title>
         <Text variant="lead" color="secondary">
           The design system uses CSS custom properties for every token. Dark mode and custom themes require zero JavaScript.
         </Text>
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={1}
+      >
         <Title level={4} weight="semibold">Dark mode toggle</Title>
         <Text color="secondary">
           The toggle below switches the entire page theme by adding/removing the <code className="text-accent-blue text-sm font-mono">dark</code> class
@@ -73,17 +100,29 @@ export default function ThemingPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={2}
+      >
         <Title level={4} weight="semibold">CSS variables</Title>
         <Text color="secondary">
           All tokens are defined as CSS custom properties. Tailwind CSS v4 reads them natively via the <code className="text-accent-blue text-sm font-mono">@theme</code> directive.
         </Text>
         <CodeBlock code={cssVarsCode} language="css" showLineNumbers />
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={3}
+      >
         <Title level={4} weight="semibold">Colors</Title>
         <div className="space-y-2">
           {colorTokens.map(({ token, description, sample }) => (
@@ -96,17 +135,29 @@ export default function ThemingPage() {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={4}
+      >
         <Title level={4} weight="semibold">Custom theme</Title>
         <Text color="secondary">
           Override any token in your own CSS file. Import it after the design system styles.
         </Text>
         <CodeBlock code={customThemeCode} language="css" />
-      </div>
+      </motion.div>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+        custom={5}
+      >
         <Title level={4} weight="semibold">Typography scale</Title>
         <Card variant="flat" padding="md">
           <CardContent>
@@ -129,7 +180,7 @@ export default function ThemingPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }
