@@ -24,22 +24,29 @@ const baseStyles = `
 
 const variantStyles: Record<CardVariant, string> = {
     elevated: `
-    bg-surface-primary
-    shadow-md
-    hover:shadow-lg
+    bg-surface-primary/60
+    backdrop-blur-md
+    border border-white/[0.07]
+    shadow-[0_1px_1px_rgba(0,0,0,0.06),0_4px_16px_rgba(0,0,0,0.12),0_12px_40px_rgba(0,0,0,0.14)]
+    hover:border-white/[0.13]
+    hover:shadow-[0_2px_2px_rgba(0,0,0,0.08),0_8px_24px_rgba(0,0,0,0.18),0_24px_56px_rgba(0,0,0,0.2)]
   `,
     glass: `
     glass
-    border border-border-secondary
-    shadow-sm
+    border border-white/[0.08]
+    shadow-[0_1px_1px_rgba(0,0,0,0.04),0_4px_16px_rgba(0,0,0,0.1)]
+    hover:border-white/[0.15]
+    ring-1 ring-inset ring-white/[0.04]
   `,
     outlined: `
-    bg-surface-primary
+    bg-surface-primary/40
     border border-border-primary
-    hover:border-border-primary
+    hover:border-white/[0.18]
+    backdrop-blur-sm
   `,
     flat: `
-    bg-surface-secondary
+    bg-surface-secondary/70
+    backdrop-blur-sm
   `,
 };
 
