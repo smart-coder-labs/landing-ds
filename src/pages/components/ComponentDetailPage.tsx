@@ -13,6 +13,7 @@ import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '../../compo
 import { Divider } from '../../components/ui/Divider'
 import { ALL_COMPONENTS } from '../../data/components'
 import { COMPONENT_META } from '../../data/componentMeta'
+import { getPreviewForComponent } from './allPreviews'
 
 // Import story components
 import {
@@ -447,35 +448,8 @@ function SpinnerPreview() {
   )
 }
 
-const PREVIEWS: Record<string, React.ReactNode> = {
-  // Custom previews
-  button: <ButtonPreview />,
-  card: <CardPreview />,
-  badge: <BadgePreview />,
-  title: <TitlePreview />,
-  text: <TextPreview />,
-  tabs: <TabsPreview />,
-  switch: <SwitchPreview />,
-  collapsible: <CollapsiblePreview />,
-  divider: <DividerPreview />,
-  codeblock: <CodeBlockPreview />,
-  
-  // From Design System Stories
-  accordion: <AccordionPreview />,
-  alert: <AlertPreview />,
-  avatar: <AvatarPreview />,
-  breadcrumb: <BreadcrumbPreview />,
-  checkbox: <CheckboxPreview />,
-  contextmenu: <ContextMenuPreview />,
-  popover: <PopoverPreview />,
-  radiogroup: <RadioGroupPreview />,
-  rangeslider: <RangeSliderPreview />,
-  scrollarea: <ScrollAreaPreview />,
-  sheet: <SheetPreview />,
-  skeleton: <SkeletonPreview />,
-  slider: <SliderPreview />,
-  spinner: <SpinnerPreview />,
-}
+// PREVIEWS are now dynamically generated in allPreviews.tsx
+// All 213 components are covered via getPreviewForComponent()
 
 /**
  * Fallback preview for components without custom preview
@@ -557,7 +531,7 @@ export default function ComponentDetailPage() {
     )
   }
 
-  const preview = PREVIEWS[key]
+  const preview = getPreviewForComponent(key)
   const installCmd = `npx @smart-coder-labs/apple-design-system add ${meta.name}`
   const importLine = `import { ${meta.name} } from '@/components/ui/${meta.name}'`
 
