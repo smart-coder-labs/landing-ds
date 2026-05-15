@@ -35,7 +35,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
   return (
     <div
-      className={`relative group rounded-xl overflow-hidden bg-[#1e1e1e] border border-border-primary ${className}`}
+      className={`relative group rounded-xl overflow-hidden bg-[#1e1e1e] border border-border-primary w-full ${className}`}
       style={{ backgroundColor: '#1e1e1e' }}
     >
       {/* Header */}
@@ -57,8 +57,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       </div>
 
       {/* Code Container */}
-      <div className="overflow-x-auto">
-        <pre className="font-mono text-sm leading-relaxed m-0 p-4">
+      <div className="w-full">
+        <pre className="font-mono text-sm leading-relaxed m-0 p-4 overflow-x-auto" style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
           <code
             ref={codeRef}
             className={`language-${language}`}
