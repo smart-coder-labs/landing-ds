@@ -148,15 +148,15 @@ export default function IntroductionPage() {
       >
         <Title level={4} weight="semibold">Features</Title>
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-fr"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
           variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
         >
           {features.map((feature, index) => (
-            <motion.div key={feature.title} variants={fadeUp} custom={index}>
-              <Card variant="outlined" padding="md">
+            <motion.div key={feature.title} variants={fadeUp} custom={index} className="h-full">
+              <Card variant="outlined" padding="md" className="h-full">
                 <CardContent>
                   <div className="flex items-start gap-3">
                     <div className="mt-0.5 text-accent-blue flex-shrink-0">{feature.icon}</div>

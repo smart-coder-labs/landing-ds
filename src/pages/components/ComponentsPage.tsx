@@ -1,10 +1,9 @@
 import React from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { ChevronRight } from 'lucide-react'
 import { Title } from '../../components/ui/Title'
 import Text from '../../components/ui/Text'
-import { Badge } from '../../components/ui/Badge'
-import { Card, CardContent } from '../../components/ui/Card'
 import { ALL_COMPONENTS, COMPONENT_CATEGORIES, ComponentEntry } from '../../data/components'
 
 const fadeUp = {
@@ -22,21 +21,21 @@ const CATEGORY_ORDER = [
   'Scheduling', 'Misc',
 ]
 
-function ComponentCard({ component }: { component: ComponentEntry }) {
+function ComponentRow({ component }: { component: ComponentEntry }) {
   return (
-    <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.15 }}>
-      <Link to={`/components/${component.name.toLowerCase()}`}>
-        <Card variant="outlined" padding="sm" hoverable className="h-full group">
-          <CardContent className="flex flex-col gap-1.5 p-3">
-            <div className="flex items-center justify-between gap-1">
-              <span className="text-sm font-medium text-text-primary truncate">{component.name}</span>
-              <Badge variant="success" size="sm" className="flex-shrink-0 text-[10px]">✓</Badge>
-            </div>
-            <p className="text-xs text-text-secondary line-clamp-2 leading-relaxed">{component.description}</p>
-          </CardContent>
-        </Card>
-      </Link>
-    </motion.div>
+    <Link
+      to={`/components/${component.name.toLowerCase()}`}
+      className="group flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/[0.05] transition-colors"
+    >
+      <span className="w-1.5 h-1.5 rounded-full bg-green-500/70 flex-shrink-0" />
+      <div className="flex-1 min-w-0">
+        <span className="text-sm font-medium text-text-primary group-hover:text-accent-blue transition-colors">
+          {component.name}
+        </span>
+        <p className="text-xs text-text-tertiary truncate mt-0.5">{component.description}</p>
+      </div>
+      <ChevronRight className="w-3.5 h-3.5 text-text-tertiary opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+    </Link>
   )
 }
 
@@ -117,9 +116,9 @@ export default function ComponentsPage() {
           {filtered.length === 0 ? (
             <Text color="secondary">No components match "{query}".</Text>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
               {filtered.map((component) => (
-                <ComponentCard key={component.name} component={component} />
+                <ComponentRow key={component.name} component={component} />
               ))}
             </div>
           )}
@@ -138,16 +137,16 @@ export default function ComponentsPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="flex items-center gap-3 mb-3">
+                <div className="flex items-center gap-3 mb-2">
                   <h2 className="uppercase text-xs tracking-widest text-text-tertiary font-medium whitespace-nowrap">
                     {category}
                   </h2>
-                  <div className="h-px flex-1 bg-border-primary" />
-                  <span className="text-xs text-text-tertiary">{items.length}</span>
+                  <div className="h-px flex-1 bg-border-primary/60" />
+                  <span className="text-xs text-text-tertiary tabular-nums">{items.length}</span>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-0.5">
                   {items.map((component) => (
-                    <ComponentCard key={component.name} component={component} />
+                    <ComponentRow key={component.name} component={component} />
                   ))}
                 </div>
               </motion.section>

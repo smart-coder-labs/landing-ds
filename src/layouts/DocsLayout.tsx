@@ -85,7 +85,7 @@ export default function DocsLayout() {
         <div className="hidden md:block">
           <Sidebar />
         </div>
-        <main role="main" className="pt-11 md:pt-0 min-h-screen">
+        <main role="main" className="pt-11 md:pt-8 min-h-screen">
           <div className="max-w-3xl mx-auto px-8 py-10">
             <Outlet />
           </div>
