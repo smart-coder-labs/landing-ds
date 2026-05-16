@@ -22,7 +22,7 @@ export interface PeerTagInputProps {
 }
 
 export const PeerTagInput: React.FC<PeerTagInputProps> = ({
-    contacts,
+    contacts = [],
     placeholder = "Search $Name",
     className,
     onSelect,
