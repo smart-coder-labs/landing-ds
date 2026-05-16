@@ -24,17 +24,20 @@ export function useActiveHeading(): string | null {
       }
     }
 
-    // If no heading is intersecting, find the one closest to the top
+    // If no heading is intersecting, find the last heading that scrolled past the top
     if (!topHeading) {
-      let smallestDistance = Infinity
+      let closestAbove: IntersectionObserverEntry | null = null
+      let maxNegativeTop = -Infinity
 
       for (const entry of entries) {
-        const distance = Math.abs(entry.boundingClientRect.top)
-        if (distance < smallestDistance) {
-          smallestDistance = distance
-          topHeading = entry
+        const top = entry.target.getBoundingClientRect().top
+        if (top <= 0 && top > maxNegativeTop) {
+          maxNegativeTop = top
+          closestAbove = entry
         }
       }
+
+      topHeading = closestAbove
     }
 
     if (topHeading && topHeading.target instanceof HTMLElement) {
