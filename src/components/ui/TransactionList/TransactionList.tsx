@@ -231,4 +231,3 @@ export const TransactionList: React.FC<TransactionListProps> = ({
 };
 
 TransactionList.displayName = 'TransactionList';
-export default TransactionList;

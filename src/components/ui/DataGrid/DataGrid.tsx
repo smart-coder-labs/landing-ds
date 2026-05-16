@@ -597,4 +597,3 @@ function ColumnResizeHandle<T>({
     );
 }
 
-export default DataGrid;

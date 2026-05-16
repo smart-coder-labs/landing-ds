@@ -129,4 +129,3 @@ export const DeviceList = React.forwardRef<HTMLDivElement, DeviceListProps>(
 
 DeviceList.displayName = 'DeviceList';
 
-export default DeviceList;

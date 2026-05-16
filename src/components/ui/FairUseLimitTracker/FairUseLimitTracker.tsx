@@ -95,4 +95,3 @@ export const FairUseLimitTracker: React.FC<FairUseLimitTrackerProps> = ({
 
 FairUseLimitTracker.displayName = 'FairUseLimitTracker';
 
-export default FairUseLimitTracker;

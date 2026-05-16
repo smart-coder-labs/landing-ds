@@ -131,4 +131,3 @@ export const CurrencyConverterWidget: React.FC<CurrencyConverterWidgetProps> = (
 
 CurrencyConverterWidget.displayName = 'CurrencyConverterWidget';
 
-export default CurrencyConverterWidget;

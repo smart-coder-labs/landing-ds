@@ -258,4 +258,3 @@ export const FintechDashboardPreview: React.FC<FintechDashboardPreviewProps> = (
 };
 
 FintechDashboardPreview.displayName = 'FintechDashboardPreview';
-export default FintechDashboardPreview;

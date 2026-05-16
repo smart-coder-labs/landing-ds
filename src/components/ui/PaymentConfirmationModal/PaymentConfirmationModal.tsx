@@ -187,4 +187,3 @@ export const PaymentConfirmationModal: React.FC<PaymentConfirmationModalProps> =
 };
 
 PaymentConfirmationModal.displayName = 'PaymentConfirmationModal';
-export default PaymentConfirmationModal;

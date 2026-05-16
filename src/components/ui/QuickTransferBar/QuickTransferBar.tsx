@@ -103,4 +103,3 @@ export const QuickTransferBar: React.FC<QuickTransferBarProps> = ({
 };
 
 QuickTransferBar.displayName = 'QuickTransferBar';
-export default QuickTransferBar;

@@ -141,4 +141,3 @@ export const CardSecurityControls: React.FC<CardSecurityControlsProps> = ({
 };
 
 CardSecurityControls.displayName = 'CardSecurityControls';
-export default CardSecurityControls;

@@ -115,4 +115,3 @@ export const AssetPriceTicker: React.FC<AssetPriceTickerProps> = ({
 };
 
 AssetPriceTicker.displayName = 'AssetPriceTicker';
-export default AssetPriceTicker;

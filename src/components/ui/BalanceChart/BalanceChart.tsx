@@ -190,4 +190,3 @@ export const BalanceChart = React.forwardRef<HTMLDivElement, BalanceChartProps>(
 });
 
 BalanceChart.displayName = 'BalanceChart';
-export default BalanceChart;

@@ -186,4 +186,3 @@ export const AddressSelector: React.FC<AddressSelectorProps> = ({ onSelect, apiK
   );
 };
 
-export default AddressSelector;

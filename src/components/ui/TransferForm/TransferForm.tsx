@@ -255,4 +255,3 @@ export const TransferForm: React.FC<TransferFormProps> = ({
 };
 
 TransferForm.displayName = 'TransferForm';
-export default TransferForm;
