@@ -11,7 +11,7 @@ export default defineConfig({
       '@ds': path.resolve(__dirname, './src'),
     },
   },
-  base: '/landing/',
+  base: '/landing-ds/',
   build: {
     outDir: 'dist',
     rollupOptions: {

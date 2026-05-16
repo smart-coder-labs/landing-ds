@@ -12,7 +12,7 @@ import ComponentDetailPageV2 from './pages/components/ComponentDetailPageV2'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/landing-ds">
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
