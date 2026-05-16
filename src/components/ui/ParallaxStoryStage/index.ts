@@ -1,0 +1,1 @@
+export { ParallaxStoryStage } from './ParallaxStoryStage';

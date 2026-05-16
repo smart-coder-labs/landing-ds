@@ -32,8 +32,11 @@ function SidebarLink({ to, children }: { to: string; children: React.ReactNode }
 
 function Sidebar() {
   return (
-    <aside className="fixed top-11 left-0 bottom-0 w-60 border-r border-border-primary bg-background-primary overflow-y-auto z-40">
-      <div className="p-3 space-y-0.5">
+    <aside className="fixed top-11 left-0 bottom-0 w-60 border-r border-border-primary bg-background-primary z-40 overflow-hidden">
+      <div
+        className="h-full overflow-y-auto p-3 space-y-0.5"
+        style={{ maskImage: 'linear-gradient(to bottom, transparent 0%, black 32px, black calc(100% - 32px), transparent 100%)' }}
+      >
         <Collapsible defaultOpen>
           <CollapsibleTrigger className="flex items-center justify-between w-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-text-tertiary hover:text-text-secondary transition-colors rounded-lg hover:bg-surface-secondary">
             <span>Getting Started</span>

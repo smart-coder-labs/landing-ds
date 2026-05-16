@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Button } from '../components/ui/Button'
 import { Title } from '../components/ui/Title'
-import Text from '../components/ui/Text'
+import { Text } from '../components/ui/Text'
 import { Card, CardContent } from '../components/ui/Card'
 import AnimatedMesh from '../components/AnimatedMesh'
 

@@ -1,0 +1,1 @@
+export { ParallaxBanner } from './ParallaxBanner';

@@ -1,0 +1,2 @@
+export { DescriptionBlock } from './DescriptionBlock';
+export type { DescriptionBlockProps, DescriptionHighlightProps, DescriptionMetadataItem, DescriptionHighlightTrend } from './DescriptionBlock.types';

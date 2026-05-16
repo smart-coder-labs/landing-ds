@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, Copy, Check, Maximize2, X } from 'lucide-react'
 
 import { Title } from '../../components/ui/Title'
-import Text from '../../components/ui/Text'
+import { Text } from '../../components/ui/Text'
 import { Button } from '../../components/ui/Button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../components/ui/Tabs'
 import { CodeBlock } from '../../components/ui/CodeBlock'

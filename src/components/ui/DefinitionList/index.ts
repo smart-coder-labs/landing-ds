@@ -1,0 +1,2 @@
+export { DefinitionList, CompactDefinitionList } from './DefinitionList';
+export type { DefinitionListProps, CompactDefinitionListProps, DefinitionItem, DefinitionListVariant, DefinitionListOrientation } from './DefinitionList.types';
