@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Title } from '../../components/ui/Title'
-import Text from '../../components/ui/Text'
+import { Text } from '../../components/ui/Text'
 import { Card, CardContent } from '../../components/ui/Card'
 import { Badge } from '../../components/ui/Badge'
 import { CodeBlock } from '../../components/ui/CodeBlock'

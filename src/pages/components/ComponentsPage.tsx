@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 import { Title } from '../../components/ui/Title'
-import Text from '../../components/ui/Text'
+import { Text } from '../../components/ui/Text'
 import { ALL_COMPONENTS, COMPONENT_CATEGORIES, ComponentEntry } from '../../data/components'
 
 const fadeUp = {

@@ -1,0 +1,42 @@
+interface InvoiceItem {
+    id: string;
+    description: string;
+    quantity: number;
+    price: number;
+    total: number;
+}
+
+
+interface InvoiceParty {
+    name: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+    country: string;
+    email?: string;
+    phone?: string;
+}
+
+
+interface InvoicePreviewProps {
+    invoiceNumber: string;
+    dateIssued: string;
+    dueDate: string;
+    status: 'paid' | 'pending' | 'overdue';
+    from: InvoiceParty;
+    to: InvoiceParty;
+    items: InvoiceItem[];
+    subtotal: number;
+    tax: number;
+    taxRate?: number;
+    discount?: number;
+    total: number;
+    currency?: string;
+    logo?: string;
+    notes?: string;
+    onDownload?: () => void;
+    onPrint?: () => void;
+    onShare?: () => void;
+    className?: string;
+}

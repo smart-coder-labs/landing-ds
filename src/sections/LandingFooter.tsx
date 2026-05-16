@@ -3,7 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Footer, FooterContent, FooterColumn, FooterLink, FooterBottom, FooterTop } from '../components/ui/Footer'
-import Text from '../components/ui/Text'
+import { Text } from '../components/ui/Text'
 
 export default function LandingFooter() {
   return (

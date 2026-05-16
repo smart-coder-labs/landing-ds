@@ -1,4 +1,1286 @@
 {
   "componentsDir": "./src/components/ui",
+  "framework": "vite",
+  "rsc": false,
+  "components": {
+    "AIThinkingIndicator": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:08.771Z",
+      "updatedAt": "2026-05-16T07:29:21.524Z"
+    },
+    "AccessibleHighContrastMode": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:08.942Z",
+      "updatedAt": "2026-05-16T07:29:21.671Z"
+    },
+    "Accordion": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:09.152Z",
+      "updatedAt": "2026-05-16T07:29:21.881Z"
+    },
+    "AchTransactionsVisualizer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:09.310Z",
+      "updatedAt": "2026-05-16T07:29:22.027Z"
+    },
+    "ActivityFeed": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:09.479Z",
+      "updatedAt": "2026-05-16T07:29:22.172Z"
+    },
+    "ActivityMonitor": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:09.633Z",
+      "updatedAt": "2026-05-16T07:29:22.313Z"
+    },
+    "AddressSelector": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:09.815Z",
+      "updatedAt": "2026-05-16T07:29:22.460Z"
+    },
+    "AgendaView": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:09.956Z",
+      "updatedAt": "2026-05-16T07:29:22.602Z"
+    },
+    "Alert": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:10.116Z",
+      "updatedAt": "2026-05-16T07:29:22.749Z"
+    },
+    "AssetAllocationChart": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:10.272Z",
+      "updatedAt": "2026-05-16T07:29:22.894Z"
+    },
+    "AssetPriceTicker": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:10.436Z",
+      "updatedAt": "2026-05-16T07:29:23.030Z"
+    },
+    "AudioPlayer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:10.588Z",
+      "updatedAt": "2026-05-16T07:29:23.165Z"
+    },
+    "Avatar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:10.740Z",
+      "updatedAt": "2026-05-16T07:29:23.301Z"
+    },
+    "AvatarGroup": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:11.096Z",
+      "updatedAt": "2026-05-16T07:29:23.442Z"
+    },
+    "Badge": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:11.271Z",
+      "updatedAt": "2026-05-16T07:29:23.582Z"
+    },
+    "BalanceChart": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:11.419Z",
+      "updatedAt": "2026-05-16T07:29:23.724Z"
+    },
+    "BankAccountCard": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:11.569Z",
+      "updatedAt": "2026-05-16T07:29:23.867Z"
+    },
+    "BarcodeGenerator": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:11.730Z",
+      "updatedAt": "2026-05-16T07:29:24.015Z"
+    },
+    "BehavioralAuthSimulator": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:11.887Z",
+      "updatedAt": "2026-05-16T07:29:24.348Z"
+    },
+    "BiometricPrompt": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:12.029Z",
+      "updatedAt": "2026-05-16T07:29:24.484Z"
+    },
+    "Blockquote": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:12.183Z",
+      "updatedAt": "2026-05-16T07:29:24.626Z"
+    },
+    "BottomNavigation": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:12.338Z",
+      "updatedAt": "2026-05-16T07:29:24.765Z"
+    },
+    "Breadcrumb": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:12.481Z",
+      "updatedAt": "2026-05-16T07:29:24.910Z"
+    },
+    "BreadcrumbTabsHybrid": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:12.627Z",
+      "updatedAt": "2026-05-16T07:29:25.260Z"
+    },
+    "Button": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:12.778Z",
+      "updatedAt": "2026-05-16T07:29:25.407Z"
+    },
+    "ButtonWithDropdown": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:12.941Z",
+      "updatedAt": "2026-05-16T07:29:25.544Z"
+    },
+    "Calendar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:13.168Z",
+      "updatedAt": "2026-05-16T07:29:25.759Z"
+    },
+    "Callout": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:13.307Z",
+      "updatedAt": "2026-05-16T07:29:25.903Z"
+    },
+    "Caption": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:13.456Z",
+      "updatedAt": "2026-05-16T07:29:26.041Z"
+    },
+    "Card": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:13.606Z",
+      "updatedAt": "2026-05-16T07:29:26.204Z"
+    },
+    "CardSecurityControls": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:13.756Z",
+      "updatedAt": "2026-05-16T07:29:26.350Z"
+    },
+    "CartPreview": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:13.907Z",
+      "updatedAt": "2026-05-16T07:29:26.487Z"
+    },
+    "CashbackWidget": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:14.056Z",
+      "updatedAt": "2026-05-16T07:29:26.628Z"
+    },
+    "Chart": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:14.212Z",
+      "updatedAt": "2026-05-16T07:29:26.761Z"
+    },
+    "ChatBubble": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:14.369Z",
+      "updatedAt": "2026-05-16T07:29:26.914Z"
+    },
+    "ChatInput": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:14.519Z",
+      "updatedAt": "2026-05-16T07:29:27.051Z"
+    },
+    "Checkbox": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:14.667Z",
+      "updatedAt": "2026-05-16T07:29:27.190Z"
+    },
+    "Chip": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:14.821Z",
+      "updatedAt": "2026-05-16T07:29:27.329Z"
+    },
+    "CodeBlock": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:14.981Z",
+      "updatedAt": "2026-05-16T07:29:27.460Z"
+    },
+    "Collapsible": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:15.124Z",
+      "updatedAt": "2026-05-16T07:29:27.598Z"
+    },
+    "Combobox": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:15.276Z",
+      "updatedAt": "2026-05-16T07:29:27.734Z"
+    },
+    "ComicPanel": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:15.639Z",
+      "updatedAt": "2026-05-16T07:29:27.873Z"
+    },
+    "CommandMenu": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:15.800Z",
+      "updatedAt": "2026-05-16T07:29:28.196Z"
+    },
+    "CommentThread": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:15.949Z",
+      "updatedAt": "2026-05-16T07:29:28.337Z"
+    },
+    "ConfirmDialog": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:16.108Z",
+      "updatedAt": "2026-05-16T07:29:28.480Z"
+    },
+    "ContextMenu": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:16.274Z",
+      "updatedAt": "2026-05-16T07:29:28.615Z"
+    },
+    "ContextualTrustBadge": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:16.448Z",
+      "updatedAt": "2026-05-16T07:29:28.758Z"
+    },
+    "ControlCenterToggles": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:16.615Z",
+      "updatedAt": "2026-05-16T07:29:28.892Z"
+    },
+    "Counters": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:16.766Z",
+      "updatedAt": "2026-05-16T07:29:29.036Z"
+    },
+    "CountersListWithChart": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:16.957Z",
+      "updatedAt": "2026-05-16T07:29:29.174Z"
+    },
+    "CreditLimitManager": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:17.120Z",
+      "updatedAt": "2026-05-16T07:29:29.311Z"
+    },
+    "CreditScoreSimulator": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:17.453Z",
+      "updatedAt": "2026-05-16T07:29:29.485Z"
+    },
+    "CurrencyConverterWidget": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:17.812Z",
+      "updatedAt": "2026-05-16T07:29:29.827Z"
+    },
+    "DataGrid": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:17.957Z",
+      "updatedAt": "2026-05-16T07:29:29.965Z"
+    },
+    "DatePicker": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:18.190Z",
+      "updatedAt": "2026-05-16T07:29:30.183Z"
+    },
+    "DateRangePicker": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:18.355Z",
+      "updatedAt": "2026-05-16T07:29:30.327Z"
+    },
+    "DefinitionList": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:18.500Z",
+      "updatedAt": "2026-05-16T07:29:30.465Z"
+    },
+    "DescriptionBlock": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:18.663Z",
+      "updatedAt": "2026-05-16T07:29:30.608Z"
+    },
+    "DeviceList": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:18.818Z",
+      "updatedAt": "2026-05-16T07:29:30.758Z"
+    },
+    "DiffViewer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:18.953Z",
+      "updatedAt": "2026-05-16T07:29:30.900Z"
+    },
+    "Divider": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:19.110Z",
+      "updatedAt": "2026-05-16T07:29:31.039Z"
+    },
+    "DocScanOverlay": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:19.260Z",
+      "updatedAt": "2026-05-16T07:29:31.176Z"
+    },
+    "DockBar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:19.411Z",
+      "updatedAt": "2026-05-16T07:29:31.406Z"
+    },
+    "EarlyPaymentDiscount": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:19.559Z",
+      "updatedAt": "2026-05-16T07:29:31.542Z"
+    },
+    "EmptyState": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:19.727Z",
+      "updatedAt": "2026-05-16T07:29:31.678Z"
+    },
+    "ErrorBoundary": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:19.872Z",
+      "updatedAt": "2026-05-16T07:29:31.822Z"
+    },
+    "ExpenseCategorizer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:20.028Z",
+      "updatedAt": "2026-05-16T07:29:32.000Z"
+    },
+    "FAB": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:20.199Z",
+      "updatedAt": "2026-05-16T07:29:32.140Z"
+    },
+    "FABGroup": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:20.366Z",
+      "updatedAt": "2026-05-16T07:29:32.276Z"
+    },
+    "FairUseLimitTracker": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:20.512Z",
+      "updatedAt": "2026-05-16T07:29:32.424Z"
+    },
+    "FileIntelligencePreview": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:20.667Z",
+      "updatedAt": "2026-05-16T07:29:32.576Z"
+    },
+    "FileUpload": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:20.816Z",
+      "updatedAt": "2026-05-16T07:29:32.746Z"
+    },
+    "FilterBar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:20.956Z",
+      "updatedAt": "2026-05-16T07:29:32.888Z"
+    },
+    "FinancialGoalTracker": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:21.106Z",
+      "updatedAt": "2026-05-16T07:29:33.030Z"
+    },
+    "FintechDashboardPreview": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:21.250Z",
+      "updatedAt": "2026-05-16T07:29:33.169Z"
+    },
+    "FloatingElement": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:21.415Z",
+      "updatedAt": "2026-05-16T07:29:33.311Z"
+    },
+    "FloatingToolbar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:21.567Z",
+      "updatedAt": "2026-05-16T07:29:33.450Z"
+    },
+    "Footer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:21.715Z",
+      "updatedAt": "2026-05-16T07:29:33.596Z"
+    },
+    "Gallery": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:21.870Z",
+      "updatedAt": "2026-05-16T07:29:33.737Z"
+    },
+    "GamifiedRewardTier": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:22.030Z",
+      "updatedAt": "2026-05-16T07:29:33.884Z"
+    },
+    "GestureCard": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:22.186Z",
+      "updatedAt": "2026-05-16T07:29:34.059Z"
+    },
+    "GridSystem": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:22.331Z",
+      "updatedAt": "2026-05-16T07:29:34.205Z"
+    },
+    "HamburgerMenuIcon": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:22.488Z",
+      "updatedAt": "2026-05-16T07:29:34.349Z"
+    },
+    "HapticButton": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:22.649Z",
+      "updatedAt": "2026-05-16T07:29:34.491Z"
+    },
+    "Heading": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:22.796Z",
+      "updatedAt": "2026-05-16T07:29:34.633Z"
+    },
+    "HyperPersonalizedWidgetFeed": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:22.964Z",
+      "updatedAt": "2026-05-16T07:29:34.780Z"
+    },
+    "IconButton": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:23.124Z",
+      "updatedAt": "2026-05-16T07:29:34.973Z"
+    },
+    "IdentityVerificationStep": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:23.281Z",
+      "updatedAt": "2026-05-16T07:29:35.146Z"
+    },
+    "ImageCarousel": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:23.441Z",
+      "updatedAt": "2026-05-16T07:29:35.284Z"
+    },
+    "ImageCropper": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:23.605Z",
+      "updatedAt": "2026-05-16T07:29:35.425Z"
+    },
+    "ImmersiveHero": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:23.755Z",
+      "updatedAt": "2026-05-16T07:29:35.561Z"
+    },
+    "InfiniteHorizontalLoop": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:23.906Z",
+      "updatedAt": "2026-05-16T07:29:35.708Z"
+    },
+    "Input": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:24.083Z",
+      "updatedAt": "2026-05-16T07:29:35.888Z"
+    },
+    "InspectorPanel": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:24.236Z",
+      "updatedAt": "2026-05-16T07:29:36.029Z"
+    },
+    "InstallmentSimulator": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:24.588Z",
+      "updatedAt": "2026-05-16T07:29:36.166Z"
+    },
+    "InteractiveBillSplitter": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:24.735Z",
+      "updatedAt": "2026-05-16T07:29:36.307Z"
+    },
+    "InteractiveCursor": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:24.901Z",
+      "updatedAt": "2026-05-16T07:29:36.482Z"
+    },
+    "InvoicePreview": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:25.062Z",
+      "updatedAt": "2026-05-16T07:29:36.629Z"
+    },
+    "JargonTooltip": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:25.221Z",
+      "updatedAt": "2026-05-16T07:29:36.765Z"
+    },
+    "JsonViewer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:25.380Z",
+      "updatedAt": "2026-05-16T07:29:36.896Z"
+    },
+    "KPIBlock": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:25.530Z",
+      "updatedAt": "2026-05-16T07:29:37.039Z"
+    },
+    "KanbanBoard": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:25.689Z",
+      "updatedAt": "2026-05-16T07:29:37.172Z"
+    },
+    "KeyValueInfo": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:25.842Z",
+      "updatedAt": "2026-05-16T07:29:37.309Z"
+    },
+    "Label": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:25.987Z",
+      "updatedAt": "2026-05-16T07:29:37.444Z"
+    },
+    "Layout": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:26.141Z",
+      "updatedAt": "2026-05-16T07:29:37.578Z"
+    },
+    "Lightbox": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:26.289Z",
+      "updatedAt": "2026-05-16T07:29:37.717Z"
+    },
+    "LoadingOverlay": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:26.455Z",
+      "updatedAt": "2026-05-16T07:29:37.857Z"
+    },
+    "LoginForm": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:26.608Z",
+      "updatedAt": "2026-05-16T07:29:37.996Z"
+    },
+    "MaintenanceMode": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:26.768Z",
+      "updatedAt": "2026-05-16T07:29:38.140Z"
+    },
+    "MarkdownEditor": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:26.914Z",
+      "updatedAt": "2026-05-16T07:29:38.276Z"
+    },
+    "MasonryLayout": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:27.065Z",
+      "updatedAt": "2026-05-16T07:29:38.410Z"
+    },
+    "MenuBar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:27.229Z",
+      "updatedAt": "2026-05-16T07:29:38.543Z"
+    },
+    "MessageReactions": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:27.387Z",
+      "updatedAt": "2026-05-16T07:29:38.677Z"
+    },
+    "MicroCommitmentStepper": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:27.539Z",
+      "updatedAt": "2026-05-16T07:29:38.818Z"
+    },
+    "Modal": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:27.696Z",
+      "updatedAt": "2026-05-16T07:29:38.969Z"
+    },
+    "ModalStackManager": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:27.873Z",
+      "updatedAt": "2026-05-16T07:29:39.107Z"
+    },
+    "MultiCurrencyWallet": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:28.031Z",
+      "updatedAt": "2026-05-16T07:29:39.239Z"
+    },
+    "MultiFileUpload": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:28.170Z",
+      "updatedAt": "2026-05-16T07:29:39.382Z"
+    },
+    "NavBar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:28.335Z",
+      "updatedAt": "2026-05-16T07:29:39.528Z"
+    },
+    "NavigationDrawer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:28.490Z",
+      "updatedAt": "2026-05-16T07:29:39.670Z"
+    },
+    "NotificationCenterPanel": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:28.649Z",
+      "updatedAt": "2026-05-16T07:29:39.809Z"
+    },
+    "OTPInput": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:28.796Z",
+      "updatedAt": "2026-05-16T07:29:39.958Z"
+    },
+    "OfflineState": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:28.945Z",
+      "updatedAt": "2026-05-16T07:29:40.094Z"
+    },
+    "OrderSummary": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:29.099Z",
+      "updatedAt": "2026-05-16T07:29:40.232Z"
+    },
+    "Pagination": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:29.246Z",
+      "updatedAt": "2026-05-16T07:29:40.379Z"
+    },
+    "Panel": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:29.386Z",
+      "updatedAt": "2026-05-16T07:29:40.537Z"
+    },
+    "Paragraph": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:29.539Z",
+      "updatedAt": "2026-05-16T07:29:40.681Z"
+    },
+    "ParallaxBanner": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:29.682Z",
+      "updatedAt": "2026-05-16T07:29:40.824Z"
+    },
+    "ParallaxStoryStage": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:29.850Z",
+      "updatedAt": "2026-05-16T07:29:40.977Z"
+    },
+    "PasswordInput": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:30.015Z",
+      "updatedAt": "2026-05-16T07:29:41.110Z"
+    },
+    "PaymentConfirmationModal": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:30.176Z",
+      "updatedAt": "2026-05-16T07:29:41.260Z"
+    },
+    "PaymentMethodSelector": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:30.331Z",
+      "updatedAt": "2026-05-16T07:29:41.398Z"
+    },
+    "PeerTagInput": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:30.491Z",
+      "updatedAt": "2026-05-16T07:29:41.534Z"
+    },
+    "PermissionsMatrix": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:30.641Z",
+      "updatedAt": "2026-05-16T07:29:41.669Z"
+    },
+    "Popover": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:30.800Z",
+      "updatedAt": "2026-05-16T07:29:41.819Z"
+    },
+    "PortfolioDistribution": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:30.956Z",
+      "updatedAt": "2026-05-16T07:29:41.969Z"
+    },
+    "PriceDisplay": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:31.101Z",
+      "updatedAt": "2026-05-16T07:29:42.107Z"
+    },
+    "ProductCard": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:31.253Z",
+      "updatedAt": "2026-05-16T07:29:42.248Z"
+    },
+    "Progress": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:31.406Z",
+      "updatedAt": "2026-05-16T07:29:42.381Z"
+    },
+    "ProgressiveDisclosurePanel": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:31.559Z",
+      "updatedAt": "2026-05-16T07:29:42.516Z"
+    },
+    "PromptSuggestionChips": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:31.712Z",
+      "updatedAt": "2026-05-16T07:29:42.656Z"
+    },
+    "PropertyList": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:31.860Z",
+      "updatedAt": "2026-05-16T07:29:42.794Z"
+    },
+    "QRCodeGenerator": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:32.023Z",
+      "updatedAt": "2026-05-16T07:29:42.934Z"
+    },
+    "QuantitySelector": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:32.180Z",
+      "updatedAt": "2026-05-16T07:29:43.090Z"
+    },
+    "QueryBuilder": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:32.346Z",
+      "updatedAt": "2026-05-16T07:29:43.223Z"
+    },
+    "QuickTransferBar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:32.500Z",
+      "updatedAt": "2026-05-16T07:29:43.366Z"
+    },
+    "RadioGroup": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:32.661Z",
+      "updatedAt": "2026-05-16T07:29:43.507Z"
+    },
+    "RangeSlider": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:32.812Z",
+      "updatedAt": "2026-05-16T07:29:43.648Z"
+    },
+    "RatingInput": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:32.974Z",
+      "updatedAt": "2026-05-16T07:29:43.793Z"
+    },
+    "RecoveryCodeDisplay": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:33.147Z",
+      "updatedAt": "2026-05-16T07:29:43.930Z"
+    },
+    "RecurringInvestConfigurator": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:33.294Z",
+      "updatedAt": "2026-05-16T07:29:44.066Z"
+    },
+    "ResizablePanel": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:33.456Z",
+      "updatedAt": "2026-05-16T07:29:44.212Z"
+    },
+    "ResourceMonitor": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:33.632Z",
+      "updatedAt": "2026-05-16T07:29:44.349Z"
+    },
+    "RetailSwapInterface": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:33.782Z",
+      "updatedAt": "2026-05-16T07:29:44.483Z"
+    },
+    "Reviews": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:33.931Z",
+      "updatedAt": "2026-05-16T07:29:44.642Z"
+    },
+    "RichTextEditor": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:34.080Z",
+      "updatedAt": "2026-05-16T07:29:44.778Z"
+    },
+    "RotarySelector": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:34.236Z",
+      "updatedAt": "2026-05-16T07:29:45.136Z"
+    },
+    "RoundUpSavingsToggle": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:34.405Z",
+      "updatedAt": "2026-05-16T07:29:45.498Z"
+    },
+    "SchedulerTimeline": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:34.541Z",
+      "updatedAt": "2026-05-16T07:29:45.860Z"
+    },
+    "ScrollArea": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:34.706Z",
+      "updatedAt": "2026-05-16T07:29:46.242Z"
+    },
+    "ScrollProgressBar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:34.851Z",
+      "updatedAt": "2026-05-16T07:29:46.580Z"
+    },
+    "ScrollRevealCards": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:35.033Z",
+      "updatedAt": "2026-05-16T07:29:46.724Z"
+    },
+    "SearchInput": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:35.191Z",
+      "updatedAt": "2026-05-16T07:29:46.859Z"
+    },
+    "SectionHeader": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:35.365Z",
+      "updatedAt": "2026-05-16T07:29:47.202Z"
+    },
+    "SecurityActivityLog": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:35.547Z",
+      "updatedAt": "2026-05-16T07:29:47.348Z"
+    },
+    "SecurityOTPInput": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:35.695Z",
+      "updatedAt": "2026-05-16T07:29:47.493Z"
+    },
+    "SegmentedInput": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:35.850Z",
+      "updatedAt": "2026-05-16T07:29:47.634Z"
+    },
+    "Select": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:36.005Z",
+      "updatedAt": "2026-05-16T07:29:47.792Z"
+    },
+    "Sheet": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:36.190Z",
+      "updatedAt": "2026-05-16T07:29:47.938Z"
+    },
+    "Sidebar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:36.358Z",
+      "updatedAt": "2026-05-16T07:29:48.082Z"
+    },
+    "SignaturePad": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:36.523Z",
+      "updatedAt": "2026-05-16T07:29:48.236Z"
+    },
+    "SignupForm": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:36.661Z",
+      "updatedAt": "2026-05-16T07:29:48.375Z"
+    },
+    "Skeleton": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:36.819Z",
+      "updatedAt": "2026-05-16T07:29:48.518Z"
+    },
+    "SlideToDelete": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:36.983Z",
+      "updatedAt": "2026-05-16T07:29:48.672Z"
+    },
+    "Slider": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:37.129Z",
+      "updatedAt": "2026-05-16T07:29:49.008Z"
+    },
+    "SmartInsightsCard": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:37.296Z",
+      "updatedAt": "2026-05-16T07:29:49.159Z"
+    },
+    "Snackbar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:37.466Z",
+      "updatedAt": "2026-05-16T07:29:49.312Z"
+    },
+    "SocialPaymentFeed": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:37.608Z",
+      "updatedAt": "2026-05-16T07:29:49.452Z"
+    },
+    "Spacer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:37.781Z",
+      "updatedAt": "2026-05-16T07:29:49.586Z"
+    },
+    "Sparkline": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:37.953Z",
+      "updatedAt": "2026-05-16T07:29:49.725Z"
+    },
+    "Spinner": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:38.111Z",
+      "updatedAt": "2026-05-16T07:29:49.871Z"
+    },
+    "SplitButton": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:38.275Z",
+      "updatedAt": "2026-05-16T07:29:50.022Z"
+    },
+    "SplitView": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:38.447Z",
+      "updatedAt": "2026-05-16T07:29:50.171Z"
+    },
+    "StatisticDisplay": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:38.640Z",
+      "updatedAt": "2026-05-16T07:29:50.319Z"
+    },
+    "Stepper": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:38.814Z",
+      "updatedAt": "2026-05-16T07:29:50.469Z"
+    },
+    "StickyContainer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:38.966Z",
+      "updatedAt": "2026-05-16T07:29:50.644Z"
+    },
+    "StickyImageTextSwap": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:39.120Z",
+      "updatedAt": "2026-05-16T07:29:50.786Z"
+    },
+    "SubscriptionManager": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:39.298Z",
+      "updatedAt": "2026-05-16T07:29:50.929Z"
+    },
+    "Switch": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:39.448Z",
+      "updatedAt": "2026-05-16T07:29:51.072Z"
+    },
+    "Table": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:39.604Z",
+      "updatedAt": "2026-05-16T07:29:51.217Z"
+    },
+    "Tabs": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:39.786Z",
+      "updatedAt": "2026-05-16T07:29:51.577Z"
+    },
+    "Tag": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:39.952Z",
+      "updatedAt": "2026-05-16T07:29:51.722Z"
+    },
+    "TagsInput": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:40.126Z",
+      "updatedAt": "2026-05-16T07:29:51.867Z"
+    },
+    "Text": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:40.296Z",
+      "updatedAt": "2026-05-16T07:29:52.218Z"
+    },
+    "Textarea": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:40.453Z",
+      "updatedAt": "2026-05-16T07:29:52.356Z"
+    },
+    "ThemeToggle": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:40.629Z",
+      "updatedAt": "2026-05-16T07:29:52.503Z"
+    },
+    "TimePicker": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:40.792Z",
+      "updatedAt": "2026-05-16T07:29:52.655Z"
+    },
+    "Timeline": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:40.938Z",
+      "updatedAt": "2026-05-16T07:29:52.795Z"
+    },
+    "Title": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:41.105Z",
+      "updatedAt": "2026-05-16T07:29:52.943Z"
+    },
+    "Toast": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:41.257Z",
+      "updatedAt": "2026-05-16T07:29:53.110Z"
+    },
+    "Tooltip": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:41.436Z",
+      "updatedAt": "2026-05-16T07:29:53.255Z"
+    },
+    "TopActionBar": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:41.590Z",
+      "updatedAt": "2026-05-16T07:29:53.398Z"
+    },
+    "TransactionList": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:41.740Z",
+      "updatedAt": "2026-05-16T07:29:53.543Z"
+    },
+    "TransferForm": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:41.931Z",
+      "updatedAt": "2026-05-16T07:29:53.689Z"
+    },
+    "TreeView": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:42.109Z",
+      "updatedAt": "2026-05-16T07:29:53.844Z"
+    },
+    "TwoFactorAuth": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:42.283Z",
+      "updatedAt": "2026-05-16T07:29:54.000Z"
+    },
+    "UnscramblingText": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:42.437Z",
+      "updatedAt": "2026-05-16T07:29:54.145Z"
+    },
+    "VideoPlayer": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:42.669Z",
+      "updatedAt": "2026-05-16T07:29:54.298Z"
+    },
+    "VirtualCardPreview": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:42.832Z",
+      "updatedAt": "2026-05-16T07:29:54.443Z"
+    },
+    "VoiceCommandOverlay": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:42.987Z",
+      "updatedAt": "2026-05-16T07:29:54.595Z"
+    },
+    "VoiceRecorder": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:43.133Z",
+      "updatedAt": "2026-05-16T07:29:54.740Z"
+    },
+    "WindowControls": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:43.304Z",
+      "updatedAt": "2026-05-16T07:29:54.876Z"
+    },
+    "WindowFrame": {
+      "version": "1.2.3",
+      "type": "folder",
+      "installedAt": "2026-05-16T07:06:43.481Z",
+      "updatedAt": "2026-05-16T07:29:55.053Z"
+    }
+  },
   "globalCss": "./src/landing.css"
 }

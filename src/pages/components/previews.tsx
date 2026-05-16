@@ -62,7 +62,7 @@ import { Label } from '../../components/ui/Label'
 import { Paragraph } from '../../components/ui/Paragraph'
 import { PropertyList } from '../../components/ui/PropertyList'
 import { SectionHeader } from '../../components/ui/SectionHeader'
-import Text from '../../components/ui/Text'
+import { Text } from '../../components/ui/Text'
 import { Title } from '../../components/ui/Title'
 
 // ─── Navigation ──────────────────────────────────────────

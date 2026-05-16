@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '../components/ui/Card'
 import { Button } from '../components/ui/Button'
 import { Title } from '../components/ui/Title'
-import Text from '../components/ui/Text'
+import { Text } from '../components/ui/Text'
 import { Badge } from '../components/ui/Badge'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/Tabs'
 
