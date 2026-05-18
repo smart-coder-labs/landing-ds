@@ -165,6 +165,3510 @@ function ComponentExample({ title, description, preview, code }: ComponentExampl
   )
 }
 
+// ─────────────────────────────────────────────
+//  API REFERENCE SYSTEM
+// ─────────────────────────────────────────────
+
+interface PropRow {
+  prop: string
+  type: string
+  default?: string
+  required?: boolean
+  description: string
+}
+
+interface ApiTable {
+  name: string
+  description?: string
+  props: PropRow[]
+}
+
+function ApiReferenceTable({ table }: { table: ApiTable }) {
+  return (
+    <div className="rounded-lg border border-border-primary overflow-hidden">
+      <div className="px-4 py-3 bg-surface-secondary border-b border-border-primary flex items-center gap-2">
+        <Text weight="medium" variant="small">{table.name}</Text>
+        {table.description && (
+          <Text variant="small" color="secondary">— {table.description}</Text>
+        )}
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-border-primary bg-surface-secondary/40">
+              <th className="px-4 py-2.5 text-left text-xs font-medium text-text-tertiary uppercase tracking-wide w-36">Prop</th>
+              <th className="px-4 py-2.5 text-left text-xs font-medium text-text-tertiary uppercase tracking-wide w-48">Type</th>
+              <th className="px-4 py-2.5 text-left text-xs font-medium text-text-tertiary uppercase tracking-wide w-24">Default</th>
+              <th className="px-4 py-2.5 text-left text-xs font-medium text-text-tertiary uppercase tracking-wide">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {table.props.map((row, i) => (
+              <tr key={row.prop} className={i % 2 === 0 ? '' : 'bg-surface-secondary/20'}>
+                <td className="px-4 py-3 align-top">
+                  <code className="text-xs font-mono text-text-primary">{row.prop}</code>
+                  {row.required && (
+                    <span className="ml-1 text-[10px] text-status-error font-medium">*</span>
+                  )}
+                </td>
+                <td className="px-4 py-3 align-top">
+                  <code className="text-xs font-mono text-accent-primary">{row.type}</code>
+                </td>
+                <td className="px-4 py-3 align-top">
+                  {row.default ? (
+                    <code className="text-xs font-mono text-text-secondary">{row.default}</code>
+                  ) : (
+                    <span className="text-xs text-text-tertiary">—</span>
+                  )}
+                </td>
+                <td className="px-4 py-3 align-top text-xs text-text-secondary">{row.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+const API_REFERENCE: Record<string, ApiTable[]> = {
+  button: [
+    {
+      name: 'Button',
+      props: [
+        { prop: 'variant', type: "'primary' | 'secondary' | 'ghost' | 'subtle' | 'outline' | 'destructive'", default: "'primary'", description: 'Visual style of the button.' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Controls height, padding, and font size.' },
+        { prop: 'loading', type: 'boolean', default: 'false', description: 'Shows a spinning indicator and sets aria-busy.' },
+        { prop: 'leftIcon', type: 'ReactNode', description: 'Icon rendered before the label.' },
+        { prop: 'rightIcon', type: 'ReactNode', description: 'Icon rendered after the label.' },
+        { prop: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretches the button to fill its container.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and grays the button.' },
+        { prop: 'aria-label', type: 'string', description: 'Required when the button has no visible text (icon-only).' },
+        { prop: 'children', type: 'ReactNode', description: 'Button label content.' },
+      ],
+    },
+  ],
+
+  input: [
+    {
+      name: 'Input',
+      description: 'extends HTMLInputElement',
+      props: [
+        { prop: 'label', type: 'string', description: 'Floating label above the input.' },
+        { prop: 'error', type: 'string', description: 'Error message shown below — triggers error styling.' },
+        { prop: 'helperText', type: 'string', description: 'Hint text shown below when there is no error.' },
+        { prop: 'leftIcon', type: 'ReactNode', description: 'Icon rendered inside the left side.' },
+        { prop: 'rightIcon', type: 'ReactNode', description: 'Icon rendered inside the right side.' },
+        { prop: 'inputSize', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Controls height and font size.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input.' },
+        { prop: 'placeholder', type: 'string', description: 'Placeholder text.' },
+        { prop: 'type', type: 'string', default: "'text'", description: 'HTML input type (text, email, password, etc.).' },
+      ],
+    },
+  ],
+
+  switch: [
+    {
+      name: 'Switch',
+      props: [
+        { prop: 'checked', type: 'boolean', description: 'Controlled state of the switch.' },
+        { prop: 'defaultChecked', type: 'boolean', default: 'false', description: 'Initial state for uncontrolled usage.' },
+        { prop: 'onCheckedChange', type: '(checked: boolean) => void', description: 'Fired when the switch is toggled.' },
+        { prop: 'label', type: 'string', description: 'Text label rendered next to the toggle.' },
+        { prop: 'description', type: 'string', description: 'Helper text shown below the label.' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Controls the toggle dimensions.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction.' },
+      ],
+    },
+  ],
+
+  card: [
+    {
+      name: 'Card',
+      props: [
+        { prop: 'variant', type: "'elevated' | 'glass' | 'outlined' | 'flat'", default: "'elevated'", description: 'Visual style of the card surface.' },
+        { prop: 'padding', type: "'none' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Inner padding preset.' },
+        { prop: 'hoverable', type: 'boolean', default: 'false', description: 'Enables spring lift animation on hover.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+        { prop: 'children', type: 'ReactNode', description: 'Card content — use sub-components for structure.' },
+      ],
+    },
+    {
+      name: 'CardHeader',
+      description: 'Top section — typically holds CardTitle and CardDescription',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Header content.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'CardTitle',
+      description: 'Renders as an <h3>',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Title text.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'CardDescription',
+      description: 'Secondary text below the title',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Description text.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'CardContent',
+      description: 'Main body area',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Body content.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'CardFooter',
+      description: 'Bottom section — typically action buttons',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Footer content.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  badge: [
+    {
+      name: 'Badge',
+      props: [
+        { prop: 'variant', type: "'default' | 'primary' | 'success' | 'warning' | 'error' | 'info'", default: "'default'", description: 'Color variant of the badge.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Badge label.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  alert: [
+    {
+      name: 'Alert',
+      description: 'Root container with role="alert"',
+      props: [
+        { prop: 'variant', type: "'default' | 'destructive' | 'success' | 'warning' | 'info'", default: "'default'", description: 'Severity level — also determines the auto-selected icon.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Use AlertTitle and AlertDescription inside.' },
+      ],
+    },
+    {
+      name: 'AlertTitle',
+      description: 'Renders as an <h5>',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Alert headline.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'AlertDescription',
+      description: 'Secondary descriptive text',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Alert body copy.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  tabs: [
+    {
+      name: 'Tabs',
+      description: 'Root context provider',
+      props: [
+        { prop: 'defaultValue', type: 'string', description: 'Initially active tab (uncontrolled).' },
+        { prop: 'value', type: 'string', description: 'Controlled active tab value.' },
+        { prop: 'onValueChange', type: '(value: string) => void', description: 'Fired when the active tab changes.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'TabsList and TabsContent elements.' },
+      ],
+    },
+    {
+      name: 'TabsList',
+      description: 'Tab navigation strip',
+      props: [
+        { prop: 'variant', type: "'default' | 'segmented'", default: "'default'", description: "'default' renders underline tabs; 'segmented' renders pill tabs." },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'TabsTrigger elements.' },
+      ],
+    },
+    {
+      name: 'TabsTrigger',
+      props: [
+        { prop: 'value', type: 'string', required: true, description: 'Unique identifier — must match the corresponding TabsContent value.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents selecting this tab.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Tab label.' },
+      ],
+    },
+    {
+      name: 'TabsContent',
+      props: [
+        { prop: 'value', type: 'string', required: true, description: 'Shown when the matching TabsTrigger is active.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Panel content.' },
+      ],
+    },
+  ],
+
+  accordion: [
+    {
+      name: 'Accordion',
+      description: 'Root wrapper — manages open state',
+      props: [
+        { prop: 'type', type: "'single' | 'multiple'", default: "'single'", description: "'single' allows one open item; 'multiple' allows many." },
+        { prop: 'defaultValue', type: 'string | string[]', description: 'Item(s) open on first render (uncontrolled).' },
+        { prop: 'value', type: 'string | string[]', description: 'Controlled open item(s).' },
+        { prop: 'onValueChange', type: '(value: string | string[]) => void', description: 'Fired when open state changes.' },
+        { prop: 'collapsible', type: 'boolean', default: 'true', description: "When type is 'single', allows closing the open item." },
+        { prop: 'variant', type: "'default' | 'bordered' | 'separated'", default: "'default'", description: 'Visual style of the accordion container.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'AccordionItem',
+      description: 'Individual collapsible section',
+      props: [
+        { prop: 'value', type: 'string', required: true, description: 'Unique identifier for this item.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents this item from being opened.' },
+        { prop: 'variant', type: "'default' | 'bordered' | 'separated'", description: 'Overrides the root variant for this item only.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'AccordionTrigger',
+      description: 'Clickable header — includes the chevron icon',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Trigger label text.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'AccordionContent',
+      description: 'Animated collapsible content area',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Content shown when the item is open.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  avatar: [
+    {
+      name: 'Avatar',
+      description: 'Root container — manages image load state via context',
+      props: [
+        { prop: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'", default: "'md'", description: 'Controls width, height, and font size.' },
+        { prop: 'shape', type: "'circle' | 'square'", default: "'circle'", description: 'Border radius preset.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'AvatarImage and/or AvatarFallback.' },
+      ],
+    },
+    {
+      name: 'AvatarImage',
+      description: 'Must be used inside Avatar',
+      props: [
+        { prop: 'src', type: 'string', required: true, description: 'Image URL. Switches to fallback on error.' },
+        { prop: 'alt', type: 'string', required: true, description: 'Accessible description of the image.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'AvatarFallback',
+      description: 'Shown while loading or when the image fails',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Initials or icon to display.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  toast: [
+    {
+      name: 'ToastProvider',
+      description: 'Wraps your app (or page section) — enables viewport portal',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Application content and ToastViewport.' },
+      ],
+    },
+    {
+      name: 'ToastViewport',
+      description: 'Fixed overlay where toasts are rendered via portal',
+      props: [
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes for position/layout.' },
+      ],
+    },
+    {
+      name: 'Toast',
+      props: [
+        { prop: 'variant', type: "'default' | 'destructive' | 'success'", default: "'default'", description: 'Color and semantic intent.' },
+        { prop: 'open', type: 'boolean', description: 'Controlled visibility.' },
+        { prop: 'defaultOpen', type: 'boolean', default: 'false', description: 'Initial visibility (uncontrolled).' },
+        { prop: 'onOpenChange', type: '(open: boolean) => void', description: 'Fired when the toast opens or closes.' },
+        { prop: 'duration', type: 'number', default: '5000', description: 'Auto-dismiss delay in ms. Use Infinity to disable.' },
+        { prop: 'role', type: "'status' | 'alert'", default: "'status'", description: "Use 'alert' for urgent messages (assertive live region)." },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'ToastTitle',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Bold heading of the toast.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'ToastDescription',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Secondary body text.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+    {
+      name: 'ToastAction',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Action button label.' },
+        { prop: 'altText', type: 'string', description: 'Screen-reader label when action label is too short.' },
+        { prop: 'onClick', type: '() => void', description: 'Handler for the action click.' },
+      ],
+    },
+    {
+      name: 'ToastClose',
+      props: [
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  checkbox: [
+    {
+      name: 'Checkbox',
+      props: [
+        { prop: 'checked', type: "boolean | 'indeterminate'", description: 'Controlled checked state.' },
+        { prop: 'defaultChecked', type: 'boolean', default: 'false', description: 'Initial state (uncontrolled).' },
+        { prop: 'onCheckedChange', type: "(checked: boolean | 'indeterminate') => void", description: 'Fired on state change.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction.' },
+        { prop: 'id', type: 'string', description: 'Associates the checkbox with a <label>.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  tooltip: [
+    {
+      name: 'Tooltip',
+      props: [
+        { prop: 'content', type: 'ReactNode', required: true, description: 'Content rendered inside the tooltip bubble.' },
+        { prop: 'side', type: "'top' | 'bottom' | 'left' | 'right'", default: "'top'", description: 'Preferred placement relative to the trigger.' },
+        { prop: 'align', type: "'start' | 'center' | 'end'", default: "'center'", description: 'Alignment along the side axis.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'The element that triggers the tooltip on hover/focus.' },
+      ],
+    },
+  ],
+
+  modal: [
+    {
+      name: 'Modal',
+      props: [
+        { prop: 'open', type: 'boolean', required: true, description: 'Controls visibility of the modal.' },
+        { prop: 'onClose', type: '() => void', required: true, description: 'Called when the user dismisses the modal.' },
+        { prop: 'title', type: 'string', description: 'Heading text in the modal header.' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'md'", description: 'Max-width preset of the modal panel.' },
+        { prop: 'footer', type: 'ReactNode', description: 'Action buttons rendered in the modal footer.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Modal body content.' },
+      ],
+    },
+  ],
+
+  select: [
+    {
+      name: 'Select',
+      props: [
+        { prop: 'value', type: 'string', description: 'Controlled selected value.' },
+        { prop: 'defaultValue', type: 'string', description: 'Initial selected value (uncontrolled).' },
+        { prop: 'onValueChange', type: '(value: string) => void', description: 'Fired when selection changes.' },
+        { prop: 'placeholder', type: 'string', description: 'Shown when no value is selected.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the select.' },
+        { prop: 'label', type: 'string', description: 'Label text above the select.' },
+        { prop: 'error', type: 'string', description: 'Error message shown below.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'SelectItem elements.' },
+      ],
+    },
+  ],
+
+  divider: [
+    {
+      name: 'Divider',
+      props: [
+        { prop: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Direction of the divider line.' },
+        { prop: 'label', type: 'string', description: 'Optional centered text label.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  spinner: [
+    {
+      name: 'Spinner',
+      props: [
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Controls the spinner dimensions.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  skeleton: [
+    {
+      name: 'Skeleton',
+      props: [
+        { prop: 'className', type: 'string', description: 'Use Tailwind width/height classes to match the element you are replacing (e.g. w-32 h-4).' },
+        { prop: 'variant', type: "'default' | 'circle' | 'text'", default: "'default'", description: 'Shape preset.' },
+      ],
+    },
+  ],
+
+  progress: [
+    {
+      name: 'Progress',
+      props: [
+        { prop: 'value', type: 'number', required: true, description: 'Current progress value (0–100).' },
+        { prop: 'max', type: 'number', default: '100', description: 'Maximum value.' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Bar height preset.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  slider: [
+    {
+      name: 'Slider',
+      props: [
+        { prop: 'value', type: 'number[]', description: 'Controlled value(s).' },
+        { prop: 'defaultValue', type: 'number[]', description: 'Initial value(s) (uncontrolled).' },
+        { prop: 'min', type: 'number', default: '0', description: 'Minimum allowed value.' },
+        { prop: 'max', type: 'number', default: '100', description: 'Maximum allowed value.' },
+        { prop: 'step', type: 'number', default: '1', description: 'Increment between steps.' },
+        { prop: 'onValueChange', type: '(value: number[]) => void', description: 'Fired while dragging.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction.' },
+      ],
+    },
+  ],
+
+  datepicker: [
+    {
+      name: 'DatePicker',
+      props: [
+        { prop: 'value', type: 'Date | null', description: 'Controlled selected date.' },
+        { prop: 'onChange', type: '(date: Date | null) => void', required: true, description: 'Fired when date is selected.' },
+        { prop: 'placeholder', type: 'string', default: "'Pick a date'", description: 'Trigger placeholder text.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the picker.' },
+        { prop: 'minDate', type: 'Date', description: 'Earliest selectable date.' },
+        { prop: 'maxDate', type: 'Date', description: 'Latest selectable date.' },
+      ],
+    },
+  ],
+
+  breadcrumb: [
+    {
+      name: 'Breadcrumb',
+      props: [
+        { prop: 'items', type: "Array<{ label: string; href?: string }>", required: true, description: 'Ordered list of crumbs. Last item is the current page.' },
+        { prop: 'separator', type: 'ReactNode', default: "'/'", description: 'Custom separator between crumbs.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  pagination: [
+    {
+      name: 'Pagination',
+      props: [
+        { prop: 'currentPage', type: 'number', required: true, description: 'Currently active page (1-indexed).' },
+        { prop: 'totalPages', type: 'number', required: true, description: 'Total number of pages.' },
+        { prop: 'onPageChange', type: '(page: number) => void', required: true, description: 'Fired when the user navigates.' },
+        { prop: 'siblingCount', type: 'number', default: '1', description: 'Pages shown on each side of the current page.' },
+      ],
+    },
+  ],
+
+  callout: [
+    {
+      name: 'Callout',
+      props: [
+        { prop: 'variant', type: "'info' | 'warning' | 'success' | 'error'", default: "'info'", description: 'Color and icon preset.' },
+        { prop: 'title', type: 'string', description: 'Bold heading inside the callout.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Callout body content.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  emptystate: [
+    {
+      name: 'EmptyState',
+      props: [
+        { prop: 'icon', type: 'ReactNode', description: 'Illustration or icon above the message.' },
+        { prop: 'title', type: 'string', required: true, description: 'Primary empty state message.' },
+        { prop: 'description', type: 'string', description: 'Secondary explanation.' },
+        { prop: 'action', type: 'ReactNode', description: 'CTA button or link.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  collapsible: [
+    {
+      name: 'Collapsible',
+      props: [
+        { prop: 'open', type: 'boolean', description: 'Controlled open state.' },
+        { prop: 'defaultOpen', type: 'boolean', default: 'false', description: 'Initial state (uncontrolled).' },
+        { prop: 'onOpenChange', type: '(open: boolean) => void', description: 'Fired on toggle.' },
+        { prop: 'trigger', type: 'ReactNode', required: true, description: 'The element that controls expand/collapse.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Hidden content revealed when open.' },
+      ],
+    },
+  ],
+
+  scrollarea: [
+    {
+      name: 'ScrollArea',
+      props: [
+        { prop: 'className', type: 'string', description: 'Set height via Tailwind (e.g. h-72) to enable scrolling.' },
+        { prop: 'orientation', type: "'vertical' | 'horizontal' | 'both'", default: "'vertical'", description: 'Scroll direction.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Scrollable content.' },
+      ],
+    },
+  ],
+
+  table: [
+    {
+      name: 'Table',
+      props: [
+        { prop: 'columns', type: "Array<{ label: string; key: string; render?: (value, row) => ReactNode }>", required: true, description: 'Column definitions.' },
+        { prop: 'data', type: 'Record<string, unknown>[]', required: true, description: 'Row data array.' },
+        { prop: 'striped', type: 'boolean', default: 'false', description: 'Alternating row background.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  datagrid: [
+    {
+      name: 'DataGrid',
+      props: [
+        { prop: 'columns', type: 'DataGridColumn<T>[]', required: true, description: 'Column definitions with optional sort, filter, and custom render.' },
+        { prop: 'data', type: 'T[]', required: true, description: 'Row data.' },
+        { prop: 'selectable', type: 'boolean', default: 'false', description: 'Enables row checkboxes.' },
+        { prop: 'density', type: "'compact' | 'default'", default: "'default'", description: 'Row height preset.' },
+        { prop: 'pageSize', type: 'number', description: 'Rows per page — enables built-in pagination.' },
+        { prop: 'striped', type: 'boolean', default: 'true', description: 'Alternating row background.' },
+      ],
+    },
+  ],
+
+  heading: [
+    {
+      name: 'Heading',
+      props: [
+        { prop: 'level', type: '1 | 2 | 3 | 4 | 5 | 6', default: '1', description: 'HTML heading element (h1–h6).' },
+        { prop: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'", description: 'Visual size independent of the semantic level.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Heading text.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  codeblock: [
+    {
+      name: 'CodeBlock',
+      props: [
+        { prop: 'code', type: 'string', required: true, description: 'Source code to display.' },
+        { prop: 'language', type: 'string', default: "'typescript'", description: 'Syntax highlighting language.' },
+        { prop: 'showLineNumbers', type: 'boolean', default: 'true', description: 'Shows line numbers on the left.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  kanbanboard: [
+    {
+      name: 'KanbanBoard',
+      props: [
+        { prop: 'columns', type: "Array<{ id: string; title: string; cards: KanbanCard[] }>", required: true, description: 'Column definitions with their cards.' },
+        { prop: 'onCardMove', type: '(cardId: string, fromColumn: string, toColumn: string) => void', description: 'Fired when a card is dragged to a new column.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  commandmenu: [
+    {
+      name: 'CommandMenu',
+      props: [
+        { prop: 'groups', type: "Array<{ id: string; label?: string; items: CommandItem[] }>", required: true, description: 'Grouped command items.' },
+        { prop: 'open', type: 'boolean', description: 'Controlled open state.' },
+        { prop: 'onOpenChange', type: '(open: boolean) => void', description: 'Fired when the menu opens or closes.' },
+        { prop: 'placeholder', type: 'string', default: "'Search commands…'", description: 'Search input placeholder.' },
+      ],
+    },
+  ],
+
+  fileupload: [
+    {
+      name: 'FileUpload',
+      props: [
+        { prop: 'onUpload', type: '(files: File[]) => void', required: true, description: 'Fired when files are selected or dropped.' },
+        { prop: 'accept', type: 'string', description: 'MIME types or extensions (e.g. "image/*,.pdf").' },
+        { prop: 'maxSize', type: 'number', description: 'Maximum file size in bytes.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the upload area.' },
+      ],
+    },
+  ],
+
+  calendar: [
+    {
+      name: 'Calendar',
+      props: [
+        { prop: 'value', type: 'Date | null', description: 'Controlled selected date.' },
+        { prop: 'onChange', type: '(date: Date) => void', required: true, description: 'Fired on date selection.' },
+        { prop: 'minDate', type: 'Date', description: 'Earliest selectable date.' },
+        { prop: 'maxDate', type: 'Date', description: 'Latest selectable date.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  popover: [
+    {
+      name: 'Popover',
+      props: [
+        { prop: 'trigger', type: 'ReactNode', required: true, description: 'Element that opens the popover on click.' },
+        { prop: 'open', type: 'boolean', description: 'Controlled open state.' },
+        { prop: 'onOpenChange', type: '(open: boolean) => void', description: 'Fired when open state changes.' },
+        { prop: 'side', type: "'top' | 'bottom' | 'left' | 'right'", default: "'bottom'", description: 'Preferred placement.' },
+        { prop: 'align', type: "'start' | 'center' | 'end'", default: "'start'", description: 'Alignment along the side axis.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Popover panel content.' },
+      ],
+    },
+  ],
+
+  sheet: [
+    {
+      name: 'Sheet',
+      props: [
+        { prop: 'open', type: 'boolean', required: true, description: 'Controls visibility.' },
+        { prop: 'onClose', type: '() => void', required: true, description: 'Called when the sheet is dismissed.' },
+        { prop: 'side', type: "'left' | 'right' | 'top' | 'bottom'", default: "'right'", description: 'Side from which the sheet slides in.' },
+        { prop: 'title', type: 'string', description: 'Sheet panel heading.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Sheet body content.' },
+      ],
+    },
+  ],
+
+  confirmdialog: [
+    {
+      name: 'ConfirmDialog',
+      props: [
+        { prop: 'open', type: 'boolean', required: true, description: 'Controls visibility.' },
+        { prop: 'onConfirm', type: '() => void', required: true, description: 'Fired when the user confirms.' },
+        { prop: 'onCancel', type: '() => void', required: true, description: 'Fired when the user cancels.' },
+        { prop: 'title', type: 'string', required: true, description: 'Dialog heading.' },
+        { prop: 'description', type: 'string', description: 'Explanatory text.' },
+        { prop: 'confirmLabel', type: 'string', default: "'Confirm'", description: 'Confirm button label.' },
+        { prop: 'cancelLabel', type: 'string', default: "'Cancel'", description: 'Cancel button label.' },
+        { prop: 'variant', type: "'default' | 'destructive'", default: "'default'", description: 'Controls confirm button color.' },
+      ],
+    },
+  ],
+
+  avatargroup: [
+    {
+      name: 'AvatarGroup',
+      props: [
+        { prop: 'avatars', type: "Array<{ src?: string; name?: string; alt?: string }>", required: true, description: 'List of avatar data.' },
+        { prop: 'max', type: 'number', default: '5', description: 'Maximum avatars shown before a +N overflow badge.' },
+        { prop: 'size', type: "'xs' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of each avatar.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  chip: [
+    {
+      name: 'Chip',
+      props: [
+        { prop: 'label', type: 'string', required: true, description: 'Chip text.' },
+        { prop: 'onRemove', type: '() => void', description: 'When provided, shows a remove (×) button.' },
+        { prop: 'selected', type: 'boolean', default: 'false', description: 'Toggles selected styling.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  tag: [
+    {
+      name: 'Tag',
+      props: [
+        { prop: 'variant', type: "'default' | 'primary' | 'success' | 'warning' | 'error'", default: "'default'", description: 'Color variant.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Tag label.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  tagsinput: [
+    {
+      name: 'TagsInput',
+      props: [
+        { prop: 'value', type: 'string[]', required: true, description: 'Controlled list of tags.' },
+        { prop: 'onChange', type: '(tags: string[]) => void', required: true, description: 'Fired when tags change.' },
+        { prop: 'placeholder', type: 'string', default: "'Add tag…'", description: 'Input placeholder.' },
+        { prop: 'maxTags', type: 'number', description: 'Maximum number of tags allowed.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents adding/removing tags.' },
+      ],
+    },
+  ],
+
+  radiogroup: [
+    {
+      name: 'RadioGroup',
+      props: [
+        { prop: 'value', type: 'string', description: 'Controlled selected value.' },
+        { prop: 'defaultValue', type: 'string', description: 'Initial value (uncontrolled).' },
+        { prop: 'onValueChange', type: '(value: string) => void', description: 'Fired on selection.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables all items.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'RadioGroupItem elements.' },
+      ],
+    },
+  ],
+
+  // ─── INPUTS (remaining) ───────────────────────────────────────────────────
+
+  buttonwithdropdown: [
+    {
+      name: 'ButtonWithDropdown',
+      props: [
+        { prop: 'label', type: 'string', required: true, description: 'Label for the primary action button.' },
+        { prop: 'onClick', type: '() => void', required: true, description: 'Handler for the primary button click.' },
+        { prop: 'items', type: "Array<{ label: string; onClick: () => void; disabled?: boolean }>", required: true, description: 'Dropdown menu items.' },
+        { prop: 'variant', type: "'primary' | 'secondary' | 'outline'", default: "'primary'", description: 'Visual style.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables both the button and dropdown.' },
+      ],
+    },
+  ],
+
+  combobox: [
+    {
+      name: 'Combobox',
+      props: [
+        { prop: 'options', type: "Array<{ value: string; label: string }>", required: true, description: 'List of selectable options.' },
+        { prop: 'value', type: 'string', description: 'Controlled selected value.' },
+        { prop: 'onValueChange', type: '(value: string) => void', description: 'Fired when selection changes.' },
+        { prop: 'placeholder', type: 'string', default: "'Search…'", description: 'Input placeholder text.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the combobox.' },
+        { prop: 'label', type: 'string', description: 'Label above the input.' },
+        { prop: 'error', type: 'string', description: 'Error message below the input.' },
+      ],
+    },
+  ],
+
+  controlcentertogles: [
+    {
+      name: 'ControlCenterToggles',
+      props: [
+        { prop: 'items', type: "Array<{ id: string; icon: ReactNode; label: string; active?: boolean; onToggle?: (active: boolean) => void }>", required: true, description: 'Toggle items to display in the grid.' },
+        { prop: 'columns', type: 'number', default: '4', description: 'Number of columns in the grid.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  daterangepicker: [
+    {
+      name: 'DateRangePicker',
+      props: [
+        { prop: 'value', type: '{ from: Date | null; to: Date | null }', description: 'Controlled date range.' },
+        { prop: 'onChange', type: '(range: { from: Date | null; to: Date | null }) => void', required: true, description: 'Fired when range selection changes.' },
+        { prop: 'placeholder', type: 'string', default: "'Pick a range'", description: 'Trigger placeholder.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the picker.' },
+        { prop: 'minDate', type: 'Date', description: 'Earliest selectable date.' },
+        { prop: 'maxDate', type: 'Date', description: 'Latest selectable date.' },
+      ],
+    },
+  ],
+
+  fab: [
+    {
+      name: 'FAB',
+      props: [
+        { prop: 'icon', type: 'ReactNode', required: true, description: 'Icon displayed inside the button.' },
+        { prop: 'onClick', type: '() => void', required: true, description: 'Click handler.' },
+        { prop: 'label', type: 'string', description: 'Accessible label (aria-label).' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Size of the FAB.' },
+        { prop: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Color variant.' },
+        { prop: 'position', type: "'bottom-right' | 'bottom-left' | 'bottom-center'", default: "'bottom-right'", description: 'Fixed position preset.' },
+      ],
+    },
+  ],
+
+  fabgroup: [
+    {
+      name: 'FABGroup',
+      props: [
+        { prop: 'icon', type: 'ReactNode', required: true, description: 'Icon for the main FAB button.' },
+        { prop: 'actions', type: "Array<{ icon: ReactNode; label: string; onClick: () => void }>", required: true, description: 'Secondary action buttons that expand.' },
+        { prop: 'position', type: "'bottom-right' | 'bottom-left'", default: "'bottom-right'", description: 'Fixed position preset.' },
+      ],
+    },
+  ],
+
+  hapticbutton: [
+    {
+      name: 'HapticButton',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Button content.' },
+        { prop: 'onClick', type: '() => void', description: 'Click handler.' },
+        { prop: 'variant', type: "'primary' | 'secondary' | 'ghost'", default: "'primary'", description: 'Visual style.' },
+        { prop: 'intensity', type: "'light' | 'medium' | 'heavy'", default: "'medium'", description: 'Spring animation intensity.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction.' },
+      ],
+    },
+  ],
+
+  iconbutton: [
+    {
+      name: 'IconButton',
+      props: [
+        { prop: 'icon', type: 'ReactNode', required: true, description: 'Icon to display.' },
+        { prop: 'label', type: 'string', required: true, description: 'Accessible label (aria-label).' },
+        { prop: 'onClick', type: '() => void', description: 'Click handler.' },
+        { prop: 'variant', type: "'primary' | 'secondary' | 'ghost' | 'outline'", default: "'ghost'", description: 'Visual style.' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Button size.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction.' },
+      ],
+    },
+  ],
+
+  otpinput: [
+    {
+      name: 'OTPInput',
+      props: [
+        { prop: 'length', type: 'number', default: '6', description: 'Number of OTP digit boxes.' },
+        { prop: 'value', type: 'string', description: 'Controlled OTP value.' },
+        { prop: 'onChange', type: '(value: string) => void', required: true, description: 'Fired on each digit change.' },
+        { prop: 'onComplete', type: '(value: string) => void', description: 'Fired when all digits are filled.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables all digit inputs.' },
+        { prop: 'error', type: 'string', description: 'Error message shown below.' },
+      ],
+    },
+  ],
+
+  passwordinput: [
+    {
+      name: 'PasswordInput',
+      props: [
+        { prop: 'value', type: 'string', description: 'Controlled value.' },
+        { prop: 'onChange', type: '(e: ChangeEvent<HTMLInputElement>) => void', description: 'Change handler.' },
+        { prop: 'label', type: 'string', description: 'Label above the input.' },
+        { prop: 'error', type: 'string', description: 'Error message below.' },
+        { prop: 'showStrength', type: 'boolean', default: 'false', description: 'Shows password strength indicator.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input.' },
+        { prop: 'placeholder', type: 'string', description: 'Placeholder text.' },
+      ],
+    },
+  ],
+
+  peertagin: [
+    {
+      name: 'PeerTagInput',
+      props: [
+        { prop: 'value', type: 'string[]', required: true, description: 'Controlled list of selected peer tags.' },
+        { prop: 'onChange', type: '(tags: string[]) => void', required: true, description: 'Fired when tags change.' },
+        { prop: 'contacts', type: "Array<{ id: string; name: string; avatar?: string }>", description: 'Contacts for autocomplete suggestions.' },
+        { prop: 'placeholder', type: 'string', default: "'Add person…'", description: 'Input placeholder.' },
+        { prop: 'maxTags', type: 'number', description: 'Maximum number of tags.' },
+      ],
+    },
+  ],
+
+  quantityselector: [
+    {
+      name: 'QuantitySelector',
+      props: [
+        { prop: 'value', type: 'number', required: true, description: 'Controlled quantity value.' },
+        { prop: 'onChange', type: '(value: number) => void', required: true, description: 'Fired on increment/decrement.' },
+        { prop: 'min', type: 'number', default: '1', description: 'Minimum allowed value.' },
+        { prop: 'max', type: 'number', description: 'Maximum allowed value.' },
+        { prop: 'step', type: 'number', default: '1', description: 'Increment step.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables all controls.' },
+      ],
+    },
+  ],
+
+  rangeslider: [
+    {
+      name: 'RangeSlider',
+      props: [
+        { prop: 'value', type: '[number, number]', description: 'Controlled [min, max] range.' },
+        { prop: 'defaultValue', type: '[number, number]', description: 'Initial range (uncontrolled).' },
+        { prop: 'min', type: 'number', default: '0', description: 'Minimum bound.' },
+        { prop: 'max', type: 'number', default: '100', description: 'Maximum bound.' },
+        { prop: 'step', type: 'number', default: '1', description: 'Increment between steps.' },
+        { prop: 'onValueChange', type: '(value: [number, number]) => void', description: 'Fired while dragging.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction.' },
+      ],
+    },
+  ],
+
+  ratinginput: [
+    {
+      name: 'RatingInput',
+      props: [
+        { prop: 'value', type: 'number', description: 'Controlled rating (0–max).' },
+        { prop: 'onChange', type: '(value: number) => void', description: 'Fired when a star is clicked.' },
+        { prop: 'max', type: 'number', default: '5', description: 'Total number of stars.' },
+        { prop: 'halfStars', type: 'boolean', default: 'false', description: 'Enables half-star increments.' },
+        { prop: 'readOnly', type: 'boolean', default: 'false', description: 'Displays rating without interaction.' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Star size.' },
+      ],
+    },
+  ],
+
+  rotaryselector: [
+    {
+      name: 'RotarySelector',
+      props: [
+        { prop: 'value', type: 'number', required: true, description: 'Controlled selected value.' },
+        { prop: 'onChange', type: '(value: number) => void', required: true, description: 'Fired on rotation.' },
+        { prop: 'min', type: 'number', default: '0', description: 'Minimum value.' },
+        { prop: 'max', type: 'number', default: '100', description: 'Maximum value.' },
+        { prop: 'size', type: 'number', default: '120', description: 'Diameter of the dial in pixels.' },
+        { prop: 'label', type: 'string', description: 'Label displayed in the center.' },
+      ],
+    },
+  ],
+
+  searchinput: [
+    {
+      name: 'SearchInput',
+      props: [
+        { prop: 'value', type: 'string', description: 'Controlled search query.' },
+        { prop: 'onChange', type: '(value: string) => void', description: 'Fired on input change.' },
+        { prop: 'onSearch', type: '(value: string) => void', description: 'Fired on Enter key or search button.' },
+        { prop: 'placeholder', type: 'string', default: "'Search…'", description: 'Placeholder text.' },
+        { prop: 'debounceMs', type: 'number', default: '300', description: 'Debounce delay for onChange in ms.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input.' },
+      ],
+    },
+  ],
+
+  segmentedinput: [
+    {
+      name: 'SegmentedInput',
+      props: [
+        { prop: 'options', type: "Array<{ value: string; label: ReactNode }>", required: true, description: 'Segment options.' },
+        { prop: 'value', type: 'string', description: 'Controlled selected segment.' },
+        { prop: 'defaultValue', type: 'string', description: 'Initial segment (uncontrolled).' },
+        { prop: 'onValueChange', type: '(value: string) => void', description: 'Fired on segment change.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables all segments.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  signaturepad: [
+    {
+      name: 'SignaturePad',
+      props: [
+        { prop: 'onSave', type: '(dataUrl: string) => void', required: true, description: 'Called with the PNG data URL when saved.' },
+        { prop: 'onClear', type: '() => void', description: 'Called when the canvas is cleared.' },
+        { prop: 'width', type: 'number', default: '400', description: 'Canvas width in pixels.' },
+        { prop: 'height', type: 'number', default: '200', description: 'Canvas height in pixels.' },
+        { prop: 'strokeColor', type: 'string', default: "'#000000'", description: 'Pen stroke color.' },
+        { prop: 'strokeWidth', type: 'number', default: '2', description: 'Pen stroke width.' },
+      ],
+    },
+  ],
+
+  splitbutton: [
+    {
+      name: 'SplitButton',
+      props: [
+        { prop: 'label', type: 'string', required: true, description: 'Primary button label.' },
+        { prop: 'onClick', type: '() => void', required: true, description: 'Primary action handler.' },
+        { prop: 'items', type: "Array<{ label: string; onClick: () => void }>", required: true, description: 'Dropdown items.' },
+        { prop: 'variant', type: "'primary' | 'secondary'", default: "'primary'", description: 'Visual variant.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables both parts.' },
+      ],
+    },
+  ],
+
+  textarea: [
+    {
+      name: 'Textarea',
+      props: [
+        { prop: 'label', type: 'string', description: 'Label above the textarea.' },
+        { prop: 'error', type: 'string', description: 'Error message shown below.' },
+        { prop: 'helperText', type: 'string', description: 'Helper text shown when no error.' },
+        { prop: 'maxLength', type: 'number', description: 'Character limit — shows a counter when set.' },
+        { prop: 'autoResize', type: 'boolean', default: 'true', description: 'Grows vertically with content.' },
+        { prop: 'rows', type: 'number', default: '3', description: 'Initial visible rows.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the textarea.' },
+        { prop: 'placeholder', type: 'string', description: 'Placeholder text.' },
+      ],
+    },
+  ],
+
+  timepicker: [
+    {
+      name: 'TimePicker',
+      props: [
+        { prop: 'value', type: 'string', description: "Controlled time value in 'HH:mm' format." },
+        { prop: 'onChange', type: '(time: string) => void', required: true, description: 'Fired when time changes.' },
+        { prop: 'use24Hour', type: 'boolean', default: 'false', description: 'Uses 24-hour format instead of AM/PM.' },
+        { prop: 'minuteStep', type: 'number', default: '1', description: 'Minute increment step.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the picker.' },
+        { prop: 'label', type: 'string', description: 'Label above the input.' },
+      ],
+    },
+  ],
+
+  // ─── LAYOUT (remaining) ───────────────────────────────────────────────────
+
+  footer: [
+    {
+      name: 'Footer',
+      props: [
+        { prop: 'brand', type: 'ReactNode', description: 'Logo or brand mark in the top-left area.' },
+        { prop: 'columns', type: "Array<{ title: string; links: Array<{ label: string; href: string }> }>", description: 'Link column definitions.' },
+        { prop: 'bottomContent', type: 'ReactNode', description: 'Copyright notice or bottom bar content.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  gridsystem: [
+    {
+      name: 'GridSystem',
+      props: [
+        { prop: 'columns', type: 'number | string', default: '12', description: 'Number of columns (CSS grid template).' },
+        { prop: 'gap', type: "'none' | 'sm' | 'md' | 'lg'", default: "'md'", description: 'Gap between grid cells.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Grid cell elements.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  layout: [
+    {
+      name: 'Layout',
+      props: [
+        { prop: 'header', type: 'ReactNode', description: 'Top header slot.' },
+        { prop: 'sidebar', type: 'ReactNode', description: 'Left sidebar slot.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Main content area.' },
+        { prop: 'footer', type: 'ReactNode', description: 'Bottom footer slot.' },
+        { prop: 'sidebarWidth', type: 'string', default: "'240px'", description: 'CSS width of the sidebar.' },
+      ],
+    },
+  ],
+
+  masonrylayout: [
+    {
+      name: 'MasonryLayout',
+      props: [
+        { prop: 'columns', type: 'number', default: '3', description: 'Number of masonry columns.' },
+        { prop: 'gap', type: 'number', default: '16', description: 'Gap between items in pixels.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Items to arrange in masonry order.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  panel: [
+    {
+      name: 'Panel',
+      props: [
+        { prop: 'title', type: 'string', description: 'Panel heading.' },
+        { prop: 'actions', type: 'ReactNode', description: 'Trailing action buttons in the header.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Panel body content.' },
+        { prop: 'scrollable', type: 'boolean', default: 'false', description: 'Makes the body area scroll independently.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  resizablepanel: [
+    {
+      name: 'ResizablePanel',
+      props: [
+        { prop: 'defaultSize', type: 'number', description: 'Initial size in pixels.' },
+        { prop: 'minSize', type: 'number', description: 'Minimum allowed size in pixels.' },
+        { prop: 'maxSize', type: 'number', description: 'Maximum allowed size in pixels.' },
+        { prop: 'direction', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Resize direction.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Panel content.' },
+      ],
+    },
+  ],
+
+  sidebar: [
+    {
+      name: 'Sidebar',
+      props: [
+        { prop: 'items', type: "Array<{ icon?: ReactNode; label: string; href?: string; children?: SidebarItem[] }>", required: true, description: 'Navigation items.' },
+        { prop: 'collapsed', type: 'boolean', default: 'false', description: 'Collapses sidebar to icon-only mode.' },
+        { prop: 'onCollapsedChange', type: '(collapsed: boolean) => void', description: 'Fired on collapse toggle.' },
+        { prop: 'activeHref', type: 'string', description: 'Marks the active link.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  spacer: [
+    {
+      name: 'Spacer',
+      props: [
+        { prop: 'size', type: "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'", description: 'Named spacing preset.' },
+        { prop: 'axis', type: "'horizontal' | 'vertical'", default: "'vertical'", description: 'Axis the spacer fills.' },
+        { prop: 'flex', type: 'boolean', default: 'false', description: 'Expands to fill remaining flex space.' },
+      ],
+    },
+  ],
+
+  splitview: [
+    {
+      name: 'SplitView',
+      props: [
+        { prop: 'left', type: 'ReactNode', required: true, description: 'Left pane content.' },
+        { prop: 'right', type: 'ReactNode', required: true, description: 'Right pane content.' },
+        { prop: 'defaultSplit', type: 'number', default: '50', description: 'Initial left pane width as percentage.' },
+        { prop: 'minLeft', type: 'number', description: 'Minimum left pane width in pixels.' },
+        { prop: 'minRight', type: 'number', description: 'Minimum right pane width in pixels.' },
+      ],
+    },
+  ],
+
+  stickycontainer: [
+    {
+      name: 'StickyContainer',
+      props: [
+        { prop: 'top', type: 'number | string', default: '0', description: 'CSS top offset when sticky.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Content to make sticky.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  windowcontrols: [
+    {
+      name: 'WindowControls',
+      props: [
+        { prop: 'onClose', type: '() => void', description: 'Handler for the red close button.' },
+        { prop: 'onMinimize', type: '() => void', description: 'Handler for the yellow minimize button.' },
+        { prop: 'onMaximize', type: '() => void', description: 'Handler for the green maximize button.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  windowframe: [
+    {
+      name: 'WindowFrame',
+      props: [
+        { prop: 'title', type: 'string', description: 'Window title displayed in the title bar.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Window body content.' },
+        { prop: 'showControls', type: 'boolean', default: 'true', description: 'Shows traffic-light window controls.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── TYPOGRAPHY (remaining) ───────────────────────────────────────────────
+
+  blockquote: [
+    {
+      name: 'Blockquote',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Quoted text content.' },
+        { prop: 'attribution', type: 'string', description: 'Author or source credit.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  caption: [
+    {
+      name: 'Caption',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Caption text.' },
+        { prop: 'align', type: "'left' | 'center' | 'right'", default: "'left'", description: 'Text alignment.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  definitionlist: [
+    {
+      name: 'DefinitionList',
+      props: [
+        { prop: 'items', type: "Array<{ term: string; definition: string }>", required: true, description: 'Term-definition pairs.' },
+        { prop: 'inline', type: 'boolean', default: 'false', description: 'Renders term and definition on the same line.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  descriptionblock: [
+    {
+      name: 'DescriptionBlock',
+      props: [
+        { prop: 'label', type: 'string', required: true, description: 'Field label text.' },
+        { prop: 'value', type: 'ReactNode', required: true, description: 'Field value.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  keyvalueinfo: [
+    {
+      name: 'KeyValueInfo',
+      props: [
+        { prop: 'label', type: 'string', required: true, description: 'Key label.' },
+        { prop: 'value', type: 'ReactNode', required: true, description: 'Value content.' },
+        { prop: 'icon', type: 'ReactNode', description: 'Optional icon before the label.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  label: [
+    {
+      name: 'Label',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Label text.' },
+        { prop: 'htmlFor', type: 'string', description: 'Associates the label with a form control.' },
+        { prop: 'required', type: 'boolean', default: 'false', description: 'Shows a required asterisk.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  paragraph: [
+    {
+      name: 'Paragraph',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Paragraph text content.' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Font size preset.' },
+        { prop: 'color', type: "'primary' | 'secondary' | 'tertiary'", default: "'primary'", description: 'Text color token.' },
+        { prop: 'maxWidth', type: 'string', description: 'CSS max-width for readability (e.g. "65ch").' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  propertylist: [
+    {
+      name: 'PropertyList',
+      props: [
+        { prop: 'items', type: "Array<{ label: string; value: ReactNode }>", required: true, description: 'Property-value pairs.' },
+        { prop: 'dividers', type: 'boolean', default: 'true', description: 'Shows dividers between items.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  sectionheader: [
+    {
+      name: 'SectionHeader',
+      props: [
+        { prop: 'title', type: 'string', required: true, description: 'Section heading text.' },
+        { prop: 'subtitle', type: 'string', description: 'Secondary text below the title.' },
+        { prop: 'action', type: 'ReactNode', description: 'Trailing action (e.g. "View all" link).' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  text: [
+    {
+      name: 'Text',
+      props: [
+        { prop: 'variant', type: "'body' | 'lead' | 'small' | 'tiny'", default: "'body'", description: 'Typographic scale variant.' },
+        { prop: 'color', type: "'primary' | 'secondary' | 'tertiary' | 'accent'", default: "'primary'", description: 'Text color token.' },
+        { prop: 'weight', type: "'normal' | 'medium' | 'semibold' | 'bold'", default: "'normal'", description: 'Font weight.' },
+        { prop: 'align', type: "'left' | 'center' | 'right'", default: "'left'", description: 'Text alignment.' },
+        { prop: 'as', type: 'string', default: "'p'", description: 'HTML element to render.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Text content.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  title: [
+    {
+      name: 'Title',
+      props: [
+        { prop: 'level', type: '1 | 2 | 3 | 4 | 5 | 6', default: '1', description: 'Semantic heading level (h1–h6).' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Heading text.' },
+        { prop: 'id', type: 'string', description: 'HTML id for anchor links.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── NAVIGATION (remaining) ───────────────────────────────────────────────
+
+  bottomnavigation: [
+    {
+      name: 'BottomNavigation',
+      props: [
+        { prop: 'items', type: "Array<{ icon: ReactNode; label: string; value: string }>", required: true, description: 'Navigation tab items.' },
+        { prop: 'value', type: 'string', description: 'Controlled active tab value.' },
+        { prop: 'onValueChange', type: '(value: string) => void', description: 'Fired when active tab changes.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  breadcrumbtabshybrid: [
+    {
+      name: 'BreadcrumbTabsHybrid',
+      props: [
+        { prop: 'breadcrumbs', type: "Array<{ label: string; href?: string }>", required: true, description: 'Breadcrumb items shown on mobile.' },
+        { prop: 'tabs', type: "Array<{ value: string; label: string }>", required: true, description: 'Tab items shown on wider screens.' },
+        { prop: 'activeTab', type: 'string', description: 'Controlled active tab value.' },
+        { prop: 'onTabChange', type: '(value: string) => void', description: 'Fired when tab changes.' },
+        { prop: 'breakpoint', type: 'string', default: "'md'", description: 'Tailwind breakpoint at which tabs appear.' },
+      ],
+    },
+  ],
+
+  contextmenu: [
+    {
+      name: 'ContextMenu',
+      props: [
+        { prop: 'items', type: "Array<{ label: string; icon?: ReactNode; onClick?: () => void; disabled?: boolean; separator?: boolean; children?: ContextMenuItem[] }>", required: true, description: 'Menu items including separators and sub-menus.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'The element that triggers the context menu on right-click.' },
+      ],
+    },
+  ],
+
+  dockbar: [
+    {
+      name: 'DockBar',
+      props: [
+        { prop: 'items', type: "Array<{ icon: ReactNode; label: string; onClick?: () => void; href?: string }>", required: true, description: 'Dock items.' },
+        { prop: 'magnification', type: 'number', default: '1.5', description: 'Scale factor for hovered item.' },
+        { prop: 'position', type: "'bottom' | 'left' | 'right'", default: "'bottom'", description: 'Dock position.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  hamburgermenuicon: [
+    {
+      name: 'HamburgerMenuIcon',
+      props: [
+        { prop: 'open', type: 'boolean', required: true, description: 'Controls the open/close animation state.' },
+        { prop: 'onClick', type: '() => void', required: true, description: 'Toggle handler.' },
+        { prop: 'size', type: 'number', default: '24', description: 'Icon size in pixels.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  menubar: [
+    {
+      name: 'MenuBar',
+      props: [
+        { prop: 'menus', type: "Array<{ label: string; items: MenuItem[] }>", required: true, description: 'Top-level menu definitions.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  navbar: [
+    {
+      name: 'NavBar',
+      props: [
+        { prop: 'logo', type: 'ReactNode', description: 'Logo or brand element.' },
+        { prop: 'links', type: "Array<{ label: string; href: string; active?: boolean }>", description: 'Navigation links.' },
+        { prop: 'actions', type: 'ReactNode', description: 'Trailing action area (buttons, avatar, etc.).' },
+        { prop: 'sticky', type: 'boolean', default: 'false', description: 'Makes the nav bar sticky on scroll.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  navigationdrawer: [
+    {
+      name: 'NavigationDrawer',
+      props: [
+        { prop: 'open', type: 'boolean', required: true, description: 'Controls drawer visibility.' },
+        { prop: 'onClose', type: '() => void', required: true, description: 'Called when drawer is dismissed.' },
+        { prop: 'items', type: "Array<{ icon?: ReactNode; label: string; href?: string }>", required: true, description: 'Navigation items.' },
+        { prop: 'header', type: 'ReactNode', description: 'Content above the navigation items.' },
+        { prop: 'footer', type: 'ReactNode', description: 'Content below the navigation items.' },
+      ],
+    },
+  ],
+
+  topactionbar: [
+    {
+      name: 'TopActionBar',
+      props: [
+        { prop: 'title', type: 'string', required: true, description: 'Page or section title.' },
+        { prop: 'onBack', type: '() => void', description: 'Back button handler — shows back button when provided.' },
+        { prop: 'actions', type: 'ReactNode', description: 'Trailing actions (icon buttons).' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── FEEDBACK (remaining) ─────────────────────────────────────────────────
+
+  errorboundary: [
+    {
+      name: 'ErrorBoundary',
+      props: [
+        { prop: 'fallback', type: 'ReactNode | ((error: Error) => ReactNode)', description: 'UI rendered when an error is caught.' },
+        { prop: 'onError', type: '(error: Error, info: ErrorInfo) => void', description: 'Callback when an error is caught.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Protected subtree.' },
+      ],
+    },
+  ],
+
+  jargontooltip: [
+    {
+      name: 'JargonTooltip',
+      props: [
+        { prop: 'term', type: 'string', required: true, description: 'The jargon word displayed inline.' },
+        { prop: 'definition', type: 'string', required: true, description: 'Plain-English explanation shown in the tooltip.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  loadingoverlay: [
+    {
+      name: 'LoadingOverlay',
+      props: [
+        { prop: 'visible', type: 'boolean', required: true, description: 'Controls overlay visibility.' },
+        { prop: 'message', type: 'string', description: 'Optional text below the spinner.' },
+        { prop: 'blur', type: 'boolean', default: 'true', description: 'Blurs the content behind the overlay.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  maintenancemode: [
+    {
+      name: 'MaintenanceMode',
+      props: [
+        { prop: 'title', type: 'string', default: "'We'll be right back'", description: 'Main heading.' },
+        { prop: 'message', type: 'string', description: 'Explanatory message.' },
+        { prop: 'estimatedTime', type: 'string', description: 'Estimated resolution time shown to users.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  modalstackmanager: [
+    {
+      name: 'ModalStackManager',
+      props: [
+        { prop: 'modals', type: "Array<{ id: string; component: ReactNode; onClose: () => void }>", required: true, description: 'Ordered stack of modals to display.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  offlinestate: [
+    {
+      name: 'OfflineState',
+      props: [
+        { prop: 'onRetry', type: '() => void', description: 'Handler for the retry button.' },
+        { prop: 'title', type: 'string', default: "'No Internet Connection'", description: 'Heading text.' },
+        { prop: 'message', type: 'string', description: 'Explanatory message.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  snackbar: [
+    {
+      name: 'Snackbar',
+      props: [
+        { prop: 'open', type: 'boolean', required: true, description: 'Controls visibility.' },
+        { prop: 'message', type: 'string', required: true, description: 'Notification text.' },
+        { prop: 'onClose', type: '() => void', required: true, description: 'Called when dismissed or duration expires.' },
+        { prop: 'action', type: 'ReactNode', description: 'Optional action button (e.g. Undo).' },
+        { prop: 'duration', type: 'number', default: '4000', description: 'Auto-dismiss delay in ms.' },
+        { prop: 'variant', type: "'default' | 'success' | 'error' | 'warning'", default: "'default'", description: 'Color variant.' },
+      ],
+    },
+  ],
+
+  stepper: [
+    {
+      name: 'Stepper',
+      props: [
+        { prop: 'steps', type: "Array<{ label: string; description?: string; status?: 'completed' | 'active' | 'pending' | 'error' }>", required: true, description: 'Step definitions with status.' },
+        { prop: 'currentStep', type: 'number', required: true, description: 'Index of the currently active step (0-based).' },
+        { prop: 'orientation', type: "'horizontal' | 'vertical'", default: "'horizontal'", description: 'Layout direction.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── DATA (remaining) ─────────────────────────────────────────────────────
+
+  diffviewer: [
+    {
+      name: 'DiffViewer',
+      props: [
+        { prop: 'oldValue', type: 'string', required: true, description: 'Original content (left/before).' },
+        { prop: 'newValue', type: 'string', required: true, description: 'Modified content (right/after).' },
+        { prop: 'splitView', type: 'boolean', default: 'true', description: 'Side-by-side vs inline diff mode.' },
+        { prop: 'language', type: 'string', default: "'text'", description: 'Syntax highlighting language.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  filterbar: [
+    {
+      name: 'FilterBar',
+      props: [
+        { prop: 'filters', type: "Array<{ id: string; label: string; active?: boolean }>", required: true, description: 'Filter chip definitions.' },
+        { prop: 'onFilterChange', type: '(id: string, active: boolean) => void', required: true, description: 'Fired when a filter is toggled.' },
+        { prop: 'onClearAll', type: '() => void', description: 'Clears all active filters.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  gallery: [
+    {
+      name: 'Gallery',
+      props: [
+        { prop: 'images', type: "Array<{ src: string; alt: string; caption?: string }>", required: true, description: 'Gallery image definitions.' },
+        { prop: 'columns', type: 'number', default: '3', description: 'Number of grid columns.' },
+        { prop: 'gap', type: 'number', default: '8', description: 'Gap between images in pixels.' },
+        { prop: 'lightbox', type: 'boolean', default: 'true', description: 'Opens a lightbox on image click.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  imagecarousel: [
+    {
+      name: 'ImageCarousel',
+      props: [
+        { prop: 'images', type: "Array<{ src: string; alt: string }>", required: true, description: 'Carousel slides.' },
+        { prop: 'autoPlay', type: 'boolean', default: 'false', description: 'Auto-advances slides.' },
+        { prop: 'interval', type: 'number', default: '3000', description: 'Auto-play interval in ms.' },
+        { prop: 'showIndicators', type: 'boolean', default: 'true', description: 'Shows dot indicators.' },
+        { prop: 'showArrows', type: 'boolean', default: 'true', description: 'Shows prev/next arrows.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  inspectorpanel: [
+    {
+      name: 'InspectorPanel',
+      props: [
+        { prop: 'sections', type: "Array<{ title: string; properties: Array<{ key: string; value: ReactNode }> }>", required: true, description: 'Grouped property sections.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  jsonviewer: [
+    {
+      name: 'JsonViewer',
+      props: [
+        { prop: 'data', type: 'unknown', required: true, description: 'JSON-serializable data to display.' },
+        { prop: 'defaultExpanded', type: 'boolean', default: 'true', description: 'Expands all nodes by default.' },
+        { prop: 'maxDepth', type: 'number', description: 'Maximum depth auto-expanded.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  lightbox: [
+    {
+      name: 'Lightbox',
+      props: [
+        { prop: 'images', type: "Array<{ src: string; alt: string }>", required: true, description: 'Images available in the lightbox.' },
+        { prop: 'open', type: 'boolean', required: true, description: 'Controls lightbox visibility.' },
+        { prop: 'initialIndex', type: 'number', default: '0', description: 'Index of the initially displayed image.' },
+        { prop: 'onClose', type: '() => void', required: true, description: 'Called when lightbox is dismissed.' },
+      ],
+    },
+  ],
+
+  querybuilder: [
+    {
+      name: 'QueryBuilder',
+      props: [
+        { prop: 'fields', type: "Array<{ name: string; label: string; type: 'string' | 'number' | 'boolean' | 'date' }>", required: true, description: 'Available filterable fields.' },
+        { prop: 'value', type: 'QueryGroup', description: 'Controlled query rule tree.' },
+        { prop: 'onChange', type: '(query: QueryGroup) => void', description: 'Fired when rules change.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  reviews: [
+    {
+      name: 'Reviews',
+      props: [
+        { prop: 'items', type: "Array<{ author: string; rating: number; date: string; body: string; avatar?: string }>", required: true, description: 'Review list items.' },
+        { prop: 'averageRating', type: 'number', description: 'Average rating shown in the summary.' },
+        { prop: 'totalReviews', type: 'number', description: 'Total review count.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  timeline: [
+    {
+      name: 'Timeline',
+      props: [
+        { prop: 'items', type: "Array<{ icon?: ReactNode; title: string; description?: string; date?: string; status?: 'completed' | 'active' | 'pending' }>", required: true, description: 'Timeline event items.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  treeview: [
+    {
+      name: 'TreeView',
+      props: [
+        { prop: 'nodes', type: "Array<TreeNode>", required: true, description: 'Root-level tree nodes (each may have children).' },
+        { prop: 'defaultExpanded', type: 'string[]', description: 'IDs of nodes expanded by default.' },
+        { prop: 'onSelect', type: '(nodeId: string) => void', description: 'Fired when a node is selected.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── MEDIA ────────────────────────────────────────────────────────────────
+
+  audioplayer: [
+    {
+      name: 'AudioPlayer',
+      props: [
+        { prop: 'src', type: 'string', required: true, description: 'Audio file URL.' },
+        { prop: 'title', type: 'string', description: 'Track title displayed in the player.' },
+        { prop: 'artist', type: 'string', description: 'Artist name.' },
+        { prop: 'coverArt', type: 'string', description: 'Cover art image URL.' },
+        { prop: 'autoPlay', type: 'boolean', default: 'false', description: 'Starts playback automatically.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  barcodegenerator: [
+    {
+      name: 'BarcodeGenerator',
+      props: [
+        { prop: 'value', type: 'string', required: true, description: 'String encoded in the barcode.' },
+        { prop: 'format', type: "'CODE128' | 'EAN13' | 'UPC' | 'CODE39'", default: "'CODE128'", description: 'Barcode symbology.' },
+        { prop: 'width', type: 'number', default: '2', description: 'Bar width in pixels.' },
+        { prop: 'height', type: 'number', default: '100', description: 'Bar height in pixels.' },
+        { prop: 'displayValue', type: 'boolean', default: 'true', description: 'Shows the encoded text below the barcode.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  comicpanel: [
+    {
+      name: 'ComicPanel',
+      props: [
+        { prop: 'panels', type: "Array<{ image?: string; text?: string; caption?: string }>", required: true, description: 'Comic strip panel definitions.' },
+        { prop: 'layout', type: "'grid' | 'strip'", default: "'strip'", description: 'Panel layout mode.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  docscanoverlay: [
+    {
+      name: 'DocScanOverlay',
+      props: [
+        { prop: 'onCapture', type: '(imageData: string) => void', required: true, description: 'Called with the captured document image.' },
+        { prop: 'onCancel', type: '() => void', description: 'Called when scanning is cancelled.' },
+        { prop: 'aspectRatio', type: 'number', default: '1.414', description: 'Target document aspect ratio (default: A4).' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  imagecropper: [
+    {
+      name: 'ImageCropper',
+      props: [
+        { prop: 'src', type: 'string', required: true, description: 'Source image URL to crop.' },
+        { prop: 'onCrop', type: '(croppedDataUrl: string) => void', required: true, description: 'Called with the cropped PNG data URL.' },
+        { prop: 'aspectRatio', type: 'number', description: 'Lock the crop to this aspect ratio (e.g. 1 for square).' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  markdowneditor: [
+    {
+      name: 'MarkdownEditor',
+      props: [
+        { prop: 'value', type: 'string', description: 'Controlled markdown content.' },
+        { prop: 'onChange', type: '(value: string) => void', description: 'Fired on content change.' },
+        { prop: 'placeholder', type: 'string', default: "'Write something…'", description: 'Editor placeholder.' },
+        { prop: 'previewMode', type: 'boolean', default: 'false', description: 'Shows rendered preview instead of raw markdown.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  multifileupload: [
+    {
+      name: 'MultiFileUpload',
+      props: [
+        { prop: 'onUpload', type: '(files: File[]) => void', required: true, description: 'Called with all selected/dropped files.' },
+        { prop: 'accept', type: 'string', description: 'Accepted MIME types or extensions.' },
+        { prop: 'maxFiles', type: 'number', description: 'Maximum number of files allowed.' },
+        { prop: 'maxSize', type: 'number', description: 'Per-file size limit in bytes.' },
+        { prop: 'showProgress', type: 'boolean', default: 'true', description: 'Shows a per-file upload progress bar.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the upload area.' },
+      ],
+    },
+  ],
+
+  qrcodegenerator: [
+    {
+      name: 'QRCodeGenerator',
+      props: [
+        { prop: 'value', type: 'string', required: true, description: 'URL or text encoded in the QR code.' },
+        { prop: 'size', type: 'number', default: '200', description: 'QR code canvas size in pixels.' },
+        { prop: 'errorCorrection', type: "'L' | 'M' | 'Q' | 'H'", default: "'M'", description: 'Error correction level.' },
+        { prop: 'logo', type: 'string', description: 'Logo image URL overlaid in the center.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  richtexteditor: [
+    {
+      name: 'RichTextEditor',
+      props: [
+        { prop: 'value', type: 'string', description: 'Controlled HTML content.' },
+        { prop: 'onChange', type: '(html: string) => void', description: 'Fired on content change.' },
+        { prop: 'placeholder', type: 'string', description: 'Editor placeholder.' },
+        { prop: 'toolbar', type: 'string[]', description: "Toolbar items to show (e.g. ['bold', 'italic', 'link'])." },
+        { prop: 'readOnly', type: 'boolean', default: 'false', description: 'Renders content without editing capability.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  videoplayer: [
+    {
+      name: 'VideoPlayer',
+      props: [
+        { prop: 'src', type: 'string', required: true, description: 'Video file or stream URL.' },
+        { prop: 'poster', type: 'string', description: 'Thumbnail image shown before playback.' },
+        { prop: 'autoPlay', type: 'boolean', default: 'false', description: 'Starts playback automatically (muted).' },
+        { prop: 'loop', type: 'boolean', default: 'false', description: 'Loops the video.' },
+        { prop: 'controls', type: 'boolean', default: 'true', description: 'Shows custom player controls.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  voicerecorder: [
+    {
+      name: 'VoiceRecorder',
+      props: [
+        { prop: 'onRecordingComplete', type: '(blob: Blob) => void', required: true, description: 'Called with the recorded audio Blob.' },
+        { prop: 'maxDuration', type: 'number', description: 'Maximum recording duration in seconds.' },
+        { prop: 'showWaveform', type: 'boolean', default: 'true', description: 'Displays a live waveform visualizer.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── CHARTS ───────────────────────────────────────────────────────────────
+
+  assetallocationchart: [
+    {
+      name: 'AssetAllocationChart',
+      props: [
+        { prop: 'data', type: "Array<{ label: string; value: number; color?: string }>", required: true, description: 'Allocation segments.' },
+        { prop: 'total', type: 'number', description: 'Total value shown in the center.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency symbol for the center label.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  assetpriceticker: [
+    {
+      name: 'AssetPriceTicker',
+      props: [
+        { prop: 'symbol', type: 'string', required: true, description: 'Asset ticker symbol (e.g. "BTC").' },
+        { prop: 'price', type: 'number', required: true, description: 'Current price.' },
+        { prop: 'change', type: 'number', description: 'Price change value.' },
+        { prop: 'changePercent', type: 'number', description: 'Percentage change.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  balancechart: [
+    {
+      name: 'BalanceChart',
+      props: [
+        { prop: 'data', type: "Array<{ date: string; value: number }>", required: true, description: 'Time-series balance data.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code for Y-axis labels.' },
+        { prop: 'height', type: 'number', default: '200', description: 'Chart height in pixels.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  chart: [
+    {
+      name: 'Chart',
+      props: [
+        { prop: 'type', type: "'line' | 'bar' | 'area' | 'pie' | 'donut'", required: true, description: 'Chart visualization type.' },
+        { prop: 'data', type: 'ChartData', required: true, description: 'Chart.js-compatible data object.' },
+        { prop: 'options', type: 'ChartOptions', description: 'Chart.js options override.' },
+        { prop: 'height', type: 'number', default: '300', description: 'Chart height in pixels.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  counters: [
+    {
+      name: 'Counters',
+      props: [
+        { prop: 'value', type: 'number', required: true, description: 'Target number to count to.' },
+        { prop: 'prefix', type: 'string', description: 'Text before the number (e.g. "$").' },
+        { prop: 'suffix', type: 'string', description: 'Text after the number (e.g. "k+").' },
+        { prop: 'duration', type: 'number', default: '2000', description: 'Animation duration in ms.' },
+        { prop: 'decimals', type: 'number', default: '0', description: 'Number of decimal places.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  counterslistwithchart: [
+    {
+      name: 'CountersListWithChart',
+      props: [
+        { prop: 'items', type: "Array<{ label: string; value: number; prefix?: string; suffix?: string; data: number[] }>", required: true, description: 'Counter items each with its own sparkline data.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  kpiblock: [
+    {
+      name: 'KPIBlock',
+      props: [
+        { prop: 'label', type: 'string', required: true, description: 'KPI metric label.' },
+        { prop: 'value', type: 'string | number', required: true, description: 'KPI metric value.' },
+        { prop: 'trend', type: 'number', description: 'Percentage change (positive = up, negative = down).' },
+        { prop: 'icon', type: 'ReactNode', description: 'Icon displayed beside the metric.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  portfoliodistribution: [
+    {
+      name: 'PortfolioDistribution',
+      props: [
+        { prop: 'segments', type: "Array<{ label: string; value: number; color?: string }>", required: true, description: 'Portfolio segment definitions.' },
+        { prop: 'height', type: 'number', default: '40', description: 'Stacked bar height in pixels.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  resourcemonitor: [
+    {
+      name: 'ResourceMonitor',
+      props: [
+        { prop: 'metrics', type: "Array<{ label: string; value: number; max?: number; unit?: string }>", required: true, description: 'Resources to monitor (CPU, RAM, etc.).' },
+        { prop: 'refreshInterval', type: 'number', description: 'Auto-refresh interval in ms.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  sparkline: [
+    {
+      name: 'Sparkline',
+      props: [
+        { prop: 'data', type: 'number[]', required: true, description: 'Series of values to plot.' },
+        { prop: 'width', type: 'number', default: '100', description: 'Chart width in pixels.' },
+        { prop: 'height', type: 'number', default: '40', description: 'Chart height in pixels.' },
+        { prop: 'color', type: 'string', default: "'currentColor'", description: 'Line and fill color.' },
+        { prop: 'filled', type: 'boolean', default: 'false', description: 'Fills the area under the line.' },
+      ],
+    },
+  ],
+
+  statisticdisplay: [
+    {
+      name: 'StatisticDisplay',
+      props: [
+        { prop: 'label', type: 'string', required: true, description: 'Metric label.' },
+        { prop: 'value', type: 'string | number', required: true, description: 'Primary metric value.' },
+        { prop: 'change', type: 'number', description: 'Percentage change value.' },
+        { prop: 'icon', type: 'ReactNode', description: 'Icon in the stat card.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── ANIMATIONS ───────────────────────────────────────────────────────────
+
+  floatingelement: [
+    {
+      name: 'FloatingElement',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Content to animate.' },
+        { prop: 'amplitude', type: 'number', default: '10', description: 'Float distance in pixels.' },
+        { prop: 'duration', type: 'number', default: '3', description: 'Full cycle duration in seconds.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  floatingtoolbar: [
+    {
+      name: 'FloatingToolbar',
+      props: [
+        { prop: 'visible', type: 'boolean', required: true, description: 'Controls toolbar visibility.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Toolbar action buttons.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  gesturecard: [
+    {
+      name: 'GestureCard',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Card content.' },
+        { prop: 'onSwipeLeft', type: '() => void', description: 'Handler for left swipe.' },
+        { prop: 'onSwipeRight', type: '() => void', description: 'Handler for right swipe.' },
+        { prop: 'threshold', type: 'number', default: '100', description: 'Minimum drag distance in pixels to trigger a swipe.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  immersivehero: [
+    {
+      name: 'ImmersiveHero',
+      props: [
+        { prop: 'title', type: 'string', required: true, description: 'Hero headline.' },
+        { prop: 'subtitle', type: 'string', description: 'Supporting text below the headline.' },
+        { prop: 'backgroundImage', type: 'string', description: 'Background image URL.' },
+        { prop: 'actions', type: 'ReactNode', description: 'CTA buttons.' },
+        { prop: 'parallaxIntensity', type: 'number', default: '0.3', description: 'Parallax scroll speed multiplier.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  infinitehorizontalloop: [
+    {
+      name: 'InfiniteHorizontalLoop',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Items to loop — duplicated automatically.' },
+        { prop: 'speed', type: 'number', default: '30', description: 'Scroll speed in pixels per second.' },
+        { prop: 'direction', type: "'left' | 'right'", default: "'left'", description: 'Scroll direction.' },
+        { prop: 'pauseOnHover', type: 'boolean', default: 'true', description: 'Pauses animation on hover.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  interactivecursor: [
+    {
+      name: 'InteractiveCursor',
+      props: [
+        { prop: 'size', type: 'number', default: '16', description: 'Default cursor dot size in pixels.' },
+        { prop: 'expandOnHover', type: 'boolean', default: 'true', description: 'Expands cursor when hovering interactive elements.' },
+        { prop: 'color', type: 'string', default: "'white'", description: 'Cursor color.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  parallaxbanner: [
+    {
+      name: 'ParallaxBanner',
+      props: [
+        { prop: 'src', type: 'string', required: true, description: 'Background image URL.' },
+        { prop: 'alt', type: 'string', required: true, description: 'Alt text for the image.' },
+        { prop: 'speed', type: 'number', default: '0.5', description: 'Parallax speed multiplier (0–1).' },
+        { prop: 'height', type: 'string', default: "'400px'", description: 'Banner height CSS value.' },
+        { prop: 'children', type: 'ReactNode', description: 'Content overlaid on the banner.' },
+      ],
+    },
+  ],
+
+  parallaxstorystage: [
+    {
+      name: 'ParallaxStoryStage',
+      props: [
+        { prop: 'layers', type: "Array<{ src: string; speed: number; zIndex?: number }>", required: true, description: 'Parallax layers from background to foreground.' },
+        { prop: 'height', type: 'string', default: "'600px'", description: 'Stage height CSS value.' },
+        { prop: 'children', type: 'ReactNode', description: 'Foreground content.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  scrollprogressbar: [
+    {
+      name: 'ScrollProgressBar',
+      props: [
+        { prop: 'color', type: 'string', default: "'accent-blue'", description: 'Tailwind color class for the bar.' },
+        { prop: 'height', type: 'number', default: '3', description: 'Bar height in pixels.' },
+        { prop: 'position', type: "'top' | 'bottom'", default: "'top'", description: 'Fixed position of the bar.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  scrollrevealcards: [
+    {
+      name: 'ScrollRevealCards',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Cards to reveal on scroll.' },
+        { prop: 'stagger', type: 'number', default: '0.1', description: 'Delay between each card reveal in seconds.' },
+        { prop: 'direction', type: "'up' | 'down' | 'left' | 'right'", default: "'up'", description: 'Reveal direction.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  stickyimagetextswap: [
+    {
+      name: 'StickyImageTextSwap',
+      props: [
+        { prop: 'sections', type: "Array<{ image: string; alt: string; title: string; description: string }>", required: true, description: 'Content sections — image swaps as user scrolls.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  unscramblingtext: [
+    {
+      name: 'UnscramblingText',
+      props: [
+        { prop: 'text', type: 'string', required: true, description: 'Final text to reveal after unscrambling.' },
+        { prop: 'duration', type: 'number', default: '1500', description: 'Total animation duration in ms.' },
+        { prop: 'trigger', type: "'mount' | 'inView'", default: "'mount'", description: 'What triggers the animation.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── AI ───────────────────────────────────────────────────────────────────
+
+  aithinkingindica: [
+    {
+      name: 'AIThinkingIndicator',
+      props: [
+        { prop: 'visible', type: 'boolean', required: true, description: 'Shows or hides the indicator.' },
+        { prop: 'label', type: 'string', default: "'Thinking…'", description: 'Accessible label text.' },
+        { prop: 'variant', type: "'dots' | 'pulse' | 'wave'", default: "'dots'", description: 'Animation style.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  hyperpersonalizedwidgetfeed: [
+    {
+      name: 'HyperPersonalizedWidgetFeed',
+      props: [
+        { prop: 'widgets', type: "Array<{ id: string; component: ReactNode; priority?: number }>", required: true, description: 'Widget definitions — ordered by priority.' },
+        { prop: 'columns', type: 'number', default: '2', description: 'Grid columns.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  promptsuggestionchips: [
+    {
+      name: 'PromptSuggestionChips',
+      props: [
+        { prop: 'suggestions', type: 'string[]', required: true, description: 'Suggested prompt strings.' },
+        { prop: 'onSelect', type: '(suggestion: string) => void', required: true, description: 'Called when a chip is clicked.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  smartinsightscard: [
+    {
+      name: 'SmartInsightsCard',
+      props: [
+        { prop: 'title', type: 'string', required: true, description: 'Insight card heading.' },
+        { prop: 'insight', type: 'string', required: true, description: 'AI-generated insight text.' },
+        { prop: 'confidence', type: 'number', description: 'Confidence score (0–1) shown as a progress indicator.' },
+        { prop: 'actions', type: 'ReactNode', description: 'CTA buttons.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── AUTH ─────────────────────────────────────────────────────────────────
+
+  accessiblehighcontrastmode: [
+    {
+      name: 'AccessibleHighContrastMode',
+      props: [
+        { prop: 'enabled', type: 'boolean', required: true, description: 'Controlled high-contrast state.' },
+        { prop: 'onToggle', type: '(enabled: boolean) => void', required: true, description: 'Called when toggle changes.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  behavioralauthsimulator: [
+    {
+      name: 'BehavioralAuthSimulator',
+      props: [
+        { prop: 'onAuthResult', type: '(result: boolean) => void', required: true, description: 'Called with auth pass/fail result.' },
+        { prop: 'sensitivity', type: 'number', default: '0.8', description: 'Detection sensitivity threshold (0–1).' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  biometricprompt: [
+    {
+      name: 'BiometricPrompt',
+      props: [
+        { prop: 'type', type: "'faceId' | 'touchId' | 'fingerprint'", default: "'faceId'", description: 'Biometric method shown.' },
+        { prop: 'onSuccess', type: '() => void', required: true, description: 'Called on successful authentication.' },
+        { prop: 'onFailure', type: '() => void', description: 'Called on authentication failure.' },
+        { prop: 'title', type: 'string', description: 'Prompt heading.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  identityverificationstep: [
+    {
+      name: 'IdentityVerificationStep',
+      props: [
+        { prop: 'step', type: "'document' | 'selfie' | 'review'", required: true, description: 'Current verification step.' },
+        { prop: 'onComplete', type: '(data: VerificationData) => void', required: true, description: 'Called when step completes.' },
+        { prop: 'onBack', type: '() => void', description: 'Navigates to the previous step.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  loginform: [
+    {
+      name: 'LoginForm',
+      props: [
+        { prop: 'onSubmit', type: '(data: { email: string; password: string }) => void', required: true, description: 'Called on form submission.' },
+        { prop: 'loading', type: 'boolean', default: 'false', description: 'Shows a loading state on the submit button.' },
+        { prop: 'error', type: 'string', description: 'Server-side error message.' },
+        { prop: 'oauthProviders', type: "Array<{ name: string; icon: ReactNode; onClick: () => void }>", description: 'OAuth login options.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  permissionsmatrix: [
+    {
+      name: 'PermissionsMatrix',
+      props: [
+        { prop: 'roles', type: 'string[]', required: true, description: 'Role column headers.' },
+        { prop: 'permissions', type: "Array<{ label: string; key: string }>", required: true, description: 'Permission row definitions.' },
+        { prop: 'value', type: 'Record<string, string[]>', description: 'Controlled map of role → permission keys.' },
+        { prop: 'onChange', type: '(value: Record<string, string[]>) => void', description: 'Fired on toggle.' },
+        { prop: 'readOnly', type: 'boolean', default: 'false', description: 'Disables toggles.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  recoverycodedisplay: [
+    {
+      name: 'RecoveryCodeDisplay',
+      props: [
+        { prop: 'codes', type: 'string[]', required: true, description: 'Recovery code strings to display.' },
+        { prop: 'onDownload', type: '() => void', description: 'Handler for download action.' },
+        { prop: 'onCopyAll', type: '() => void', description: 'Handler for copy-all action.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  securityactivitylog: [
+    {
+      name: 'SecurityActivityLog',
+      props: [
+        { prop: 'events', type: "Array<{ type: string; description: string; timestamp: string; location?: string; device?: string }>", required: true, description: 'Security event log entries.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  securityotpinput: [
+    {
+      name: 'SecurityOTPInput',
+      props: [
+        { prop: 'length', type: 'number', default: '6', description: 'OTP length.' },
+        { prop: 'onComplete', type: '(otp: string) => void', required: true, description: 'Called when all digits are entered.' },
+        { prop: 'loading', type: 'boolean', default: 'false', description: 'Shows verification loading state.' },
+        { prop: 'error', type: 'string', description: 'Error message for invalid OTP.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  signupform: [
+    {
+      name: 'SignupForm',
+      props: [
+        { prop: 'onSubmit', type: '(data: SignupData) => void', required: true, description: 'Called on form submission.' },
+        { prop: 'loading', type: 'boolean', default: 'false', description: 'Shows loading state.' },
+        { prop: 'error', type: 'string', description: 'Server-side error message.' },
+        { prop: 'fields', type: "Array<'name' | 'email' | 'password' | 'phone'>", description: 'Fields to render in the form.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  twofactorauth: [
+    {
+      name: 'TwoFactorAuth',
+      props: [
+        { prop: 'qrCodeUrl', type: 'string', description: 'QR code image URL for TOTP setup.' },
+        { prop: 'secret', type: 'string', description: 'Manual entry secret key.' },
+        { prop: 'onVerify', type: '(code: string) => void', required: true, description: 'Called with the entered OTP code.' },
+        { prop: 'loading', type: 'boolean', default: 'false', description: 'Shows verification loading state.' },
+        { prop: 'error', type: 'string', description: 'Error message for invalid code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── COMMERCE ─────────────────────────────────────────────────────────────
+
+  cartpreview: [
+    {
+      name: 'CartPreview',
+      props: [
+        { prop: 'items', type: "Array<{ id: string; name: string; price: number; quantity: number; image?: string }>", required: true, description: 'Cart line items.' },
+        { prop: 'onRemove', type: '(id: string) => void', description: 'Called when an item is removed.' },
+        { prop: 'onCheckout', type: '() => void', description: 'Checkout button handler.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  invoicepreview: [
+    {
+      name: 'InvoicePreview',
+      props: [
+        { prop: 'invoice', type: 'InvoiceData', required: true, description: 'Invoice object with line items, totals, and party info.' },
+        { prop: 'onPrint', type: '() => void', description: 'Handler for print/download action.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  ordersummary: [
+    {
+      name: 'OrderSummary',
+      props: [
+        { prop: 'items', type: "Array<{ label: string; amount: number }>", required: true, description: 'Line items (subtotal, shipping, tax, etc.).' },
+        { prop: 'total', type: 'number', required: true, description: 'Final total amount.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'onCheckout', type: '() => void', description: 'Checkout CTA handler.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  pricedisplay: [
+    {
+      name: 'PriceDisplay',
+      props: [
+        { prop: 'price', type: 'number', required: true, description: 'Current price.' },
+        { prop: 'originalPrice', type: 'number', description: 'Original price — shows strikethrough when provided.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Text size preset.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  productcard: [
+    {
+      name: 'ProductCard',
+      props: [
+        { prop: 'name', type: 'string', required: true, description: 'Product name.' },
+        { prop: 'price', type: 'number', required: true, description: 'Product price.' },
+        { prop: 'image', type: 'string', description: 'Product image URL.' },
+        { prop: 'rating', type: 'number', description: 'Average rating (0–5).' },
+        { prop: 'badge', type: 'string', description: 'Promotional badge text (e.g. "New").' },
+        { prop: 'onAddToCart', type: '() => void', description: 'Add-to-cart button handler.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  retailswapinterface: [
+    {
+      name: 'RetailSwapInterface',
+      props: [
+        { prop: 'products', type: "Array<{ id: string; name: string; image: string; price: number }>", required: true, description: 'Products available for swap selection.' },
+        { prop: 'onSwap', type: '(fromId: string, toId: string) => void', required: true, description: 'Called when user confirms a swap.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── FINTECH ──────────────────────────────────────────────────────────────
+
+  achtransactionsvisualizer: [
+    {
+      name: 'AchTransactionsVisualizer',
+      props: [
+        { prop: 'transactions', type: "Array<{ id: string; amount: number; status: 'pending' | 'completed' | 'failed'; date: string; description: string }>", required: true, description: 'ACH transaction list.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  bankaccountcard: [
+    {
+      name: 'BankAccountCard',
+      props: [
+        { prop: 'accountName', type: 'string', required: true, description: 'Account holder name.' },
+        { prop: 'accountNumber', type: 'string', required: true, description: 'Account number (masked).' },
+        { prop: 'balance', type: 'number', required: true, description: 'Current account balance.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'bankName', type: 'string', description: 'Bank institution name.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  cashbackwidget: [
+    {
+      name: 'CashbackWidget',
+      props: [
+        { prop: 'earned', type: 'number', required: true, description: 'Cashback earned so far.' },
+        { prop: 'target', type: 'number', required: true, description: 'Cashback goal amount.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  creditlimitmanager: [
+    {
+      name: 'CreditLimitManager',
+      props: [
+        { prop: 'currentLimit', type: 'number', required: true, description: 'Current credit limit.' },
+        { prop: 'used', type: 'number', required: true, description: 'Amount of credit used.' },
+        { prop: 'onRequestIncrease', type: '() => void', description: 'Handler for increase request.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  creditscoresimulator: [
+    {
+      name: 'CreditScoreSimulator',
+      props: [
+        { prop: 'score', type: 'number', required: true, description: 'Current credit score (300–850).' },
+        { prop: 'onSimulate', type: '(scenario: string) => void', description: 'Called when user selects a scenario.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  currencyconverterwidget: [
+    {
+      name: 'CurrencyConverterWidget',
+      props: [
+        { prop: 'rates', type: 'Record<string, number>', required: true, description: 'Exchange rates relative to a base currency.' },
+        { prop: 'baseCurrency', type: 'string', default: "'USD'", description: 'Base currency code.' },
+        { prop: 'onConvert', type: '(from: string, to: string, amount: number) => void', description: 'Called on conversion.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  earlypaymentdiscount: [
+    {
+      name: 'EarlyPaymentDiscount',
+      props: [
+        { prop: 'invoiceAmount', type: 'number', required: true, description: 'Full invoice amount.' },
+        { prop: 'discountPercent', type: 'number', required: true, description: 'Early payment discount percentage.' },
+        { prop: 'dueDate', type: 'string', required: true, description: 'Invoice due date (ISO string).' },
+        { prop: 'onAccept', type: '() => void', description: 'Called when user accepts the early payment offer.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  expensecategorizer: [
+    {
+      name: 'ExpenseCategorizer',
+      props: [
+        { prop: 'expenses', type: "Array<{ id: string; description: string; amount: number; category?: string }>", required: true, description: 'Expense items to categorize.' },
+        { prop: 'categories', type: 'string[]', required: true, description: 'Available category labels.' },
+        { prop: 'onCategorize', type: '(id: string, category: string) => void', required: true, description: 'Called when expense is categorized.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  fairuselimittracker: [
+    {
+      name: 'FairUseLimitTracker',
+      props: [
+        { prop: 'used', type: 'number', required: true, description: 'Current usage amount.' },
+        { prop: 'limit', type: 'number', required: true, description: 'Fair use limit.' },
+        { prop: 'unit', type: 'string', default: "'GB'", description: 'Usage unit label.' },
+        { prop: 'resetDate', type: 'string', description: 'Date when usage resets (ISO string).' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  financialgoaltracker: [
+    {
+      name: 'FinancialGoalTracker',
+      props: [
+        { prop: 'goalName', type: 'string', required: true, description: 'Goal label (e.g. "Vacation fund").' },
+        { prop: 'target', type: 'number', required: true, description: 'Goal target amount.' },
+        { prop: 'saved', type: 'number', required: true, description: 'Amount saved so far.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'targetDate', type: 'string', description: 'Goal deadline (ISO string).' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  fintechdashboardpreview: [
+    {
+      name: 'FintechDashboardPreview',
+      props: [
+        { prop: 'balance', type: 'number', description: 'Primary account balance.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'transactions', type: "Array<{ label: string; amount: number; date: string }>", description: 'Recent transactions.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  gamifiedrewardtier: [
+    {
+      name: 'GamifiedRewardTier',
+      props: [
+        { prop: 'tiers', type: "Array<{ name: string; threshold: number; badge?: string }>", required: true, description: 'Reward tier definitions.' },
+        { prop: 'currentPoints', type: 'number', required: true, description: 'User current points.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  installmentsimulator: [
+    {
+      name: 'InstallmentSimulator',
+      props: [
+        { prop: 'principal', type: 'number', required: true, description: 'Loan principal amount.' },
+        { prop: 'interestRate', type: 'number', required: true, description: 'Annual interest rate as percentage.' },
+        { prop: 'onSimulate', type: '(months: number) => void', description: 'Called when user selects a term.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  interactivebillsplitter: [
+    {
+      name: 'InteractiveBillSplitter',
+      props: [
+        { prop: 'total', type: 'number', required: true, description: 'Total bill amount to split.' },
+        { prop: 'participants', type: "Array<{ id: string; name: string; avatar?: string }>", required: true, description: 'People splitting the bill.' },
+        { prop: 'onSplit', type: '(splits: Record<string, number>) => void', description: 'Called with final split amounts.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  multicurrencywallet: [
+    {
+      name: 'MultiCurrencyWallet',
+      props: [
+        { prop: 'balances', type: "Array<{ currency: string; amount: number; flag?: string }>", required: true, description: 'Currency balances.' },
+        { prop: 'onConvert', type: '(from: string, to: string) => void', description: 'Called when user initiates conversion.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  paymentconfirmationmodal: [
+    {
+      name: 'PaymentConfirmationModal',
+      props: [
+        { prop: 'open', type: 'boolean', required: true, description: 'Controls modal visibility.' },
+        { prop: 'amount', type: 'number', required: true, description: 'Payment amount.' },
+        { prop: 'recipient', type: 'string', required: true, description: 'Recipient name.' },
+        { prop: 'onConfirm', type: '() => void', required: true, description: 'Called when payment is confirmed.' },
+        { prop: 'onCancel', type: '() => void', required: true, description: 'Called when cancelled.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'fee', type: 'number', description: 'Transaction fee.' },
+      ],
+    },
+  ],
+
+  paymentmethodselector: [
+    {
+      name: 'PaymentMethodSelector',
+      props: [
+        { prop: 'methods', type: "Array<{ id: string; type: 'card' | 'bank' | 'wallet'; label: string; last4?: string }>", required: true, description: 'Available payment methods.' },
+        { prop: 'value', type: 'string', description: 'Controlled selected method id.' },
+        { prop: 'onValueChange', type: '(id: string) => void', description: 'Fired on selection.' },
+        { prop: 'onAddMethod', type: '() => void', description: 'Handler for "Add method" action.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  quicktransferbar: [
+    {
+      name: 'QuickTransferBar',
+      props: [
+        { prop: 'contacts', type: "Array<{ id: string; name: string; avatar?: string }>", required: true, description: 'Recent contacts for quick transfer.' },
+        { prop: 'onSelect', type: '(contactId: string) => void', required: true, description: 'Called when a contact is selected.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  recurringinvestconfigurator: [
+    {
+      name: 'RecurringInvestConfigurator',
+      props: [
+        { prop: 'onSave', type: '(config: { amount: number; frequency: string; asset: string }) => void', required: true, description: 'Called when configuration is saved.' },
+        { prop: 'assets', type: 'string[]', description: 'Available investment assets.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  roundupsavingstoggle: [
+    {
+      name: 'RoundUpSavingsToggle',
+      props: [
+        { prop: 'enabled', type: 'boolean', required: true, description: 'Controlled toggle state.' },
+        { prop: 'onToggle', type: '(enabled: boolean) => void', required: true, description: 'Called on toggle.' },
+        { prop: 'projectedMonthly', type: 'number', description: 'Estimated monthly round-up savings.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  socialpaymentfeed: [
+    {
+      name: 'SocialPaymentFeed',
+      props: [
+        { prop: 'events', type: "Array<{ id: string; sender: string; receiver: string; amount: number; note?: string; timestamp: string }>", required: true, description: 'Payment activity feed items.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  subscriptionmanager: [
+    {
+      name: 'SubscriptionManager',
+      props: [
+        { prop: 'plan', type: "{ name: string; price: number; features: string[]; billingCycle: 'monthly' | 'annual' }", required: true, description: 'Current subscription plan.' },
+        { prop: 'plans', type: 'SubscriptionPlan[]', description: 'Available plans to upgrade/downgrade to.' },
+        { prop: 'onChangePlan', type: '(planId: string) => void', description: 'Called when user selects a different plan.' },
+        { prop: 'onCancel', type: '() => void', description: 'Called when user cancels subscription.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  transactionlist: [
+    {
+      name: 'TransactionList',
+      props: [
+        { prop: 'transactions', type: "Array<{ id: string; description: string; amount: number; date: string; type: 'credit' | 'debit'; category?: string }>", required: true, description: 'Transaction history items.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'onFilter', type: '(filters: TransactionFilter) => void', description: 'Called when filters change.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  transferform: [
+    {
+      name: 'TransferForm',
+      props: [
+        { prop: 'onSubmit', type: '(data: { recipient: string; amount: number; note?: string }) => void', required: true, description: 'Called on form submit.' },
+        { prop: 'maxAmount', type: 'number', description: 'Maximum transferable amount (available balance).' },
+        { prop: 'loading', type: 'boolean', default: 'false', description: 'Shows loading state on submit.' },
+        { prop: 'currency', type: 'string', default: "'USD'", description: 'Currency code.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  virtualcardpreview: [
+    {
+      name: 'VirtualCardPreview',
+      props: [
+        { prop: 'cardNumber', type: 'string', required: true, description: 'Card number (masked or full).' },
+        { prop: 'cardHolder', type: 'string', required: true, description: 'Cardholder name.' },
+        { prop: 'expiryDate', type: 'string', required: true, description: 'Expiry date string.' },
+        { prop: 'cvv', type: 'string', description: 'CVV (shown on card flip).' },
+        { prop: 'network', type: "'visa' | 'mastercard' | 'amex'", description: 'Card network logo.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── COMMUNICATION ────────────────────────────────────────────────────────
+
+  chatbubble: [
+    {
+      name: 'ChatBubble',
+      props: [
+        { prop: 'message', type: 'string', required: true, description: 'Message text content.' },
+        { prop: 'sender', type: "'user' | 'other'", required: true, description: 'Aligns bubble left (other) or right (user).' },
+        { prop: 'timestamp', type: 'string', description: 'Message timestamp.' },
+        { prop: 'avatar', type: 'string', description: 'Avatar image URL for the sender.' },
+        { prop: 'status', type: "'sent' | 'delivered' | 'read'", description: 'Delivery status indicator.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  chatinput: [
+    {
+      name: 'ChatInput',
+      props: [
+        { prop: 'onSend', type: '(message: string) => void', required: true, description: 'Called when user sends a message.' },
+        { prop: 'placeholder', type: 'string', default: "'Type a message…'", description: 'Input placeholder.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input.' },
+        { prop: 'onAttach', type: '(files: File[]) => void', description: 'Called when files are attached.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  commentthread: [
+    {
+      name: 'CommentThread',
+      props: [
+        { prop: 'comments', type: "Array<{ id: string; author: string; avatar?: string; body: string; timestamp: string; replies?: Comment[] }>", required: true, description: 'Comment thread items.' },
+        { prop: 'onReply', type: '(commentId: string, body: string) => void', description: 'Called when a reply is submitted.' },
+        { prop: 'onLike', type: '(commentId: string) => void', description: 'Called when a comment is liked.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  messagereactions: [
+    {
+      name: 'MessageReactions',
+      props: [
+        { prop: 'reactions', type: "Array<{ emoji: string; count: number; reacted?: boolean }>", required: true, description: 'Available reactions with counts.' },
+        { prop: 'onReact', type: '(emoji: string) => void', required: true, description: 'Called when user toggles a reaction.' },
+        { prop: 'onAddReaction', type: '() => void', description: 'Opens the emoji picker.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  notificationcenterpanel: [
+    {
+      name: 'NotificationCenterPanel',
+      props: [
+        { prop: 'notifications', type: "Array<{ id: string; title: string; body: string; timestamp: string; read?: boolean; type?: string }>", required: true, description: 'Notification items.' },
+        { prop: 'onMarkRead', type: '(id: string) => void', description: 'Called to mark a notification as read.' },
+        { prop: 'onMarkAllRead', type: '() => void', description: 'Marks all notifications as read.' },
+        { prop: 'onDismiss', type: '(id: string) => void', description: 'Removes a notification.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── SCHEDULING ───────────────────────────────────────────────────────────
+
+  agendaview: [
+    {
+      name: 'AgendaView',
+      props: [
+        { prop: 'events', type: "Array<{ id: string; title: string; start: string; end: string; color?: string }>", required: true, description: 'Calendar events.' },
+        { prop: 'date', type: 'Date', description: 'Focused date for the agenda view.' },
+        { prop: 'onEventClick', type: '(event: AgendaEvent) => void', description: 'Called when an event is clicked.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  schedulertimeline: [
+    {
+      name: 'SchedulerTimeline',
+      props: [
+        { prop: 'events', type: "Array<{ id: string; title: string; start: string; end: string; resourceId?: string }>", required: true, description: 'Timeline events.' },
+        { prop: 'resources', type: "Array<{ id: string; label: string }>", description: 'Resource rows (people, rooms, etc.).' },
+        { prop: 'startHour', type: 'number', default: '8', description: 'First visible hour.' },
+        { prop: 'endHour', type: 'number', default: '20', description: 'Last visible hour.' },
+        { prop: 'onEventClick', type: '(event: TimelineEvent) => void', description: 'Called when an event is clicked.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  // ─── MISC ─────────────────────────────────────────────────────────────────
+
+  activityfeed: [
+    {
+      name: 'ActivityFeed',
+      props: [
+        { prop: 'items', type: "Array<{ id: string; icon?: ReactNode; description: ReactNode; timestamp: string }>", required: true, description: 'Activity feed items.' },
+        { prop: 'onLoadMore', type: '() => void', description: 'Loads older activity items.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  activitymonitor: [
+    {
+      name: 'ActivityMonitor',
+      props: [
+        { prop: 'processes', type: "Array<{ name: string; cpu: number; memory: number; status: 'running' | 'idle' | 'stopped' }>", required: true, description: 'Process list to monitor.' },
+        { prop: 'refreshInterval', type: 'number', description: 'Auto-refresh interval in ms.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  addressselector: [
+    {
+      name: 'AddressSelector',
+      props: [
+        { prop: 'value', type: 'Address | null', description: 'Controlled selected address.' },
+        { prop: 'onChange', type: '(address: Address) => void', required: true, description: 'Called when address is selected.' },
+        { prop: 'addresses', type: 'Address[]', description: 'Pre-defined address list.' },
+        { prop: 'allowManual', type: 'boolean', default: 'true', description: 'Allows manual address entry.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  cardsecuritycontrols: [
+    {
+      name: 'CardSecurityControls',
+      props: [
+        { prop: 'cardId', type: 'string', required: true, description: 'Card identifier.' },
+        { prop: 'frozen', type: 'boolean', default: 'false', description: 'Card frozen state.' },
+        { prop: 'onFreeze', type: '(frozen: boolean) => void', description: 'Called when freeze is toggled.' },
+        { prop: 'onReportLost', type: '() => void', description: 'Called when "Report lost" is triggered.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  contextualtrust: [
+    {
+      name: 'ContextualTrustBadge',
+      props: [
+        { prop: 'level', type: "'verified' | 'trusted' | 'unverified'", required: true, description: 'Trust level of the entity.' },
+        { prop: 'label', type: 'string', description: 'Custom badge label.' },
+        { prop: 'tooltip', type: 'string', description: 'Explanation shown in a tooltip.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  devicelist: [
+    {
+      name: 'DeviceList',
+      props: [
+        { prop: 'devices', type: "Array<{ id: string; name: string; type: string; lastSeen: string; current?: boolean }>", required: true, description: 'Connected device list.' },
+        { prop: 'onRevoke', type: '(deviceId: string) => void', description: 'Called to revoke a device session.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  fileintelligencepreview: [
+    {
+      name: 'FileIntelligencePreview',
+      props: [
+        { prop: 'file', type: '{ name: string; type: string; size: number; url?: string }', required: true, description: 'File metadata to preview.' },
+        { prop: 'insights', type: 'string[]', description: 'AI-generated insights about the file.' },
+        { prop: 'onDownload', type: '() => void', description: 'Download handler.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  microcommitmentstopper: [
+    {
+      name: 'MicroCommitmentStepper',
+      props: [
+        { prop: 'steps', type: "Array<{ question: string; options: string[] }>", required: true, description: 'Sequential micro-commitment steps.' },
+        { prop: 'onComplete', type: '(answers: string[]) => void', required: true, description: 'Called when all steps are answered.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  progressivedisclosurepanel: [
+    {
+      name: 'ProgressiveDisclosurePanel',
+      props: [
+        { prop: 'summary', type: 'ReactNode', required: true, description: 'Always-visible summary content.' },
+        { prop: 'details', type: 'ReactNode', required: true, description: 'Hidden detail content revealed on expand.' },
+        { prop: 'defaultExpanded', type: 'boolean', default: 'false', description: 'Initial expanded state.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  slidetodelete: [
+    {
+      name: 'SlideToDelete',
+      props: [
+        { prop: 'children', type: 'ReactNode', required: true, description: 'List item content.' },
+        { prop: 'onDelete', type: '() => void', required: true, description: 'Called when delete is confirmed via slide.' },
+        { prop: 'threshold', type: 'number', default: '0.5', description: 'Slide fraction required to trigger delete (0–1).' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+
+  voicecommandoverlay: [
+    {
+      name: 'VoiceCommandOverlay',
+      props: [
+        { prop: 'active', type: 'boolean', required: true, description: 'Shows the listening overlay.' },
+        { prop: 'onCommand', type: '(transcript: string) => void', required: true, description: 'Called with recognized speech text.' },
+        { prop: 'onClose', type: '() => void', required: true, description: 'Closes the overlay.' },
+        { prop: 'placeholder', type: 'string', default: "'Listening…'", description: 'Label shown while listening.' },
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+      ],
+    },
+  ],
+}
+
+function ComponentApiReference({ componentName }: { componentName: string }) {
+  const tables = API_REFERENCE[componentName]
+
+  if (!tables) {
+    return (
+      <div className="rounded-lg border border-border-primary overflow-hidden">
+        <div className="p-4 bg-surface-secondary border-b border-border-primary">
+          <Text weight="medium" variant="small">Component Props</Text>
+        </div>
+        <div className="p-4">
+          <Text variant="small" color="secondary">
+            Refer to the component source file and <code className="text-xs font-mono">.types.ts</code> for detailed prop specifications.
+          </Text>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-4">
+      {tables.map((table) => (
+        <ApiReferenceTable key={table.name} table={table} />
+      ))}
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────
+//  EXTENDED DOCUMENTATION SYSTEM
+// ─────────────────────────────────────────────
+
+interface AnatomyPart {
+  name: string
+  description: string
+}
+
+interface DosDontsEntry {
+  dos: string[]
+  donts: string[]
+}
+
+interface VariantEntry {
+  name: string
+  description: string
+}
+
+interface ComponentDoc {
+  anatomy?: AnatomyPart[]
+  dosdonts?: DosDontsEntry
+  variants?: VariantEntry[]
+}
+
+function AnatomySection({ parts }: { parts: AnatomyPart[] }) {
+  return (
+    <div className="space-y-3">
+      {parts.map((part, i) => (
+        <div key={i} className="flex gap-3 items-start">
+          <div className="mt-1 w-2 h-2 rounded-full bg-accent-primary flex-shrink-0" />
+          <div>
+            <span className="text-sm font-medium text-text-primary">{part.name}</span>
+            <span className="text-sm text-text-secondary ml-2">— {part.description}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function DosDontsSection({ entry }: { entry: DosDontsEntry }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="rounded-lg border border-status-success/30 bg-status-success/5 p-4 space-y-2">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-4 h-4 rounded-full bg-status-success flex items-center justify-center">
+            <Check className="w-2.5 h-2.5 text-white" />
+          </div>
+          <span className="text-sm font-semibold text-status-success">Do</span>
+        </div>
+        <ul className="space-y-1.5">
+          {entry.dos.map((item, i) => (
+            <li key={i} className="text-sm text-text-secondary flex gap-2">
+              <span className="text-status-success mt-0.5 flex-shrink-0">✓</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="rounded-lg border border-status-error/30 bg-status-error/5 p-4 space-y-2">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-4 h-4 rounded-full bg-status-error flex items-center justify-center">
+            <X className="w-2.5 h-2.5 text-white" />
+          </div>
+          <span className="text-sm font-semibold text-status-error">Don't</span>
+        </div>
+        <ul className="space-y-1.5">
+          {entry.donts.map((item, i) => (
+            <li key={i} className="text-sm text-text-secondary flex gap-2">
+              <span className="text-status-error mt-0.5 flex-shrink-0">✗</span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+function VariantsSection({ variants }: { variants: VariantEntry[] }) {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      {variants.map((v, i) => (
+        <div key={i} className="rounded-lg border border-border-primary p-4">
+          <div className="text-sm font-medium text-text-primary mb-1">{v.name}</div>
+          <div className="text-sm text-text-secondary">{v.description}</div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const COMPONENT_DOCS: Record<string, ComponentDoc> = {
+  button: {
+    anatomy: [
+      { name: 'Root', description: 'The <button> element — handles click, focus, disabled, and aria states.' },
+      { name: 'Left Icon', description: 'Optional slot rendered before the label (leftIcon prop).' },
+      { name: 'Label', description: 'The children content — the button text.' },
+      { name: 'Right Icon', description: 'Optional slot rendered after the label (rightIcon prop).' },
+      { name: 'Spinner', description: 'Animated indicator that replaces the label when loading={true}.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use a single primary button per section to establish clear hierarchy.',
+        'Provide aria-label on icon-only buttons.',
+        'Use loading={true} to prevent double-submits on async actions.',
+        'Match button size to surrounding context (sm for dense UIs, lg for CTAs).',
+      ],
+      donts: [
+        'Don\'t place two primary buttons side by side — use primary + secondary.',
+        'Don\'t disable without explaining why (use helperText or tooltips).',
+        'Don\'t use ghost variant for the most important action on a page.',
+        'Don\'t rely on color alone to communicate state — pair with text.',
+      ],
+    },
+    variants: [
+      { name: 'primary', description: 'High-emphasis — for the single most important action. Use once per section.' },
+      { name: 'secondary', description: 'Medium-emphasis — for complementary actions alongside a primary.' },
+      { name: 'outline', description: 'Low-emphasis with a visible border — good for neutral or reversible actions.' },
+      { name: 'ghost', description: 'Minimal — blends with the background, ideal for toolbars and icon buttons.' },
+      { name: 'subtle', description: 'Tinted background without border — softer than outline, more visible than ghost.' },
+      { name: 'destructive', description: 'Red-tinted — signals irreversible or dangerous actions (delete, revoke).' },
+    ],
+  },
+
+  input: {
+    anatomy: [
+      { name: 'Label', description: 'Floats above the field — tied to the input via htmlFor.' },
+      { name: 'Left Icon', description: 'Decorative or semantic icon inside the left edge.' },
+      { name: 'Field', description: 'The native <input> element — accepts all standard HTML input attributes.' },
+      { name: 'Right Icon', description: 'Action icon (clear, toggle visibility) inside the right edge.' },
+      { name: 'Helper / Error Text', description: 'Shown below — switches from helper to error message when error prop is set.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Always provide a label — do not rely on placeholder as the only label.',
+        'Use helperText to explain format requirements (e.g. "Use your company email").',
+        'Use error prop after validation — not on every keystroke.',
+        'Group related inputs and maintain consistent sizing.',
+      ],
+      donts: [
+        'Don\'t remove the label for a "cleaner" look — it breaks accessibility.',
+        'Don\'t show red error state until the user has interacted with the field.',
+        'Don\'t use placeholder for critical instructions — it disappears on focus.',
+        'Don\'t use different input sizes in the same form.',
+      ],
+    },
+    variants: [
+      { name: 'default (text)', description: 'Standard single-line text input.' },
+      { name: 'error state', description: 'Red border + error message when validation fails.' },
+      { name: 'disabled', description: 'Grayed out — prevents any interaction.' },
+      { name: 'with icons', description: 'Left and/or right icon slots for context and actions.' },
+      { name: 'sm / md / lg', description: 'Three height presets controlled by inputSize prop.' },
+    ],
+  },
+
+  card: {
+    anatomy: [
+      { name: 'Card', description: 'Root surface — sets variant, padding, and hover animation.' },
+      { name: 'CardHeader', description: 'Top zone — conventionally holds CardTitle and CardDescription.' },
+      { name: 'CardTitle', description: 'Renders as an <h3> — semantic heading inside the card.' },
+      { name: 'CardDescription', description: 'Secondary text below the title — muted color.' },
+      { name: 'CardContent', description: 'Primary body area — the main card content lives here.' },
+      { name: 'CardFooter', description: 'Bottom zone — typically action buttons or metadata.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use CardHeader + CardTitle to give every card a clear purpose.',
+        'Use hoverable only for cards that are clickable or navigable.',
+        'Keep padding consistent across all cards in a grid.',
+        'Use glass variant for floating overlays over imagery.',
+      ],
+      donts: [
+        'Don\'t nest cards inside other cards — it creates confusing depth.',
+        'Don\'t use hoverable on static informational cards.',
+        'Don\'t use flat variant in dark backgrounds — it loses definition.',
+        'Don\'t skip CardHeader on complex cards — content becomes hard to scan.',
+      ],
+    },
+    variants: [
+      { name: 'elevated', description: 'Default — subtle shadow lifts the card off the surface.' },
+      { name: 'glass', description: 'Frosted glass effect with backdrop blur — best over imagery.' },
+      { name: 'outlined', description: 'Border only, no shadow — flat and minimal.' },
+      { name: 'flat', description: 'No shadow or border — blends into the surface.' },
+    ],
+  },
+
+  alert: {
+    anatomy: [
+      { name: 'Alert', description: 'Root container — sets role="alert", variant color, and auto-selected icon.' },
+      { name: 'Auto Icon', description: 'Rendered automatically based on variant (info, warning, success, destructive).' },
+      { name: 'AlertTitle', description: 'Renders as <h5> — the bold heading of the alert.' },
+      { name: 'AlertDescription', description: 'Secondary body text — provides more context.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use destructive for errors that block the user\'s workflow.',
+        'Use info for neutral system messages and tips.',
+        'Always pair AlertTitle with AlertDescription for complex messages.',
+        'Place alerts near the content they relate to, not only at page top.',
+      ],
+      donts: [
+        'Don\'t use alerts for every validation message — use input-level errors instead.',
+        'Don\'t show multiple alerts of the same type simultaneously.',
+        'Don\'t animate alerts in on every re-render — it causes distraction.',
+        'Don\'t use warning for errors — reserve warning for preventable issues.',
+      ],
+    },
+    variants: [
+      { name: 'default', description: 'Neutral — informational messages without urgency.' },
+      { name: 'destructive', description: 'Red — blocking errors that require immediate action.' },
+      { name: 'success', description: 'Green — confirmation that an action succeeded.' },
+      { name: 'warning', description: 'Yellow — caution; action is possible but risky.' },
+      { name: 'info', description: 'Blue — contextual information or tips.' },
+    ],
+  },
+
+  accordion: {
+    anatomy: [
+      { name: 'Accordion', description: 'Root — manages open state context (single or multiple).' },
+      { name: 'AccordionItem', description: 'Individual collapsible section — holds trigger and content.' },
+      { name: 'AccordionTrigger', description: 'Clickable header with auto-rotating chevron icon.' },
+      { name: 'AccordionContent', description: 'Animated panel — collapses to height 0 when closed.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use type="single" when only one section should be readable at a time.',
+        'Use type="multiple" for independent sections like FAQ items.',
+        'Give each AccordionTrigger a clear, scannable label.',
+        'Use separated variant to visually isolate important sections.',
+      ],
+      donts: [
+        'Don\'t nest accordions inside accordion content — it creates disorientation.',
+        'Don\'t hide critical information in accordions that must always be visible.',
+        'Don\'t use accordion for very short content — a simple list is clearer.',
+        'Don\'t label triggers with generic text like "Click here".',
+      ],
+    },
+    variants: [
+      { name: 'default', description: 'Flush — items share a single border at the bottom.' },
+      { name: 'bordered', description: 'Each item has its own full border box.' },
+      { name: 'separated', description: 'Items have gap between them — works as standalone cards.' },
+    ],
+  },
+
+  tabs: {
+    anatomy: [
+      { name: 'Tabs', description: 'Root context provider — manages active tab state.' },
+      { name: 'TabsList', description: 'Navigation strip — renders tab triggers in a row.' },
+      { name: 'TabsTrigger', description: 'Individual tab button — sets active value on click.' },
+      { name: 'TabsContent', description: 'Content panel — shown only when its value matches the active tab.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use default variant for content-heavy interfaces (documentation, settings).',
+        'Use segmented variant for switching between two to four views.',
+        'Keep tab labels short — one or two words maximum.',
+        'Ensure TabsContent panels have consistent minimum height.',
+      ],
+      donts: [
+        'Don\'t use tabs for sequential steps — use a Stepper instead.',
+        'Don\'t use tabs for more than 7 items — use navigation or a dropdown.',
+        'Don\'t hide required content in tabs that users might not visit.',
+        'Don\'t mix segmented and default variants in the same layout.',
+      ],
+    },
+    variants: [
+      { name: 'default', description: 'Underline indicator — classic tab strip anchored to a bottom border.' },
+      { name: 'segmented', description: 'Pill background — iOS-style selector for mutually exclusive views.' },
+    ],
+  },
+
+  avatar: {
+    anatomy: [
+      { name: 'Avatar', description: 'Root — controls size, shape, and exposes image-load state via context.' },
+      { name: 'AvatarImage', description: 'Renders the user photo — falls back to AvatarFallback on error.' },
+      { name: 'AvatarFallback', description: 'Shown while the image loads or when it fails — initials or icon.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Always provide AvatarFallback with meaningful initials.',
+        'Use AvatarGroup when displaying 3–10 users in a compact space.',
+        'Use consistent sizes within the same UI region.',
+        'Provide descriptive alt text on AvatarImage for screen readers.',
+      ],
+      donts: [
+        'Don\'t use avatars without a fallback — images always fail sometimes.',
+        'Don\'t mix circle and square shapes in the same list.',
+        'Don\'t use 2xl avatars in dense data tables — use xs or sm.',
+        'Don\'t use avatars as decoration without meaningful content nearby.',
+      ],
+    },
+    variants: [
+      { name: 'circle (default)', description: 'Standard rounded-full shape — default for people.' },
+      { name: 'square', description: 'Rounded rectangle — good for organization or product avatars.' },
+      { name: 'xs / sm / md / lg / xl / 2xl', description: 'Six size presets from 24px to 96px.' },
+    ],
+  },
+
+  modal: {
+    anatomy: [
+      { name: 'Backdrop', description: 'Full-screen overlay — traps focus and dismisses on click.' },
+      { name: 'Panel', description: 'The modal container — centers on screen with max-width from size prop.' },
+      { name: 'Header', description: 'Title bar — rendered when title prop is provided.' },
+      { name: 'Body (children)', description: 'Main content area — any React content passed as children.' },
+      { name: 'Footer', description: 'Action button area — rendered when footer prop is provided.' },
+      { name: 'Close Button', description: 'X button in the header corner — calls onClose on click.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use for tasks that need full focus — forms, confirmations, detail views.',
+        'Provide a title so users know what the modal is about immediately.',
+        'Put primary action in the footer — keep body for content only.',
+        'Allow Escape key to close — always wire onClose to keyboard events.',
+      ],
+      donts: [
+        'Don\'t open modals from other modals — use ModalStackManager instead.',
+        'Don\'t use modals for non-critical notifications — use Toast or Snackbar.',
+        'Don\'t make modal body full-page length — keep content scannable.',
+        'Don\'t remove the close button — users expect to escape.',
+      ],
+    },
+    variants: [
+      { name: 'sm', description: '480px max-width — for simple confirmations or compact forms.' },
+      { name: 'md (default)', description: '640px max-width — general purpose.' },
+      { name: 'lg', description: '800px max-width — rich forms or detail views.' },
+      { name: 'xl', description: '1024px max-width — dashboards or side-by-side layouts.' },
+      { name: 'full', description: 'Fills the entire viewport — immersive experiences.' },
+    ],
+  },
+
+  toast: {
+    anatomy: [
+      { name: 'ToastProvider', description: 'Wraps the app — creates the viewport context.' },
+      { name: 'ToastViewport', description: 'Fixed overlay container — toasts portal into this element.' },
+      { name: 'Toast', description: 'Individual notification — manages open state, auto-dismiss timer.' },
+      { name: 'ToastTitle', description: 'Bold heading — the primary message.' },
+      { name: 'ToastDescription', description: 'Secondary body text — additional context.' },
+      { name: 'ToastAction', description: 'Optional action button (e.g. Undo, View).' },
+      { name: 'ToastClose', description: 'X button — calls close() from ToastItemContext.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use for transient confirmations — "Saved", "Copied", "Sent".',
+        'Keep messages short — one sentence maximum.',
+        'Use role="alert" for errors (assertive live region).',
+        'Provide a ToastAction only when the action is immediately relevant.',
+      ],
+      donts: [
+        'Don\'t use toasts for errors that block the workflow — use Alert or Modal.',
+        'Don\'t stack more than 3 toasts at once — it overwhelms users.',
+        'Don\'t set duration={Infinity} unless the toast has a manual dismiss.',
+        'Don\'t put forms or complex content inside a toast.',
+      ],
+    },
+    variants: [
+      { name: 'default', description: 'Glass surface with primary text — neutral informational.' },
+      { name: 'destructive', description: 'Red background — for errors or destructive action confirmation.' },
+      { name: 'success', description: 'Green-tinted — for successful operation confirmation.' },
+    ],
+  },
+
+  select: {
+    anatomy: [
+      { name: 'Trigger', description: 'The visible select button — shows selected value or placeholder.' },
+      { name: 'Dropdown Panel', description: 'Floating list — appears below (or above) the trigger.' },
+      { name: 'SelectItem', description: 'Individual option row — rendered as children.' },
+      { name: 'Label', description: 'Optional field label above the trigger.' },
+      { name: 'Error Text', description: 'Validation message shown below the trigger.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use when there are 5+ options — fewer options should use RadioGroup.',
+        'Provide a meaningful placeholder (e.g. "Select country").',
+        'Group related options using option groups when list is long.',
+        'Use label prop — never rely on placeholder alone for accessibility.',
+      ],
+      donts: [
+        'Don\'t use select for binary yes/no — use a Switch or Checkbox instead.',
+        'Don\'t list more than 50 options without search — use Combobox.',
+        'Don\'t use disabled options without explaining why.',
+        'Don\'t use select inside popovers — floating elements stack poorly.',
+      ],
+    },
+    variants: [
+      { name: 'default', description: 'Standard dropdown with full list of SelectItem children.' },
+      { name: 'error state', description: 'Red trigger border + error message when validation fails.' },
+      { name: 'disabled', description: 'Grayed out — no interaction possible.' },
+    ],
+  },
+
+  badge: {
+    anatomy: [
+      { name: 'Root', description: 'A <span> — small pill shape with color and text.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use badges to label statuses, categories, or counts.',
+        'Keep badge text to 1–2 words or a small number.',
+        'Use color variants consistently: green = success, red = error, etc.',
+        'Place badges next to the content they describe.',
+      ],
+      donts: [
+        'Don\'t use badges as interactive buttons — use Chip instead.',
+        'Don\'t use long sentences inside a badge.',
+        'Don\'t use more than 3 different badge colors in the same view.',
+        'Don\'t use badges purely for decoration without semantic meaning.',
+      ],
+    },
+    variants: [
+      { name: 'default', description: 'Neutral gray — for generic labels and categories.' },
+      { name: 'primary', description: 'Brand color — for highlighted or selected states.' },
+      { name: 'success', description: 'Green — for completed, active, or verified states.' },
+      { name: 'warning', description: 'Yellow/orange — for pending or needs-attention states.' },
+      { name: 'error', description: 'Red — for failed, blocked, or critical states.' },
+      { name: 'info', description: 'Blue — for informational or in-progress states.' },
+    ],
+  },
+
+  checkbox: {
+    anatomy: [
+      { name: 'Indicator', description: 'The visible checkbox square — shows check, minus, or empty.' },
+      { name: 'Label', description: 'Text next to the checkbox — associated via id/htmlFor.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use for multiple independent boolean selections.',
+        'Use indeterminate state for "select all" when some items are checked.',
+        'Always associate a label — do not leave unlabeled checkboxes.',
+        'Group related checkboxes under a visible group heading.',
+      ],
+      donts: [
+        'Don\'t use checkboxes for mutually exclusive choices — use RadioGroup.',
+        'Don\'t use a single checkbox for a required selection — use a required toggle.',
+        'Don\'t disable without explanation — users won\'t know why.',
+        'Don\'t place checkboxes in a horizontal row if labels are long.',
+      ],
+    },
+    variants: [
+      { name: 'unchecked', description: 'Default empty state.' },
+      { name: 'checked', description: 'Filled with checkmark.' },
+      { name: 'indeterminate', description: 'Mixed state — partial selection of a group.' },
+      { name: 'disabled', description: 'Grayed out — read-only.' },
+    ],
+  },
+
+  switch: {
+    anatomy: [
+      { name: 'Track', description: 'The background pill — changes color when toggled.' },
+      { name: 'Thumb', description: 'The sliding circle — animates left/right.' },
+      { name: 'Label', description: 'Descriptive text next to the toggle.' },
+      { name: 'Description', description: 'Helper text below the label.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use for settings that take immediate effect without a "Save" button.',
+        'Provide a label that describes the on state (e.g. "Notifications enabled").',
+        'Use sm size in dense settings lists, md/lg for prominent settings.',
+        'Pair with a description when the implication isn\'t obvious.',
+      ],
+      donts: [
+        'Don\'t require a "Save" click after toggling — it breaks the mental model.',
+        'Don\'t use switch for multi-step decisions — use a Modal confirm.',
+        'Don\'t use for irreversible destructive actions — use ConfirmDialog.',
+        'Don\'t label both on and off states — keep one clear label.',
+      ],
+    },
+    variants: [
+      { name: 'sm', description: 'Compact — for dense settings panels.' },
+      { name: 'md (default)', description: 'Standard — general purpose.' },
+      { name: 'lg', description: 'Prominent — for key setting toggles.' },
+      { name: 'disabled', description: 'Locked — prevents interaction.' },
+    ],
+  },
+
+  tooltip: {
+    anatomy: [
+      { name: 'Trigger', description: 'The wrapped element — tooltip appears on hover or focus.' },
+      { name: 'Content Bubble', description: 'Floating panel — renders the content prop.' },
+      { name: 'Arrow', description: 'Pointer pointing to the trigger element.' },
+    ],
+    dosdonts: {
+      dos: [
+        'Use to clarify icon-only buttons with a text label.',
+        'Use for supplementary information — never for required content.',
+        'Ensure tooltip content is reachable via keyboard (focus trigger).',
+        'Keep tooltip text concise — one or two lines maximum.',
+      ],
+      donts: [
+        'Don\'t put interactive elements (buttons, links) inside tooltips.',
+        'Don\'t use tooltips on mobile — they have no hover state.',
+        'Don\'t repeat information that\'s already visible nearby.',
+        'Don\'t use tooltips for error messages — use input-level errors.',
+      ],
+    },
+    variants: [
+      { name: 'top (default)', description: 'Appears above the trigger.' },
+      { name: 'bottom', description: 'Appears below the trigger.' },
+      { name: 'left', description: 'Appears to the left.' },
+      { name: 'right', description: 'Appears to the right.' },
+    ],
+  },
+}
+
+function ComponentDocSections({ componentName }: { componentName: string }) {
+  const doc = COMPONENT_DOCS[componentName]
+  if (!doc) return null
+
+  return (
+    <>
+      {doc.anatomy && (
+        <div className="space-y-4 border-t border-border-primary pt-8">
+          <div>
+            <Title id={`doc-${componentName}-anatomy`} level={3} className="mb-1">Anatomy</Title>
+            <Text color="secondary">Internal parts that make up this component.</Text>
+          </div>
+          <AnatomySection parts={doc.anatomy} />
+        </div>
+      )}
+
+      {doc.dosdonts && (
+        <div className="space-y-4 border-t border-border-primary pt-8">
+          <div>
+            <Title id={`doc-${componentName}-when-to-use`} level={3} className="mb-1">When to use</Title>
+            <Text color="secondary">Guidelines for correct and incorrect usage.</Text>
+          </div>
+          <DosDontsSection entry={doc.dosdonts} />
+        </div>
+      )}
+
+      {doc.variants && (
+        <div className="space-y-4 border-t border-border-primary pt-8">
+          <div>
+            <Title id={`doc-${componentName}-variants`} level={3} className="mb-1">Variants & States</Title>
+            <Text color="secondary">Available visual variants and behavioral states.</Text>
+          </div>
+          <VariantsSection variants={doc.variants} />
+        </div>
+      )}
+    </>
+  )
+}
+
 export default function ComponentDetailPageV2() {
   const { componentName } = useParams<{ componentName: string }>()
   const navigate = useNavigate()
@@ -252,30 +3756,27 @@ export default function ComponentDetailPageV2() {
         </div>
       </div>
 
+      {/* ANATOMY / DOS & DON'TS / VARIANTS */}
+      <ComponentDocSections componentName={component.name.toLowerCase()} />
+
       {/* EXAMPLES SECTION */}
       <div className="space-y-8 border-t border-border-primary pt-8">
         <div>
-          <Title id={generateHeadingId(component.name, 'Examples')} level={3} className="mb-1">Examples</Title>
-          <Text color="secondary">Interactive examples and their code snippets.</Text>
+          <Title id={generateHeadingId(component.name, 'Examples')} level={3} className="mb-1">Code Integration</Title>
+          <Text color="secondary">Copy-paste ready examples with interactive previews.</Text>
         </div>
 
         {/* Render component-specific examples */}
         <ComponentExamples componentName={component.name.toLowerCase()} />
       </div>
 
-      {/* PROPS SECTION */}
-      <div className="space-y-4 border-t border-border-primary pt-8">
-        <Title id={generateHeadingId(component.name, 'API Reference')} level={3}>API Reference</Title>
-        <div className="rounded-lg border border-border-primary overflow-hidden">
-          <div className="p-4 bg-surface-secondary border-b border-border-primary">
-            <Text weight="medium" variant="small">Component Props</Text>
-          </div>
-          <div className="p-4">
-            <Text variant="small" color="secondary">
-              Refer to the component documentation or source code for detailed prop specifications.
-            </Text>
-          </div>
+      {/* API REFERENCE SECTION */}
+      <div className="space-y-6 border-t border-border-primary pt-8">
+        <div>
+          <Title id={generateHeadingId(component.name, 'API Reference')} level={3} className="mb-1">API Reference</Title>
+          <Text color="secondary">Full prop tables for every exported part of this component.</Text>
         </div>
+        <ComponentApiReference componentName={component.name.toLowerCase()} />
       </div>
     </motion.div>
   )
@@ -523,7 +4024,7 @@ function ComponentExamples({ componentName }: { componentName: string }) {
 // ─── BUTTON EXAMPLES ───
 
 import { Badge } from '../../components/ui/Badge'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../../components/ui/Card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '../../components/ui/Card'
 
 function ButtonExamples() {
   return (
@@ -766,42 +4267,150 @@ function CardExamples() {
   return (
     <>
       <ComponentExample
-        title="Basic Card"
-        description="Standard card layout"
+        title="Variants"
+        description="Elevated, glass, outlined, and flat"
         preview={
-          <Card className="max-w-sm">
+          <div className="grid grid-cols-2 gap-4 w-full max-w-2xl">
+            <Card variant="elevated" padding="md">
+              <CardHeader>
+                <CardTitle>Elevated</CardTitle>
+                <CardDescription>Default shadow-based card</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Text variant="small" color="secondary">Subtle elevation above the surface.</Text>
+              </CardContent>
+            </Card>
+            <Card variant="glass" padding="md">
+              <CardHeader>
+                <CardTitle>Glass</CardTitle>
+                <CardDescription>Frosted glass effect</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Text variant="small" color="secondary">Blur and transparency combined.</Text>
+              </CardContent>
+            </Card>
+            <Card variant="outlined" padding="md">
+              <CardHeader>
+                <CardTitle>Outlined</CardTitle>
+                <CardDescription>Border-only card</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Text variant="small" color="secondary">Clean border without shadow.</Text>
+              </CardContent>
+            </Card>
+            <Card variant="flat" padding="md">
+              <CardHeader>
+                <CardTitle>Flat</CardTitle>
+                <CardDescription>Background tint, no border</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Text variant="small" color="secondary">Minimal visual weight.</Text>
+              </CardContent>
+            </Card>
+          </div>
+        }
+        code={`import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
+
+export function Example() {
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      <Card variant="elevated">
+        <CardHeader>
+          <CardTitle>Elevated</CardTitle>
+          <CardDescription>Default shadow card</CardDescription>
+        </CardHeader>
+        <CardContent>Subtle elevation above the surface.</CardContent>
+      </Card>
+      <Card variant="glass">
+        <CardHeader>
+          <CardTitle>Glass</CardTitle>
+          <CardDescription>Frosted glass effect</CardDescription>
+        </CardHeader>
+        <CardContent>Blur and transparency combined.</CardContent>
+      </Card>
+      <Card variant="outlined">
+        <CardHeader>
+          <CardTitle>Outlined</CardTitle>
+          <CardDescription>Border-only card</CardDescription>
+        </CardHeader>
+        <CardContent>Clean border without shadow.</CardContent>
+      </Card>
+      <Card variant="flat">
+        <CardHeader>
+          <CardTitle>Flat</CardTitle>
+          <CardDescription>Background tint, no border</CardDescription>
+        </CardHeader>
+        <CardContent>Minimal visual weight.</CardContent>
+      </Card>
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="With footer & actions"
+        description="Full layout with header, content, and footer"
+        preview={
+          <Card variant="elevated" padding="md" className="max-w-sm w-full">
             <CardHeader>
-              <CardTitle>Card Title</CardTitle>
-              <CardDescription>A short description of the card content</CardDescription>
+              <CardTitle>Payment method</CardTitle>
+              <CardDescription>Update your billing information</CardDescription>
             </CardHeader>
             <CardContent>
               <Text variant="small" color="secondary">
-                This is the card content area. You can add any content here.
+                Your Visa ending in •••• 4242 is used for all active subscriptions.
               </Text>
             </CardContent>
+            <CardFooter>
+              <Button variant="primary" size="sm">Update card</Button>
+              <Button variant="ghost" size="sm">Cancel</Button>
+            </CardFooter>
           </Card>
         }
-        code={`import { 
-  Card, 
-  CardContent, 
-  CardHeader, 
-  CardTitle, 
-  CardDescription 
+        code={`import {
+  Card, CardHeader, CardTitle, CardDescription,
+  CardContent, CardFooter
 } from '@/components/ui/Card'
 
 export function Example() {
   return (
-    <Card>
+    <Card variant="elevated">
       <CardHeader>
-        <CardTitle>Card Title</CardTitle>
-        <CardDescription>A short description</CardDescription>
+        <CardTitle>Payment method</CardTitle>
+        <CardDescription>Update your billing information</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>Card content goes here</p>
+        Your Visa ending in •••• 4242 is used for all active subscriptions.
       </CardContent>
+      <CardFooter>
+        <Button variant="primary" size="sm">Update card</Button>
+        <Button variant="ghost" size="sm">Cancel</Button>
+      </CardFooter>
     </Card>
   )
 }`}
+      />
+
+      <ComponentExample
+        title="Hoverable"
+        description="Spring animation on hover — great for interactive grids"
+        preview={
+          <div className="flex gap-4 flex-wrap justify-center">
+            {['Team member', 'Design doc', 'Deployment'].map((item) => (
+              <Card key={item} variant="outlined" padding="md" hoverable className="w-44 text-center cursor-pointer">
+                <CardContent>
+                  <Text weight="medium">{item}</Text>
+                  <Text variant="small" color="secondary" className="mt-1">Hover me</Text>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        }
+        code={`<Card variant="outlined" hoverable>
+  <CardContent>
+    <p>Hover me for the spring lift effect</p>
+  </CardContent>
+</Card>`}
       />
     </>
   )
@@ -846,31 +4455,63 @@ export function Example() {
 
 // ─── ALERT EXAMPLES ───
 
-import { Alert } from '../../components/ui/Alert'
+import { Alert, AlertTitle, AlertDescription } from '../../components/ui/Alert'
 
 function AlertExamples() {
   return (
     <>
       <ComponentExample
         title="All Variants"
-        description="Alert severity levels"
+        description="Five severity levels with auto-selected icons"
         preview={
-          <div className="space-y-3 max-w-md">
-            <Alert variant="default">This is a default alert</Alert>
-            <Alert variant="success">Success! Operation completed successfully.</Alert>
-            <Alert variant="warning">Warning: Please review this information before continuing.</Alert>
-            <Alert variant="destructive">Error: Something went wrong. Please try again.</Alert>
+          <div className="space-y-3 max-w-md w-full">
+            <Alert variant="default">
+              <AlertTitle>Heads up</AlertTitle>
+              <AlertDescription>This is a default informational alert message.</AlertDescription>
+            </Alert>
+            <Alert variant="success">
+              <AlertTitle>Changes saved</AlertTitle>
+              <AlertDescription>Your profile has been updated successfully.</AlertDescription>
+            </Alert>
+            <Alert variant="warning">
+              <AlertTitle>Irreversible action</AlertTitle>
+              <AlertDescription>This cannot be undone. Please review before continuing.</AlertDescription>
+            </Alert>
+            <Alert variant="destructive">
+              <AlertTitle>Session expired</AlertTitle>
+              <AlertDescription>Please sign in again to continue.</AlertDescription>
+            </Alert>
+            <Alert variant="info">
+              <AlertTitle>New version available</AlertTitle>
+              <AlertDescription>Check the changelog for what's new in v2.4.</AlertDescription>
+            </Alert>
           </div>
         }
-        code={`import { Alert } from '@/components/ui/Alert'
+        code={`import { Alert, AlertTitle, AlertDescription } from '@/components/ui/Alert'
 
 export function Example() {
   return (
     <div className="space-y-3">
-      <Alert variant="default">Default alert</Alert>
-      <Alert variant="success">Success alert</Alert>
-      <Alert variant="warning">Warning alert</Alert>
-      <Alert variant="destructive">Error alert</Alert>
+      <Alert variant="default">
+        <AlertTitle>Heads up</AlertTitle>
+        <AlertDescription>This is a default informational alert.</AlertDescription>
+      </Alert>
+      <Alert variant="success">
+        <AlertTitle>Changes saved</AlertTitle>
+        <AlertDescription>Your profile has been updated successfully.</AlertDescription>
+      </Alert>
+      <Alert variant="warning">
+        <AlertTitle>Irreversible action</AlertTitle>
+        <AlertDescription>This cannot be undone. Please review before continuing.</AlertDescription>
+      </Alert>
+      <Alert variant="destructive">
+        <AlertTitle>Session expired</AlertTitle>
+        <AlertDescription>Please sign in again to continue.</AlertDescription>
+      </Alert>
+      <Alert variant="info">
+        <AlertTitle>New version available</AlertTitle>
+        <AlertDescription>Check the changelog for what's new.</AlertDescription>
+      </Alert>
     </div>
   )
 }`}
@@ -885,33 +4526,124 @@ function TabsExamples() {
   return (
     <>
       <ComponentExample
-        title="Basic Tabs"
-        description="Tab navigation"
+        title="Default — underline variant"
+        description="Standard tab navigation with animated underline indicator"
         preview={
-          <Tabs defaultValue="account" className="w-full max-w-md">
+          <Tabs defaultValue="overview" className="w-full max-w-md">
             <TabsList>
-              <TabsTrigger value="account">Account</TabsTrigger>
-              <TabsTrigger value="password">Password</TabsTrigger>
-              <TabsTrigger value="notifications">Notifications</TabsTrigger>
+              <TabsTrigger value="overview">Overview</TabsTrigger>
+              <TabsTrigger value="transactions">Transactions</TabsTrigger>
+              <TabsTrigger value="analytics">Analytics</TabsTrigger>
             </TabsList>
-            <TabsContent value="account"><Text color="secondary" className="mt-3">Account settings content</Text></TabsContent>
-            <TabsContent value="password"><Text color="secondary" className="mt-3">Password settings content</Text></TabsContent>
-            <TabsContent value="notifications"><Text color="secondary" className="mt-3">Notification settings content</Text></TabsContent>
+            <TabsContent value="overview">
+              <Text color="secondary" className="mt-4 text-sm">Account overview and recent activity.</Text>
+            </TabsContent>
+            <TabsContent value="transactions">
+              <Text color="secondary" className="mt-4 text-sm">All incoming and outgoing transactions.</Text>
+            </TabsContent>
+            <TabsContent value="analytics">
+              <Text color="secondary" className="mt-4 text-sm">Spending patterns and monthly reports.</Text>
+            </TabsContent>
           </Tabs>
         }
         code={`import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs'
 
 export function Example() {
   return (
-    <Tabs defaultValue="account">
+    <Tabs defaultValue="overview">
       <TabsList>
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
-        <TabsTrigger value="notifications">Notifications</TabsTrigger>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="transactions">Transactions</TabsTrigger>
+        <TabsTrigger value="analytics">Analytics</TabsTrigger>
       </TabsList>
-      <TabsContent value="account">Account settings</TabsContent>
-      <TabsContent value="password">Password settings</TabsContent>
-      <TabsContent value="notifications">Notification settings</TabsContent>
+      <TabsContent value="overview">Account overview and recent activity.</TabsContent>
+      <TabsContent value="transactions">All incoming and outgoing transactions.</TabsContent>
+      <TabsContent value="analytics">Spending patterns and monthly reports.</TabsContent>
+    </Tabs>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Segmented — pill variant"
+        description="Pill-shaped tabs ideal for trading or filter UIs"
+        preview={
+          <Tabs defaultValue="buy" className="w-full max-w-xs">
+            <TabsList variant="segmented">
+              <TabsTrigger value="buy">Buy</TabsTrigger>
+              <TabsTrigger value="sell">Sell</TabsTrigger>
+              <TabsTrigger value="swap">Swap</TabsTrigger>
+            </TabsList>
+            <TabsContent value="buy">
+              <Text color="secondary" className="mt-4 text-sm">Enter the amount you want to buy.</Text>
+            </TabsContent>
+            <TabsContent value="sell">
+              <Text color="secondary" className="mt-4 text-sm">Choose assets to sell from your portfolio.</Text>
+            </TabsContent>
+            <TabsContent value="swap">
+              <Text color="secondary" className="mt-4 text-sm">Swap between two assets instantly.</Text>
+            </TabsContent>
+          </Tabs>
+        }
+        code={`import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs'
+
+export function Example() {
+  return (
+    <Tabs defaultValue="buy">
+      <TabsList variant="segmented">
+        <TabsTrigger value="buy">Buy</TabsTrigger>
+        <TabsTrigger value="sell">Sell</TabsTrigger>
+        <TabsTrigger value="swap">Swap</TabsTrigger>
+      </TabsList>
+      <TabsContent value="buy">Enter the amount you want to buy.</TabsContent>
+      <TabsContent value="sell">Choose assets to sell from your portfolio.</TabsContent>
+      <TabsContent value="swap">Swap between two assets instantly.</TabsContent>
+    </Tabs>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Controlled — with disabled tab"
+        description="Fully controlled via useState, with one disabled tab"
+        preview={
+          (() => {
+            const [tab, setTab] = React.useState('active')
+            return (
+              <Tabs value={tab} onValueChange={setTab} className="w-full max-w-md">
+                <TabsList>
+                  <TabsTrigger value="active">Active</TabsTrigger>
+                  <TabsTrigger value="pending">Pending</TabsTrigger>
+                  <TabsTrigger value="archived" disabled>Archived</TabsTrigger>
+                </TabsList>
+                <TabsContent value="active">
+                  <Text color="secondary" className="mt-4 text-sm">3 active subscriptions.</Text>
+                </TabsContent>
+                <TabsContent value="pending">
+                  <Text color="secondary" className="mt-4 text-sm">1 subscription awaiting confirmation.</Text>
+                </TabsContent>
+                <TabsContent value="archived">
+                  <Text color="secondary" className="mt-4 text-sm">Archived subscriptions.</Text>
+                </TabsContent>
+              </Tabs>
+            )
+          })()
+        }
+        code={`import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/Tabs'
+import { useState } from 'react'
+
+export function Example() {
+  const [tab, setTab] = useState('active')
+  return (
+    <Tabs value={tab} onValueChange={setTab}>
+      <TabsList>
+        <TabsTrigger value="active">Active</TabsTrigger>
+        <TabsTrigger value="pending">Pending</TabsTrigger>
+        <TabsTrigger value="archived" disabled>Archived</TabsTrigger>
+      </TabsList>
+      <TabsContent value="active">3 active subscriptions.</TabsContent>
+      <TabsContent value="pending">1 subscription awaiting confirmation.</TabsContent>
+      <TabsContent value="archived">Archived subscriptions.</TabsContent>
     </Tabs>
   )
 }`}
@@ -1266,42 +4998,311 @@ export function Example() {
 }
 
 // ─── ACCORDION EXAMPLES ───
-import { Accordion } from '../../components/ui/Accordion'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '../../components/ui/Accordion'
 
 function AccordionExamples() {
   return (
     <>
       <ComponentExample
-        title="Basic Accordion"
-        description="Expandable accordion sections"
-        preview={<Accordion items={[{title: 'Section 1', content: 'Content 1'}, {title: 'Section 2', content: 'Content 2'}]} />}
-        code={`import { Accordion } from '@/components/ui/Accordion'
+        title="Single — Collapsible"
+        description="Only one item open at a time; can close all"
+        preview={
+          <div className="w-full max-w-md">
+            <Accordion type="single" collapsible defaultValue="item-1">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                <AccordionContent>
+                  Yes. It ships with WAI-ARIA attributes and full keyboard navigation out of the box.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>Is it styled?</AccordionTrigger>
+                <AccordionContent>
+                  Yes. It comes with default styles that match the design system tokens — fully customisable via className.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3">
+                <AccordionTrigger>Is it animated?</AccordionTrigger>
+                <AccordionContent>
+                  Yes. Height animates smoothly using a ResizeObserver-based approach — no fixed heights needed.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        }
+        code={`import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/Accordion'
+
 export function Example() {
   return (
-    <Accordion items={[
-      {title: 'Section 1', content: 'Content 1'},
-      {title: 'Section 2', content: 'Content 2'}
-    ]} />
+    <Accordion type="single" collapsible defaultValue="item-1">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>Is it accessible?</AccordionTrigger>
+        <AccordionContent>
+          Yes. WAI-ARIA attributes and full keyboard navigation included.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>Is it styled?</AccordionTrigger>
+        <AccordionContent>
+          Yes. Fully customisable via className and design tokens.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger>Is it animated?</AccordionTrigger>
+        <AccordionContent>
+          Yes. Smooth height animation via ResizeObserver — no fixed heights.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   )
 }`}
+      />
+
+      <ComponentExample
+        title="Multiple — Expand all"
+        description="Multiple items can be open simultaneously"
+        preview={
+          <div className="w-full max-w-md">
+            <Accordion type="multiple" defaultValue={['faq-1', 'faq-3']}>
+              <AccordionItem value="faq-1">
+                <AccordionTrigger>What payment methods are accepted?</AccordionTrigger>
+                <AccordionContent>
+                  We accept Visa, Mastercard, American Express and PayPal.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="faq-2">
+                <AccordionTrigger>Can I cancel my subscription?</AccordionTrigger>
+                <AccordionContent>
+                  Yes, you can cancel at any time from your account settings. No fees apply.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="faq-3">
+                <AccordionTrigger>How do I contact support?</AccordionTrigger>
+                <AccordionContent>
+                  Reach us at support@example.com or via the in-app chat widget.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        }
+        code={`import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from '@/components/ui/Accordion'
+
+export function Example() {
+  return (
+    <Accordion type="multiple" defaultValue={['faq-1', 'faq-3']}>
+      <AccordionItem value="faq-1">
+        <AccordionTrigger>What payment methods are accepted?</AccordionTrigger>
+        <AccordionContent>
+          We accept Visa, Mastercard, American Express and PayPal.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="faq-2">
+        <AccordionTrigger>Can I cancel my subscription?</AccordionTrigger>
+        <AccordionContent>
+          Yes, you can cancel anytime from your account settings.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="faq-3">
+        <AccordionTrigger>How do I contact support?</AccordionTrigger>
+        <AccordionContent>
+          Reach us at support@example.com or via in-app chat.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Disabled item"
+        description="Individual items can be disabled"
+        preview={
+          <div className="w-full max-w-md">
+            <Accordion type="single" collapsible>
+              <AccordionItem value="a">
+                <AccordionTrigger>Available section</AccordionTrigger>
+                <AccordionContent>This section is open and interactive.</AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="b" disabled>
+                <AccordionTrigger>Locked section</AccordionTrigger>
+                <AccordionContent>This content is not accessible.</AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="c">
+                <AccordionTrigger>Another available section</AccordionTrigger>
+                <AccordionContent>Back to normal interaction here.</AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </div>
+        }
+        code={`<Accordion type="single" collapsible>
+  <AccordionItem value="a">
+    <AccordionTrigger>Available section</AccordionTrigger>
+    <AccordionContent>This section is open and interactive.</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="b" disabled>
+    <AccordionTrigger>Locked section</AccordionTrigger>
+    <AccordionContent>This content is not accessible.</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="c">
+    <AccordionTrigger>Another available section</AccordionTrigger>
+    <AccordionContent>Back to normal interaction here.</AccordionContent>
+  </AccordionItem>
+</Accordion>`}
       />
     </>
   )
 }
 
 // ─── AVATAR EXAMPLES ───
-import { Avatar } from '../../components/ui/Avatar'
+import { Avatar, AvatarImage, AvatarFallback } from '../../components/ui/Avatar'
 
 function AvatarExamples() {
   return (
     <>
       <ComponentExample
-        title="Basic Avatar"
-        description="User avatar display"
-        preview={<Avatar name="John Doe" />}
-        code={`import { Avatar } from '@/components/ui/Avatar'
+        title="With image"
+        description="Avatar with an image source and text fallback"
+        preview={
+          <div className="flex gap-4 items-center flex-wrap">
+            <Avatar size="md">
+              <AvatarImage src="https://i.pravatar.cc/150?img=1" alt="John Doe" />
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+            <Avatar size="md">
+              <AvatarImage src="https://i.pravatar.cc/150?img=5" alt="Jane Smith" />
+              <AvatarFallback>JS</AvatarFallback>
+            </Avatar>
+            <Avatar size="md">
+              <AvatarImage src="https://broken-url.example.com/img.jpg" alt="Fallback demo" />
+              <AvatarFallback>FB</AvatarFallback>
+            </Avatar>
+          </div>
+        }
+        code={`import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/Avatar'
+
 export function Example() {
-  return <Avatar name="John Doe" />
+  return (
+    <div className="flex gap-4">
+      {/* Image loads — shows photo */}
+      <Avatar>
+        <AvatarImage src="https://i.pravatar.cc/150?img=1" alt="John Doe" />
+        <AvatarFallback>JD</AvatarFallback>
+      </Avatar>
+
+      {/* Image fails — shows initials */}
+      <Avatar>
+        <AvatarImage src="https://broken-url.example.com/img.jpg" alt="Fallback" />
+        <AvatarFallback>FB</AvatarFallback>
+      </Avatar>
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Sizes"
+        description="Six size options: xs · sm · md · lg · xl · 2xl"
+        preview={
+          <div className="flex gap-4 items-end flex-wrap">
+            {(['xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const).map((size) => (
+              <div key={size} className="flex flex-col items-center gap-2">
+                <Avatar size={size}>
+                  <AvatarImage src={`https://i.pravatar.cc/150?img=3`} alt="User" />
+                  <AvatarFallback>U</AvatarFallback>
+                </Avatar>
+                <span className="text-xs text-text-tertiary font-mono">{size}</span>
+              </div>
+            ))}
+          </div>
+        }
+        code={`import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/Avatar'
+
+const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'] as const
+
+export function Example() {
+  return (
+    <div className="flex gap-4 items-end">
+      {sizes.map((size) => (
+        <Avatar key={size} size={size}>
+          <AvatarImage src="https://i.pravatar.cc/150?img=3" alt="User" />
+          <AvatarFallback>U</AvatarFallback>
+        </Avatar>
+      ))}
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Shapes"
+        description="Circle (default) and square shapes"
+        preview={
+          <div className="flex gap-6 items-center">
+            <div className="flex flex-col items-center gap-2">
+              <Avatar size="lg" shape="circle">
+                <AvatarImage src="https://i.pravatar.cc/150?img=7" alt="Circle" />
+                <AvatarFallback>CR</AvatarFallback>
+              </Avatar>
+              <span className="text-xs text-text-tertiary">circle</span>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Avatar size="lg" shape="square">
+                <AvatarImage src="https://i.pravatar.cc/150?img=7" alt="Square" />
+                <AvatarFallback>SQ</AvatarFallback>
+              </Avatar>
+              <span className="text-xs text-text-tertiary">square</span>
+            </div>
+          </div>
+        }
+        code={`import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/Avatar'
+
+export function Example() {
+  return (
+    <div className="flex gap-6">
+      <Avatar size="lg" shape="circle">
+        <AvatarImage src="..." alt="Circle avatar" />
+        <AvatarFallback>CR</AvatarFallback>
+      </Avatar>
+      <Avatar size="lg" shape="square">
+        <AvatarImage src="..." alt="Square avatar" />
+        <AvatarFallback>SQ</AvatarFallback>
+      </Avatar>
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Fallback only"
+        description="Text initials when no image is provided"
+        preview={
+          <div className="flex gap-3 items-center flex-wrap">
+            <Avatar size="md"><AvatarFallback>AB</AvatarFallback></Avatar>
+            <Avatar size="md"><AvatarFallback>JD</AvatarFallback></Avatar>
+            <Avatar size="md"><AvatarFallback>MK</AvatarFallback></Avatar>
+            <Avatar size="lg"><AvatarFallback>TS</AvatarFallback></Avatar>
+          </div>
+        }
+        code={`import { Avatar, AvatarFallback } from '@/components/ui/Avatar'
+
+export function Example() {
+  return (
+    <div className="flex gap-3">
+      <Avatar><AvatarFallback>AB</AvatarFallback></Avatar>
+      <Avatar><AvatarFallback>JD</AvatarFallback></Avatar>
+      <Avatar><AvatarFallback>MK</AvatarFallback></Avatar>
+    </div>
+  )
 }`}
       />
     </>
@@ -1646,19 +5647,121 @@ export function Example() {
 }
 
 // ─── TOAST EXAMPLES ───
-import { Toast } from '../../components/ui/Toast'
+import {
+  Toast,
+  ToastProvider,
+  ToastViewport,
+  ToastTitle,
+  ToastDescription,
+  ToastClose,
+  ToastAction,
+} from '../../components/ui/Toast'
+
+function ToastDemo({ variant, title, description, actionLabel }: {
+  variant: 'default' | 'destructive' | 'success'
+  title: string
+  description: string
+  actionLabel?: string
+}) {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <ToastProvider>
+      <Button variant="secondary" size="sm" onClick={() => setOpen(true)}>
+        Show {variant} toast
+      </Button>
+      <Toast variant={variant} open={open} onOpenChange={setOpen} duration={4000}>
+        <div className="grid gap-1">
+          <ToastTitle>{title}</ToastTitle>
+          <ToastDescription>{description}</ToastDescription>
+        </div>
+        {actionLabel && (
+          <ToastAction onClick={() => setOpen(false)}>{actionLabel}</ToastAction>
+        )}
+        <ToastClose />
+      </Toast>
+      <ToastViewport />
+    </ToastProvider>
+  )
+}
 
 function ToastExamples() {
   return (
     <>
       <ComponentExample
-        title="Toast Notification"
-        description="Brief notification message"
-        preview={<Toast message="Operation completed successfully!" />}
-        code={`import { Toast } from '@/components/ui/Toast'
+        title="Default"
+        description="Standard informational toast triggered by a button"
+        preview={
+          <ToastDemo
+            variant="default"
+            title="Scheduled: Catch up"
+            description="Friday, February 10, 2024 at 5:57 PM"
+            actionLabel="Undo"
+          />
+        }
+        code={`import {
+  Toast, ToastProvider, ToastViewport,
+  ToastTitle, ToastDescription, ToastClose, ToastAction,
+} from '@/components/ui/Toast'
+import { useState } from 'react'
+
 export function Example() {
-  return <Toast message="Success!" />
+  const [open, setOpen] = useState(false)
+  return (
+    <ToastProvider>
+      <button onClick={() => setOpen(true)}>Show toast</button>
+      <Toast open={open} onOpenChange={setOpen} duration={4000}>
+        <div className="grid gap-1">
+          <ToastTitle>Scheduled: Catch up</ToastTitle>
+          <ToastDescription>Friday, February 10 at 5:57 PM</ToastDescription>
+        </div>
+        <ToastAction onClick={() => setOpen(false)}>Undo</ToastAction>
+        <ToastClose />
+      </Toast>
+      <ToastViewport />
+    </ToastProvider>
+  )
 }`}
+      />
+
+      <ComponentExample
+        title="Success"
+        description="Positive feedback toast"
+        preview={
+          <ToastDemo
+            variant="success"
+            title="Changes saved"
+            description="Your profile has been updated successfully."
+          />
+        }
+        code={`<Toast variant="success" open={open} onOpenChange={setOpen}>
+  <div className="grid gap-1">
+    <ToastTitle>Changes saved</ToastTitle>
+    <ToastDescription>Your profile has been updated successfully.</ToastDescription>
+  </div>
+  <ToastClose />
+</Toast>`}
+      />
+
+      <ComponentExample
+        title="Destructive"
+        description="Error or warning toast"
+        preview={
+          <ToastDemo
+            variant="destructive"
+            title="Uh oh! Something went wrong."
+            description="There was a problem with your request."
+            actionLabel="Try again"
+          />
+        }
+        code={`<Toast variant="destructive" open={open} onOpenChange={setOpen}>
+  <div className="grid gap-1">
+    <ToastTitle>Uh oh! Something went wrong.</ToastTitle>
+    <ToastDescription>There was a problem with your request.</ToastDescription>
+  </div>
+  <ToastAction onClick={retry}>Try again</ToastAction>
+  <ToastClose />
+</Toast>`}
       />
     </>
   )

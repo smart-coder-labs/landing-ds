@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { Title } from '../../components/ui/Title'
 import { Text } from '../../components/ui/Text'
 import { Card, CardContent } from '../../components/ui/Card'
 import { Badge } from '../../components/ui/Badge'
 import { CodeBlock } from '../../components/ui/CodeBlock'
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
   visible: (i = 0) => ({
     opacity: 1,

@@ -3,1283 +3,4096 @@
   "framework": "vite",
   "rsc": false,
   "components": {
-    "AIThinkingIndicator": {
-      "version": "1.2.3",
-      "type": "folder",
-      "installedAt": "2026-05-16T07:06:08.771Z",
-      "updatedAt": "2026-05-16T18:32:39.823Z"
-    },
     "AccessibleHighContrastMode": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:08.942Z",
-      "updatedAt": "2026-05-16T18:32:39.970Z"
+      "updatedAt": "2026-05-18T03:45:52.797Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:46.411Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:52.797Z"
+        }
+      ]
     },
     "Accordion": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:09.152Z",
-      "updatedAt": "2026-05-16T18:32:40.171Z"
+      "updatedAt": "2026-05-18T03:45:52.952Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:46.591Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:52.952Z"
+        }
+      ]
     },
     "AchTransactionsVisualizer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:09.310Z",
-      "updatedAt": "2026-05-16T18:32:40.324Z"
+      "updatedAt": "2026-05-18T03:45:53.106Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:46.761Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:53.106Z"
+        }
+      ]
     },
     "ActivityFeed": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:09.479Z",
-      "updatedAt": "2026-05-16T18:32:40.472Z"
+      "updatedAt": "2026-05-18T03:45:53.264Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:46.938Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:53.264Z"
+        }
+      ]
     },
     "ActivityMonitor": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:09.633Z",
-      "updatedAt": "2026-05-16T18:32:40.620Z"
+      "updatedAt": "2026-05-18T03:45:53.440Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:47.128Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:53.440Z"
+        }
+      ]
     },
     "AddressSelector": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:09.815Z",
-      "updatedAt": "2026-05-16T18:32:40.764Z"
+      "updatedAt": "2026-05-18T03:45:53.686Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:47.300Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:53.686Z"
+        }
+      ]
     },
     "AgendaView": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:09.956Z",
-      "updatedAt": "2026-05-16T18:32:40.909Z"
+      "updatedAt": "2026-05-18T03:45:53.843Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:47.460Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:53.843Z"
+        }
+      ]
     },
     "Alert": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:10.116Z",
-      "updatedAt": "2026-05-16T18:32:41.055Z"
+      "updatedAt": "2026-05-18T03:45:53.999Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:47.629Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:53.999Z"
+        }
+      ]
     },
     "AssetAllocationChart": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:10.272Z",
-      "updatedAt": "2026-05-16T18:32:41.196Z"
+      "updatedAt": "2026-05-18T03:45:54.160Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:48.036Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:54.160Z"
+        }
+      ]
     },
     "AssetPriceTicker": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:10.436Z",
-      "updatedAt": "2026-05-16T18:32:41.350Z"
+      "updatedAt": "2026-05-18T03:45:54.323Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:48.449Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:54.323Z"
+        }
+      ]
     },
     "AudioPlayer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:10.588Z",
-      "updatedAt": "2026-05-16T18:32:41.498Z"
+      "updatedAt": "2026-05-18T03:45:54.499Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:48.887Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:54.499Z"
+        }
+      ]
     },
     "Avatar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:10.740Z",
-      "updatedAt": "2026-05-16T18:32:41.651Z"
+      "updatedAt": "2026-05-18T03:45:54.670Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:49.289Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:54.670Z"
+        }
+      ]
     },
     "AvatarGroup": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:11.096Z",
-      "updatedAt": "2026-05-16T18:32:41.798Z"
+      "updatedAt": "2026-05-18T03:45:54.852Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:49.458Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:54.852Z"
+        }
+      ]
     },
     "Badge": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:11.271Z",
-      "updatedAt": "2026-05-16T18:32:41.948Z"
+      "updatedAt": "2026-05-18T03:45:55.033Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:49.626Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:55.033Z"
+        }
+      ]
     },
     "BalanceChart": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:11.419Z",
-      "updatedAt": "2026-05-16T18:32:42.095Z"
+      "updatedAt": "2026-05-18T03:45:55.215Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:49.799Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:55.215Z"
+        }
+      ]
     },
     "BankAccountCard": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:11.569Z",
-      "updatedAt": "2026-05-16T18:32:42.241Z"
+      "updatedAt": "2026-05-18T03:45:55.383Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:49.990Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:55.383Z"
+        }
+      ]
     },
     "BarcodeGenerator": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:11.730Z",
-      "updatedAt": "2026-05-16T18:32:42.389Z"
+      "updatedAt": "2026-05-18T03:45:55.535Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:50.410Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:55.535Z"
+        }
+      ]
     },
     "BehavioralAuthSimulator": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:11.887Z",
-      "updatedAt": "2026-05-16T18:32:42.523Z"
+      "updatedAt": "2026-05-18T03:45:55.699Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:50.813Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:55.699Z"
+        }
+      ]
     },
     "BiometricPrompt": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:12.029Z",
-      "updatedAt": "2026-05-16T18:32:42.665Z"
+      "updatedAt": "2026-05-18T03:45:55.872Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:50.999Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:55.872Z"
+        }
+      ]
     },
     "Blockquote": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:12.183Z",
-      "updatedAt": "2026-05-16T18:32:42.811Z"
+      "updatedAt": "2026-05-18T03:45:56.027Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:51.413Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:56.027Z"
+        }
+      ]
     },
     "BottomNavigation": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:12.338Z",
-      "updatedAt": "2026-05-16T18:32:42.967Z"
+      "updatedAt": "2026-05-18T03:45:56.195Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:51.595Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:56.195Z"
+        }
+      ]
     },
     "Breadcrumb": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:12.481Z",
-      "updatedAt": "2026-05-16T18:32:43.108Z"
+      "updatedAt": "2026-05-18T03:45:56.356Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:51.793Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:56.356Z"
+        }
+      ]
     },
     "BreadcrumbTabsHybrid": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:12.627Z",
-      "updatedAt": "2026-05-16T18:32:43.251Z"
+      "updatedAt": "2026-05-18T03:45:56.517Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:51.961Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:56.517Z"
+        }
+      ]
     },
     "Button": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:12.778Z",
-      "updatedAt": "2026-05-16T18:32:43.400Z"
+      "updatedAt": "2026-05-18T03:45:56.788Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:52.136Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:56.788Z"
+        }
+      ]
     },
     "ButtonWithDropdown": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:12.941Z",
-      "updatedAt": "2026-05-16T18:32:43.551Z"
+      "updatedAt": "2026-05-18T03:45:56.945Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:52.529Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:56.945Z"
+        }
+      ]
     },
     "Calendar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:13.168Z",
-      "updatedAt": "2026-05-16T18:32:43.776Z"
+      "updatedAt": "2026-05-18T03:45:57.098Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:52.719Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:57.098Z"
+        }
+      ]
     },
     "Callout": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:13.307Z",
-      "updatedAt": "2026-05-16T18:32:43.924Z"
+      "updatedAt": "2026-05-18T03:45:57.257Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:52.951Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:57.257Z"
+        }
+      ]
     },
     "Caption": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:13.456Z",
-      "updatedAt": "2026-05-16T18:32:44.074Z"
+      "updatedAt": "2026-05-18T03:45:57.413Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:53.368Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:57.413Z"
+        }
+      ]
     },
     "Card": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:13.606Z",
-      "updatedAt": "2026-05-16T18:32:44.222Z"
+      "updatedAt": "2026-05-18T03:45:57.562Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:53.769Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:57.562Z"
+        }
+      ]
     },
     "CardSecurityControls": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:13.756Z",
-      "updatedAt": "2026-05-16T18:32:44.362Z"
+      "updatedAt": "2026-05-18T03:45:57.716Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:53.942Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:57.716Z"
+        }
+      ]
     },
     "CartPreview": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:13.907Z",
-      "updatedAt": "2026-05-16T18:32:44.509Z"
+      "updatedAt": "2026-05-18T03:45:57.864Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:54.359Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:57.864Z"
+        }
+      ]
     },
     "CashbackWidget": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:14.056Z",
-      "updatedAt": "2026-05-16T18:32:44.653Z"
+      "updatedAt": "2026-05-18T03:45:58.024Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:54.771Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:58.024Z"
+        }
+      ]
     },
     "Chart": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:14.212Z",
-      "updatedAt": "2026-05-16T18:32:44.800Z"
+      "updatedAt": "2026-05-18T03:45:58.186Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:54.937Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:58.186Z"
+        }
+      ]
     },
     "ChatBubble": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:14.369Z",
-      "updatedAt": "2026-05-16T18:32:44.944Z"
+      "updatedAt": "2026-05-18T03:45:58.342Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:55.097Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:58.342Z"
+        }
+      ]
     },
     "ChatInput": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:14.519Z",
-      "updatedAt": "2026-05-16T18:32:45.090Z"
+      "updatedAt": "2026-05-18T03:45:58.500Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:55.261Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:58.500Z"
+        }
+      ]
     },
     "Checkbox": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:14.667Z",
-      "updatedAt": "2026-05-16T18:32:45.236Z"
+      "updatedAt": "2026-05-18T03:45:58.658Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:55.420Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:58.658Z"
+        }
+      ]
     },
     "Chip": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:14.821Z",
-      "updatedAt": "2026-05-16T18:32:45.375Z"
+      "updatedAt": "2026-05-18T03:45:58.840Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:55.830Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:58.840Z"
+        }
+      ]
     },
     "CodeBlock": {
-      "version": "1.2.3",
+      "version": "1.1.0",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:14.981Z",
-      "updatedAt": "2026-05-16T18:32:45.528Z"
+      "updatedAt": "2026-05-18T04:36:04.156Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:56.249Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:59.000Z"
+        },
+        {
+          "version": "1.1.0",
+          "action": "update",
+          "date": "2026-05-18T04:36:04.156Z"
+        }
+      ]
     },
     "Collapsible": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:15.124Z",
-      "updatedAt": "2026-05-16T18:32:45.675Z"
+      "updatedAt": "2026-05-18T03:45:59.169Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:56.419Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:59.169Z"
+        }
+      ]
     },
     "Combobox": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:15.276Z",
-      "updatedAt": "2026-05-16T18:32:45.825Z"
+      "updatedAt": "2026-05-18T03:45:59.349Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:56.598Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:59.349Z"
+        }
+      ]
     },
     "ComicPanel": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:15.639Z",
-      "updatedAt": "2026-05-16T18:32:45.968Z"
+      "updatedAt": "2026-05-18T03:45:59.505Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:56.762Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:59.505Z"
+        }
+      ]
     },
     "CommandMenu": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:15.800Z",
-      "updatedAt": "2026-05-16T18:32:46.112Z"
+      "updatedAt": "2026-05-18T03:45:59.663Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:56.936Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:59.663Z"
+        }
+      ]
     },
     "CommentThread": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:15.949Z",
-      "updatedAt": "2026-05-16T18:32:46.260Z"
+      "updatedAt": "2026-05-18T03:45:59.825Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:57.102Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:59.825Z"
+        }
+      ]
     },
     "ConfirmDialog": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:16.108Z",
-      "updatedAt": "2026-05-16T18:32:46.399Z"
+      "updatedAt": "2026-05-18T03:45:59.978Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:57.268Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:59.978Z"
+        }
+      ]
     },
     "ContextMenu": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:16.274Z",
-      "updatedAt": "2026-05-16T18:32:46.538Z"
+      "updatedAt": "2026-05-18T03:46:00.148Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:57.470Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:00.148Z"
+        }
+      ]
     },
     "ContextualTrustBadge": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:16.448Z",
-      "updatedAt": "2026-05-16T18:32:46.679Z"
+      "updatedAt": "2026-05-18T03:46:00.332Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:57.642Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:00.332Z"
+        }
+      ]
     },
     "ControlCenterToggles": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:16.615Z",
-      "updatedAt": "2026-05-16T18:32:46.827Z"
+      "updatedAt": "2026-05-18T03:46:00.496Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:57.832Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:00.496Z"
+        }
+      ]
     },
     "Counters": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:16.766Z",
-      "updatedAt": "2026-05-16T18:32:46.970Z"
+      "updatedAt": "2026-05-18T03:46:00.676Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:58.236Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:00.676Z"
+        }
+      ]
     },
     "CountersListWithChart": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:16.957Z",
-      "updatedAt": "2026-05-16T18:32:47.116Z"
+      "updatedAt": "2026-05-18T03:46:00.839Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:58.395Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:00.839Z"
+        }
+      ]
     },
     "CreditLimitManager": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:17.120Z",
-      "updatedAt": "2026-05-16T18:32:47.271Z"
+      "updatedAt": "2026-05-18T03:46:01.041Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:58.817Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:01.041Z"
+        }
+      ]
     },
     "CreditScoreSimulator": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:17.453Z",
-      "updatedAt": "2026-05-16T18:32:47.422Z"
+      "updatedAt": "2026-05-18T03:46:01.227Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:59.001Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:01.227Z"
+        }
+      ]
     },
     "CurrencyConverterWidget": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:17.812Z",
-      "updatedAt": "2026-05-16T18:32:47.567Z"
+      "updatedAt": "2026-05-18T03:46:01.433Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:59.182Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:01.433Z"
+        }
+      ]
     },
     "DataGrid": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:17.957Z",
-      "updatedAt": "2026-05-16T18:32:47.720Z"
+      "updatedAt": "2026-05-18T03:46:01.765Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:59.434Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:01.765Z"
+        }
+      ]
     },
     "DatePicker": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:18.190Z",
-      "updatedAt": "2026-05-16T18:32:47.933Z"
+      "updatedAt": "2026-05-18T03:46:02.151Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:59.674Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:02.151Z"
+        }
+      ]
     },
     "DateRangePicker": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:18.355Z",
-      "updatedAt": "2026-05-16T18:32:48.085Z"
+      "updatedAt": "2026-05-18T03:46:02.383Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:35:59.866Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:02.383Z"
+        }
+      ]
     },
     "DefinitionList": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:18.500Z",
-      "updatedAt": "2026-05-16T18:32:48.232Z"
+      "updatedAt": "2026-05-18T03:46:02.649Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:00.048Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:02.649Z"
+        }
+      ]
     },
     "DescriptionBlock": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:18.663Z",
-      "updatedAt": "2026-05-16T18:32:48.385Z"
+      "updatedAt": "2026-05-18T03:46:03.103Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:00.231Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:03.103Z"
+        }
+      ]
     },
     "DeviceList": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:18.818Z",
-      "updatedAt": "2026-05-16T18:32:48.548Z"
+      "updatedAt": "2026-05-18T03:46:03.383Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:00.476Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:03.383Z"
+        }
+      ]
     },
     "DiffViewer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:18.953Z",
-      "updatedAt": "2026-05-16T18:32:48.715Z"
+      "updatedAt": "2026-05-18T03:46:03.663Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:00.680Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:03.663Z"
+        }
+      ]
     },
     "Divider": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:19.110Z",
-      "updatedAt": "2026-05-16T18:32:48.858Z"
+      "updatedAt": "2026-05-18T03:46:04.236Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:00.893Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:04.236Z"
+        }
+      ]
     },
     "DocScanOverlay": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:19.260Z",
-      "updatedAt": "2026-05-16T18:32:49.012Z"
+      "updatedAt": "2026-05-18T03:46:04.466Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:01.186Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:04.466Z"
+        }
+      ]
     },
     "DockBar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:19.411Z",
-      "updatedAt": "2026-05-16T18:32:49.169Z"
+      "updatedAt": "2026-05-18T03:46:04.682Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:01.418Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:04.682Z"
+        }
+      ]
     },
     "EarlyPaymentDiscount": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:19.559Z",
-      "updatedAt": "2026-05-16T18:32:49.342Z"
+      "updatedAt": "2026-05-18T03:46:05.028Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:01.615Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:05.028Z"
+        }
+      ]
     },
     "EmptyState": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:19.727Z",
-      "updatedAt": "2026-05-16T18:32:49.487Z"
+      "updatedAt": "2026-05-18T03:46:05.298Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:01.909Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:05.298Z"
+        }
+      ]
     },
     "ErrorBoundary": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:19.872Z",
-      "updatedAt": "2026-05-16T18:32:49.638Z"
+      "updatedAt": "2026-05-18T03:46:05.577Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:02.120Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:05.577Z"
+        }
+      ]
     },
     "ExpenseCategorizer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:20.028Z",
-      "updatedAt": "2026-05-16T18:32:49.780Z"
+      "updatedAt": "2026-05-18T03:46:05.931Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:02.572Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:05.931Z"
+        }
+      ]
     },
     "FAB": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:20.199Z",
-      "updatedAt": "2026-05-16T18:32:49.932Z"
+      "updatedAt": "2026-05-18T03:46:06.248Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:02.983Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:06.248Z"
+        }
+      ]
     },
     "FABGroup": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:20.366Z",
-      "updatedAt": "2026-05-16T18:32:50.085Z"
+      "updatedAt": "2026-05-18T03:46:06.633Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:03.530Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:06.633Z"
+        }
+      ]
     },
     "FairUseLimitTracker": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:20.512Z",
-      "updatedAt": "2026-05-16T18:32:50.241Z"
+      "updatedAt": "2026-05-18T03:46:06.994Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:03.810Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:06.994Z"
+        }
+      ]
     },
     "FileIntelligencePreview": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:20.667Z",
-      "updatedAt": "2026-05-16T18:32:50.392Z"
+      "updatedAt": "2026-05-18T03:46:07.170Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:04.000Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:07.170Z"
+        }
+      ]
     },
     "FileUpload": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:20.816Z",
-      "updatedAt": "2026-05-16T18:32:50.546Z"
+      "updatedAt": "2026-05-18T03:46:07.434Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:04.436Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:07.434Z"
+        }
+      ]
     },
     "FilterBar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:20.956Z",
-      "updatedAt": "2026-05-16T18:32:50.702Z"
+      "updatedAt": "2026-05-18T03:46:07.609Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:04.695Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:07.609Z"
+        }
+      ]
     },
     "FinancialGoalTracker": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:21.106Z",
-      "updatedAt": "2026-05-16T18:32:50.853Z"
+      "updatedAt": "2026-05-18T03:46:07.765Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:04.930Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:07.765Z"
+        }
+      ]
     },
     "FintechDashboardPreview": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:21.250Z",
-      "updatedAt": "2026-05-16T18:32:51.000Z"
+      "updatedAt": "2026-05-18T03:46:07.938Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:05.247Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:07.938Z"
+        }
+      ]
     },
     "FloatingElement": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:21.415Z",
-      "updatedAt": "2026-05-16T18:32:51.145Z"
+      "updatedAt": "2026-05-18T03:46:08.093Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:05.540Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:08.093Z"
+        }
+      ]
     },
     "FloatingToolbar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:21.567Z",
-      "updatedAt": "2026-05-16T18:32:51.294Z"
+      "updatedAt": "2026-05-18T03:46:08.255Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:05.763Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:08.255Z"
+        }
+      ]
     },
     "Footer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:21.715Z",
-      "updatedAt": "2026-05-16T18:32:51.440Z"
+      "updatedAt": "2026-05-18T03:46:08.424Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:05.974Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:08.424Z"
+        }
+      ]
     },
     "Gallery": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:21.870Z",
-      "updatedAt": "2026-05-16T18:32:51.599Z"
+      "updatedAt": "2026-05-18T03:46:08.590Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:06.153Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:08.590Z"
+        }
+      ]
     },
     "GamifiedRewardTier": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:22.030Z",
-      "updatedAt": "2026-05-16T18:32:51.744Z"
+      "updatedAt": "2026-05-18T03:46:08.746Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:06.332Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:08.746Z"
+        }
+      ]
     },
     "GestureCard": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:22.186Z",
-      "updatedAt": "2026-05-16T18:32:51.892Z"
+      "updatedAt": "2026-05-18T03:46:08.903Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:06.501Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:08.903Z"
+        }
+      ]
     },
     "GridSystem": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:22.331Z",
-      "updatedAt": "2026-05-16T18:32:52.043Z"
+      "updatedAt": "2026-05-18T03:46:09.056Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:06.666Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:09.056Z"
+        }
+      ]
     },
     "HamburgerMenuIcon": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:22.488Z",
-      "updatedAt": "2026-05-16T18:32:52.180Z"
+      "updatedAt": "2026-05-18T03:46:09.242Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:06.826Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:09.242Z"
+        }
+      ]
     },
     "HapticButton": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:22.649Z",
-      "updatedAt": "2026-05-16T18:32:52.321Z"
+      "updatedAt": "2026-05-18T03:46:09.393Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:06.991Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:09.393Z"
+        }
+      ]
     },
     "Heading": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:22.796Z",
-      "updatedAt": "2026-05-16T18:32:52.478Z"
+      "updatedAt": "2026-05-18T03:46:09.582Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:07.150Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:09.582Z"
+        }
+      ]
     },
     "HyperPersonalizedWidgetFeed": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:22.964Z",
-      "updatedAt": "2026-05-16T18:32:52.626Z"
+      "updatedAt": "2026-05-18T03:46:09.739Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:07.313Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:09.739Z"
+        }
+      ]
     },
     "IconButton": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:23.124Z",
-      "updatedAt": "2026-05-16T18:32:52.775Z"
+      "updatedAt": "2026-05-18T03:46:09.904Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:07.470Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:09.904Z"
+        }
+      ]
     },
     "IdentityVerificationStep": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:23.281Z",
-      "updatedAt": "2026-05-16T18:32:52.919Z"
+      "updatedAt": "2026-05-18T03:46:10.066Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:07.635Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:10.066Z"
+        }
+      ]
     },
     "ImageCarousel": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:23.441Z",
-      "updatedAt": "2026-05-16T18:32:53.067Z"
+      "updatedAt": "2026-05-18T03:46:10.228Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:07.799Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:10.228Z"
+        }
+      ]
     },
     "ImageCropper": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:23.605Z",
-      "updatedAt": "2026-05-16T18:32:53.208Z"
+      "updatedAt": "2026-05-18T03:46:10.383Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:07.971Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:10.383Z"
+        }
+      ]
     },
     "ImmersiveHero": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:23.755Z",
-      "updatedAt": "2026-05-16T18:32:53.345Z"
+      "updatedAt": "2026-05-18T03:46:10.544Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:08.130Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:10.544Z"
+        }
+      ]
     },
     "InfiniteHorizontalLoop": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:23.906Z",
-      "updatedAt": "2026-05-16T18:32:53.487Z"
+      "updatedAt": "2026-05-18T03:46:10.704Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:08.291Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:10.704Z"
+        }
+      ]
     },
     "Input": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:24.083Z",
-      "updatedAt": "2026-05-16T18:32:53.634Z"
+      "updatedAt": "2026-05-18T03:46:10.862Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:08.470Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:10.862Z"
+        }
+      ]
     },
     "InspectorPanel": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:24.236Z",
-      "updatedAt": "2026-05-16T18:32:53.791Z"
+      "updatedAt": "2026-05-18T03:46:11.024Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:08.648Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:11.024Z"
+        }
+      ]
     },
     "InstallmentSimulator": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:24.588Z",
-      "updatedAt": "2026-05-16T18:32:53.942Z"
+      "updatedAt": "2026-05-18T03:46:11.180Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:08.807Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:11.180Z"
+        }
+      ]
     },
     "InteractiveBillSplitter": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:24.735Z",
-      "updatedAt": "2026-05-16T18:32:54.088Z"
+      "updatedAt": "2026-05-18T03:46:11.338Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:08.987Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:11.338Z"
+        }
+      ]
     },
     "InteractiveCursor": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:24.901Z",
-      "updatedAt": "2026-05-16T18:32:54.229Z"
+      "updatedAt": "2026-05-18T03:46:11.494Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:09.168Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:11.494Z"
+        }
+      ]
     },
     "InvoicePreview": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:25.062Z",
-      "updatedAt": "2026-05-16T18:32:54.375Z"
+      "updatedAt": "2026-05-18T03:46:11.660Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:09.343Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:11.660Z"
+        }
+      ]
     },
     "JargonTooltip": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:25.221Z",
-      "updatedAt": "2026-05-16T18:32:54.520Z"
+      "updatedAt": "2026-05-18T03:46:11.822Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:09.505Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:11.822Z"
+        }
+      ]
     },
     "JsonViewer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:25.380Z",
-      "updatedAt": "2026-05-16T18:32:54.670Z"
+      "updatedAt": "2026-05-18T03:46:11.983Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:09.665Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:11.983Z"
+        }
+      ]
     },
     "KPIBlock": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:25.530Z",
-      "updatedAt": "2026-05-16T18:32:54.820Z"
+      "updatedAt": "2026-05-18T03:46:12.147Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:09.838Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:12.147Z"
+        }
+      ]
     },
     "KanbanBoard": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:25.689Z",
-      "updatedAt": "2026-05-16T18:32:54.967Z"
+      "updatedAt": "2026-05-18T03:46:12.325Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:10.077Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:12.325Z"
+        }
+      ]
     },
     "KeyValueInfo": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:25.842Z",
-      "updatedAt": "2026-05-16T18:32:55.116Z"
+      "updatedAt": "2026-05-18T03:46:12.494Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:10.234Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:12.494Z"
+        }
+      ]
     },
     "Label": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:25.987Z",
-      "updatedAt": "2026-05-16T18:32:55.267Z"
+      "updatedAt": "2026-05-18T03:46:12.666Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:10.403Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:12.666Z"
+        }
+      ]
     },
     "Layout": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:26.141Z",
-      "updatedAt": "2026-05-16T18:32:55.413Z"
+      "updatedAt": "2026-05-18T03:46:12.832Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:10.569Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:12.832Z"
+        }
+      ]
     },
     "Lightbox": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:26.289Z",
-      "updatedAt": "2026-05-16T18:32:55.562Z"
+      "updatedAt": "2026-05-18T03:46:12.998Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:10.735Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:12.998Z"
+        }
+      ]
     },
     "LoadingOverlay": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:26.455Z",
-      "updatedAt": "2026-05-16T18:32:55.696Z"
+      "updatedAt": "2026-05-18T03:46:13.163Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:10.908Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:13.163Z"
+        }
+      ]
     },
     "LoginForm": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:26.608Z",
-      "updatedAt": "2026-05-16T18:32:55.852Z"
+      "updatedAt": "2026-05-18T03:46:13.319Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:11.075Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:13.319Z"
+        }
+      ]
     },
     "MaintenanceMode": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:26.768Z",
-      "updatedAt": "2026-05-16T18:32:55.997Z"
+      "updatedAt": "2026-05-18T03:46:13.489Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:11.247Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:13.489Z"
+        }
+      ]
     },
     "MarkdownEditor": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:26.914Z",
-      "updatedAt": "2026-05-16T18:32:56.138Z"
+      "updatedAt": "2026-05-18T03:46:13.655Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:11.410Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:13.655Z"
+        }
+      ]
     },
     "MasonryLayout": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:27.065Z",
-      "updatedAt": "2026-05-16T18:32:56.294Z"
+      "updatedAt": "2026-05-18T03:46:13.807Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:11.591Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:13.807Z"
+        }
+      ]
     },
     "MenuBar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:27.229Z",
-      "updatedAt": "2026-05-16T18:32:56.437Z"
+      "updatedAt": "2026-05-18T03:46:13.969Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:11.759Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:13.969Z"
+        }
+      ]
     },
     "MessageReactions": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:27.387Z",
-      "updatedAt": "2026-05-16T18:32:56.576Z"
+      "updatedAt": "2026-05-18T03:46:14.145Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:11.927Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:14.145Z"
+        }
+      ]
     },
     "MicroCommitmentStepper": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:27.539Z",
-      "updatedAt": "2026-05-16T18:32:56.724Z"
+      "updatedAt": "2026-05-18T03:46:14.297Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:12.091Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:14.297Z"
+        }
+      ]
     },
     "Modal": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:27.696Z",
-      "updatedAt": "2026-05-16T18:32:56.877Z"
+      "updatedAt": "2026-05-18T03:46:14.466Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:12.253Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:14.466Z"
+        }
+      ]
     },
     "ModalStackManager": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:27.873Z",
-      "updatedAt": "2026-05-16T18:32:57.024Z"
+      "updatedAt": "2026-05-18T03:46:14.619Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:12.445Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:14.619Z"
+        }
+      ]
     },
     "MultiCurrencyWallet": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:28.031Z",
-      "updatedAt": "2026-05-16T18:32:57.169Z"
+      "updatedAt": "2026-05-18T03:46:14.772Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:12.606Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:14.772Z"
+        }
+      ]
     },
     "MultiFileUpload": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:28.170Z",
-      "updatedAt": "2026-05-16T18:32:57.319Z"
+      "updatedAt": "2026-05-18T03:46:14.930Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:12.773Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:14.930Z"
+        }
+      ]
     },
     "NavBar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:28.335Z",
-      "updatedAt": "2026-05-16T18:32:57.462Z"
+      "updatedAt": "2026-05-18T03:46:15.110Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:12.943Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:15.110Z"
+        }
+      ]
     },
     "NavigationDrawer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:28.490Z",
-      "updatedAt": "2026-05-16T18:32:57.614Z"
+      "updatedAt": "2026-05-18T03:46:15.269Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:13.108Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:15.269Z"
+        }
+      ]
     },
     "NotificationCenterPanel": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:28.649Z",
-      "updatedAt": "2026-05-16T18:32:57.757Z"
+      "updatedAt": "2026-05-18T03:46:15.433Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:13.274Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:15.433Z"
+        }
+      ]
     },
     "OTPInput": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:28.796Z",
-      "updatedAt": "2026-05-16T18:32:57.892Z"
+      "updatedAt": "2026-05-18T03:46:15.585Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:13.460Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:15.585Z"
+        }
+      ]
     },
     "OfflineState": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:28.945Z",
-      "updatedAt": "2026-05-16T18:32:58.035Z"
+      "updatedAt": "2026-05-18T03:46:15.733Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:13.619Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:15.733Z"
+        }
+      ]
     },
     "OrderSummary": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:29.099Z",
-      "updatedAt": "2026-05-16T18:32:58.179Z"
+      "updatedAt": "2026-05-18T03:46:15.900Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:13.786Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:15.900Z"
+        }
+      ]
     },
     "Pagination": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:29.246Z",
-      "updatedAt": "2026-05-16T18:32:58.328Z"
+      "updatedAt": "2026-05-18T03:46:16.056Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:13.964Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:16.056Z"
+        }
+      ]
     },
     "Panel": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:29.386Z",
-      "updatedAt": "2026-05-16T18:32:58.478Z"
+      "updatedAt": "2026-05-18T03:46:16.223Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:14.136Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:16.223Z"
+        }
+      ]
     },
     "Paragraph": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:29.539Z",
-      "updatedAt": "2026-05-16T18:32:58.635Z"
+      "updatedAt": "2026-05-18T03:46:16.384Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:14.329Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:16.384Z"
+        }
+      ]
     },
     "ParallaxBanner": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:29.682Z",
-      "updatedAt": "2026-05-16T18:32:58.779Z"
+      "updatedAt": "2026-05-18T03:46:16.545Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:14.488Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:16.545Z"
+        }
+      ]
     },
     "ParallaxStoryStage": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:29.850Z",
-      "updatedAt": "2026-05-16T18:32:58.919Z"
+      "updatedAt": "2026-05-18T03:46:16.701Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:14.657Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:16.701Z"
+        }
+      ]
     },
     "PasswordInput": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:30.015Z",
-      "updatedAt": "2026-05-16T18:32:59.062Z"
+      "updatedAt": "2026-05-18T03:46:16.855Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:14.822Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:16.855Z"
+        }
+      ]
     },
     "PaymentConfirmationModal": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:30.176Z",
-      "updatedAt": "2026-05-16T18:32:59.213Z"
+      "updatedAt": "2026-05-18T03:46:17.021Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:15.041Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:17.021Z"
+        }
+      ]
     },
     "PaymentMethodSelector": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:30.331Z",
-      "updatedAt": "2026-05-16T18:32:59.356Z"
+      "updatedAt": "2026-05-18T03:46:17.178Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:15.205Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:17.178Z"
+        }
+      ]
     },
     "PeerTagInput": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:30.491Z",
-      "updatedAt": "2026-05-16T18:32:59.505Z"
+      "updatedAt": "2026-05-18T03:46:17.355Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:15.360Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:17.355Z"
+        }
+      ]
     },
     "PermissionsMatrix": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:30.641Z",
-      "updatedAt": "2026-05-16T18:32:59.648Z"
+      "updatedAt": "2026-05-18T03:46:17.519Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:15.525Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:17.519Z"
+        }
+      ]
     },
     "Popover": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:30.800Z",
-      "updatedAt": "2026-05-16T18:32:59.788Z"
+      "updatedAt": "2026-05-18T03:46:17.693Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:15.683Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:17.693Z"
+        }
+      ]
     },
     "PortfolioDistribution": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:30.956Z",
-      "updatedAt": "2026-05-16T18:32:59.936Z"
+      "updatedAt": "2026-05-18T03:46:17.867Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:15.844Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:17.867Z"
+        }
+      ]
     },
     "PriceDisplay": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:31.101Z",
-      "updatedAt": "2026-05-16T18:33:00.079Z"
+      "updatedAt": "2026-05-18T03:46:18.082Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:16.010Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:18.082Z"
+        }
+      ]
     },
     "ProductCard": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:31.253Z",
-      "updatedAt": "2026-05-16T18:33:00.225Z"
+      "updatedAt": "2026-05-18T03:46:18.267Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:16.180Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:18.267Z"
+        }
+      ]
     },
     "Progress": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:31.406Z",
-      "updatedAt": "2026-05-16T18:33:00.369Z"
+      "updatedAt": "2026-05-18T03:46:18.437Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:16.376Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:18.437Z"
+        }
+      ]
     },
     "ProgressiveDisclosurePanel": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:31.559Z",
-      "updatedAt": "2026-05-16T18:33:00.514Z"
+      "updatedAt": "2026-05-18T03:46:18.604Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:16.590Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:18.604Z"
+        }
+      ]
     },
     "PromptSuggestionChips": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:31.712Z",
-      "updatedAt": "2026-05-16T18:33:00.653Z"
+      "updatedAt": "2026-05-18T03:46:19.057Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:16.769Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:19.057Z"
+        }
+      ]
     },
     "PropertyList": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:31.860Z",
-      "updatedAt": "2026-05-16T18:33:00.791Z"
+      "updatedAt": "2026-05-18T03:46:19.624Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:16.934Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:19.624Z"
+        }
+      ]
     },
     "QRCodeGenerator": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:32.023Z",
-      "updatedAt": "2026-05-16T18:33:00.935Z"
+      "updatedAt": "2026-05-18T03:46:19.798Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:17.101Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:19.798Z"
+        }
+      ]
     },
     "QuantitySelector": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:32.180Z",
-      "updatedAt": "2026-05-16T18:33:01.085Z"
+      "updatedAt": "2026-05-18T03:46:20.275Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:17.260Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:20.275Z"
+        }
+      ]
     },
     "QueryBuilder": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:32.346Z",
-      "updatedAt": "2026-05-16T18:33:01.220Z"
+      "updatedAt": "2026-05-18T03:46:20.454Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:17.420Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:20.454Z"
+        }
+      ]
     },
     "QuickTransferBar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:32.500Z",
-      "updatedAt": "2026-05-16T18:33:01.378Z"
+      "updatedAt": "2026-05-18T03:46:20.637Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:17.592Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:20.637Z"
+        }
+      ]
     },
     "RadioGroup": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:32.661Z",
-      "updatedAt": "2026-05-16T18:33:01.527Z"
+      "updatedAt": "2026-05-18T03:46:21.115Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:17.753Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:21.115Z"
+        }
+      ]
     },
     "RangeSlider": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:32.812Z",
-      "updatedAt": "2026-05-16T18:33:01.670Z"
+      "updatedAt": "2026-05-18T03:46:21.292Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:17.929Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:21.292Z"
+        }
+      ]
     },
     "RatingInput": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:32.974Z",
-      "updatedAt": "2026-05-16T18:33:01.811Z"
+      "updatedAt": "2026-05-18T03:46:21.476Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:18.089Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:21.476Z"
+        }
+      ]
     },
     "RecoveryCodeDisplay": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:33.147Z",
-      "updatedAt": "2026-05-16T18:33:01.956Z"
+      "updatedAt": "2026-05-18T03:46:21.650Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:18.267Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:21.650Z"
+        }
+      ]
     },
     "RecurringInvestConfigurator": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:33.294Z",
-      "updatedAt": "2026-05-16T18:33:02.097Z"
+      "updatedAt": "2026-05-18T03:46:21.834Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:18.432Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:21.834Z"
+        }
+      ]
     },
     "ResizablePanel": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:33.456Z",
-      "updatedAt": "2026-05-16T18:33:02.241Z"
+      "updatedAt": "2026-05-18T03:46:22.007Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:18.602Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:22.007Z"
+        }
+      ]
     },
     "ResourceMonitor": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:33.632Z",
-      "updatedAt": "2026-05-16T18:33:02.386Z"
+      "updatedAt": "2026-05-18T03:46:22.180Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:18.772Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:22.180Z"
+        }
+      ]
     },
     "RetailSwapInterface": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:33.782Z",
-      "updatedAt": "2026-05-16T18:33:02.527Z"
+      "updatedAt": "2026-05-18T03:46:22.356Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:18.942Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:22.356Z"
+        }
+      ]
     },
     "Reviews": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:33.931Z",
-      "updatedAt": "2026-05-16T18:33:02.666Z"
+      "updatedAt": "2026-05-18T03:46:22.522Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:19.111Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:22.522Z"
+        }
+      ]
     },
     "RichTextEditor": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:34.080Z",
-      "updatedAt": "2026-05-16T18:33:02.814Z"
+      "updatedAt": "2026-05-18T03:46:22.684Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:19.282Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:22.684Z"
+        }
+      ]
     },
     "RotarySelector": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:34.236Z",
-      "updatedAt": "2026-05-16T18:33:03.179Z"
+      "updatedAt": "2026-05-18T03:46:22.855Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:19.438Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:22.855Z"
+        }
+      ]
     },
     "RoundUpSavingsToggle": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:34.405Z",
-      "updatedAt": "2026-05-16T18:33:03.552Z"
+      "updatedAt": "2026-05-18T03:46:23.024Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:19.611Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:23.024Z"
+        }
+      ]
     },
     "SchedulerTimeline": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:34.541Z",
-      "updatedAt": "2026-05-16T18:33:03.912Z"
+      "updatedAt": "2026-05-18T03:46:23.190Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:19.782Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:23.190Z"
+        }
+      ]
     },
     "ScrollArea": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:34.706Z",
-      "updatedAt": "2026-05-16T18:33:04.273Z"
+      "updatedAt": "2026-05-18T03:46:23.361Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:19.961Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:23.361Z"
+        }
+      ]
     },
     "ScrollProgressBar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:34.851Z",
-      "updatedAt": "2026-05-16T18:33:04.418Z"
+      "updatedAt": "2026-05-18T03:46:23.515Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:20.129Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:23.515Z"
+        }
+      ]
     },
     "ScrollRevealCards": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:35.033Z",
-      "updatedAt": "2026-05-16T18:33:04.786Z"
+      "updatedAt": "2026-05-18T03:46:23.679Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:20.312Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:23.679Z"
+        }
+      ]
     },
     "SearchInput": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:35.191Z",
-      "updatedAt": "2026-05-16T18:33:04.933Z"
+      "updatedAt": "2026-05-18T03:46:23.834Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:20.478Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:23.834Z"
+        }
+      ]
     },
     "SectionHeader": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:35.365Z",
-      "updatedAt": "2026-05-16T18:33:05.072Z"
+      "updatedAt": "2026-05-18T03:46:24.237Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:20.635Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:24.237Z"
+        }
+      ]
     },
     "SecurityActivityLog": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:35.547Z",
-      "updatedAt": "2026-05-16T18:33:05.224Z"
+      "updatedAt": "2026-05-18T03:46:24.394Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:20.806Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:24.394Z"
+        }
+      ]
     },
     "SecurityOTPInput": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:35.695Z",
-      "updatedAt": "2026-05-16T18:33:05.391Z"
+      "updatedAt": "2026-05-18T03:46:24.565Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:20.965Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:24.565Z"
+        }
+      ]
     },
     "SegmentedInput": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:35.850Z",
-      "updatedAt": "2026-05-16T18:33:05.530Z"
+      "updatedAt": "2026-05-18T03:46:24.728Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:21.140Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:24.728Z"
+        }
+      ]
     },
     "Select": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:36.005Z",
-      "updatedAt": "2026-05-16T18:33:05.679Z"
+      "updatedAt": "2026-05-18T03:46:24.886Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:21.306Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:24.886Z"
+        }
+      ]
     },
     "Sheet": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:36.190Z",
-      "updatedAt": "2026-05-16T18:33:05.828Z"
+      "updatedAt": "2026-05-18T03:46:25.038Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:21.470Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:25.038Z"
+        }
+      ]
     },
     "Sidebar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:36.358Z",
-      "updatedAt": "2026-05-16T18:33:06.189Z"
+      "updatedAt": "2026-05-18T03:46:25.198Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:21.638Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:25.198Z"
+        }
+      ]
     },
     "SignaturePad": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:36.523Z",
-      "updatedAt": "2026-05-16T18:33:06.334Z"
+      "updatedAt": "2026-05-18T03:46:25.353Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:21.807Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:25.353Z"
+        }
+      ]
     },
     "SignupForm": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:36.661Z",
-      "updatedAt": "2026-05-16T18:33:06.682Z"
+      "updatedAt": "2026-05-18T03:46:25.502Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:21.978Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:25.502Z"
+        }
+      ]
     },
     "Skeleton": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:36.819Z",
-      "updatedAt": "2026-05-16T18:33:06.826Z"
+      "updatedAt": "2026-05-18T03:46:25.661Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:22.135Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:25.661Z"
+        }
+      ]
     },
     "SlideToDelete": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:36.983Z",
-      "updatedAt": "2026-05-16T18:33:06.967Z"
+      "updatedAt": "2026-05-18T03:46:25.820Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:22.303Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:25.820Z"
+        }
+      ]
     },
     "Slider": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:37.129Z",
-      "updatedAt": "2026-05-16T18:33:07.114Z"
+      "updatedAt": "2026-05-18T03:46:25.986Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:22.460Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:25.986Z"
+        }
+      ]
     },
     "SmartInsightsCard": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:37.296Z",
-      "updatedAt": "2026-05-16T18:33:07.254Z"
+      "updatedAt": "2026-05-18T03:46:26.146Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:22.628Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:26.146Z"
+        }
+      ]
     },
     "Snackbar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:37.466Z",
-      "updatedAt": "2026-05-16T18:33:07.393Z"
+      "updatedAt": "2026-05-18T03:46:26.298Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:23.046Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:26.298Z"
+        }
+      ]
     },
     "SocialPaymentFeed": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:37.608Z",
-      "updatedAt": "2026-05-16T18:33:07.545Z"
+      "updatedAt": "2026-05-18T03:46:26.467Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:23.462Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:26.467Z"
+        }
+      ]
     },
     "Spacer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:37.781Z",
-      "updatedAt": "2026-05-16T18:33:07.706Z"
+      "updatedAt": "2026-05-18T03:46:26.637Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:23.868Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:26.637Z"
+        }
+      ]
     },
     "Sparkline": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:37.953Z",
-      "updatedAt": "2026-05-16T18:33:07.847Z"
+      "updatedAt": "2026-05-18T03:46:26.804Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:24.058Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:26.804Z"
+        }
+      ]
     },
     "Spinner": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:38.111Z",
-      "updatedAt": "2026-05-16T18:33:07.999Z"
+      "updatedAt": "2026-05-18T03:46:26.960Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:24.471Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:26.960Z"
+        }
+      ]
     },
     "SplitButton": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:38.275Z",
-      "updatedAt": "2026-05-16T18:33:08.167Z"
+      "updatedAt": "2026-05-18T03:46:27.126Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:24.645Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:27.126Z"
+        }
+      ]
     },
     "SplitView": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:38.447Z",
-      "updatedAt": "2026-05-16T18:33:08.325Z"
+      "updatedAt": "2026-05-18T03:46:27.286Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:24.812Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:27.286Z"
+        }
+      ]
     },
     "StatisticDisplay": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:38.640Z",
-      "updatedAt": "2026-05-16T18:33:08.660Z"
+      "updatedAt": "2026-05-18T03:46:27.454Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:25.216Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:27.454Z"
+        }
+      ]
     },
     "Stepper": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:38.814Z",
-      "updatedAt": "2026-05-16T18:33:08.814Z"
+      "updatedAt": "2026-05-18T03:46:27.624Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:25.386Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:27.624Z"
+        }
+      ]
     },
     "StickyContainer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:38.966Z",
-      "updatedAt": "2026-05-16T18:33:08.959Z"
+      "updatedAt": "2026-05-18T03:46:27.775Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:25.544Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:27.775Z"
+        }
+      ]
     },
     "StickyImageTextSwap": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:39.120Z",
-      "updatedAt": "2026-05-16T18:33:09.104Z"
+      "updatedAt": "2026-05-18T03:46:28.182Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:25.718Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:28.182Z"
+        }
+      ]
     },
     "SubscriptionManager": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:39.298Z",
-      "updatedAt": "2026-05-16T18:33:09.252Z"
+      "updatedAt": "2026-05-18T03:46:28.338Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:25.877Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:28.338Z"
+        }
+      ]
     },
     "Switch": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:39.448Z",
-      "updatedAt": "2026-05-16T18:33:09.616Z"
+      "updatedAt": "2026-05-18T03:46:28.491Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:26.281Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:28.491Z"
+        }
+      ]
     },
     "Table": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:39.604Z",
-      "updatedAt": "2026-05-16T18:33:09.762Z"
+      "updatedAt": "2026-05-18T03:46:28.650Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:26.455Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:28.650Z"
+        }
+      ]
     },
     "Tabs": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:39.786Z",
-      "updatedAt": "2026-05-16T18:33:09.908Z"
+      "updatedAt": "2026-05-18T03:46:28.971Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:26.795Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:28.971Z"
+        }
+      ]
     },
     "Tag": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:39.952Z",
-      "updatedAt": "2026-05-16T18:33:10.049Z"
+      "updatedAt": "2026-05-18T03:46:29.130Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:26.979Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:29.130Z"
+        }
+      ]
     },
     "TagsInput": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:40.126Z",
-      "updatedAt": "2026-05-16T18:33:10.199Z"
+      "updatedAt": "2026-05-18T03:46:29.292Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:27.381Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:29.292Z"
+        }
+      ]
     },
     "Text": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:40.296Z",
-      "updatedAt": "2026-05-16T18:33:10.566Z"
+      "updatedAt": "2026-05-18T03:46:29.478Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:27.561Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:29.478Z"
+        }
+      ]
     },
     "Textarea": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:40.453Z",
-      "updatedAt": "2026-05-16T18:33:10.707Z"
+      "updatedAt": "2026-05-18T03:46:29.642Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:27.739Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:29.642Z"
+        }
+      ]
     },
     "ThemeToggle": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:40.629Z",
-      "updatedAt": "2026-05-16T18:33:11.045Z"
+      "updatedAt": "2026-05-18T03:46:29.823Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:27.910Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:29.823Z"
+        }
+      ]
     },
     "TimePicker": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:40.792Z",
-      "updatedAt": "2026-05-16T18:33:11.193Z"
+      "updatedAt": "2026-05-18T03:46:29.991Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:28.081Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:29.991Z"
+        }
+      ]
     },
     "Timeline": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:40.938Z",
-      "updatedAt": "2026-05-16T18:33:11.339Z"
+      "updatedAt": "2026-05-18T03:46:30.159Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:28.243Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:30.159Z"
+        }
+      ]
     },
     "Title": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:41.105Z",
-      "updatedAt": "2026-05-16T18:33:11.485Z"
+      "updatedAt": "2026-05-18T03:46:30.331Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:28.416Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:30.331Z"
+        }
+      ]
     },
     "Toast": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:41.257Z",
-      "updatedAt": "2026-05-16T18:33:11.627Z"
+      "updatedAt": "2026-05-18T03:46:30.502Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:28.579Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:30.502Z"
+        }
+      ]
     },
     "Tooltip": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:41.436Z",
-      "updatedAt": "2026-05-16T18:33:11.784Z"
+      "updatedAt": "2026-05-18T03:46:30.690Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:28.749Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:30.690Z"
+        }
+      ]
     },
     "TopActionBar": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:41.590Z",
-      "updatedAt": "2026-05-16T18:33:11.930Z"
+      "updatedAt": "2026-05-18T03:46:30.887Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:28.912Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:30.887Z"
+        }
+      ]
     },
     "TransactionList": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:41.740Z",
-      "updatedAt": "2026-05-16T18:33:12.076Z"
+      "updatedAt": "2026-05-18T03:46:31.058Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:29.088Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:31.058Z"
+        }
+      ]
     },
     "TransferForm": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:41.931Z",
-      "updatedAt": "2026-05-16T18:33:12.224Z"
+      "updatedAt": "2026-05-18T03:46:31.244Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:29.249Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:31.244Z"
+        }
+      ]
     },
     "TreeView": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:42.109Z",
-      "updatedAt": "2026-05-16T18:33:12.362Z"
+      "updatedAt": "2026-05-18T03:46:31.425Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:29.409Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:31.425Z"
+        }
+      ]
     },
     "TwoFactorAuth": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:42.283Z",
-      "updatedAt": "2026-05-16T18:33:12.498Z"
+      "updatedAt": "2026-05-18T03:46:31.638Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:29.575Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:31.638Z"
+        }
+      ]
     },
     "UnscramblingText": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:42.437Z",
-      "updatedAt": "2026-05-16T18:33:12.652Z"
+      "updatedAt": "2026-05-18T03:46:31.848Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:29.751Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:31.848Z"
+        }
+      ]
     },
     "VideoPlayer": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:42.669Z",
-      "updatedAt": "2026-05-16T18:33:12.795Z"
+      "updatedAt": "2026-05-18T03:46:32.024Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:29.924Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:32.024Z"
+        }
+      ]
     },
     "VirtualCardPreview": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:42.832Z",
-      "updatedAt": "2026-05-16T18:33:12.942Z"
+      "updatedAt": "2026-05-18T03:46:32.213Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:30.099Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:32.213Z"
+        }
+      ]
     },
     "VoiceCommandOverlay": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:42.987Z",
-      "updatedAt": "2026-05-16T18:33:13.108Z"
+      "updatedAt": "2026-05-18T03:46:32.384Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:30.283Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:32.384Z"
+        }
+      ]
     },
     "VoiceRecorder": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:43.133Z",
-      "updatedAt": "2026-05-16T18:33:13.250Z"
+      "updatedAt": "2026-05-18T03:46:32.555Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:30.456Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:32.555Z"
+        }
+      ]
     },
     "WindowControls": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:43.304Z",
-      "updatedAt": "2026-05-16T18:33:13.395Z"
+      "updatedAt": "2026-05-18T03:46:32.737Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:30.660Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:32.737Z"
+        }
+      ]
     },
     "WindowFrame": {
-      "version": "1.2.3",
+      "version": "1.0.3",
+      "status": "experimental",
       "type": "folder",
       "installedAt": "2026-05-16T07:06:43.481Z",
-      "updatedAt": "2026-05-16T18:33:13.538Z"
+      "updatedAt": "2026-05-18T03:46:32.943Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:30.882Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:32.943Z"
+        }
+      ]
+    },
+    "TableOfContents": {
+      "version": "1.0.3",
+      "status": "experimental",
+      "type": "folder",
+      "installedAt": "2026-05-18T02:05:28.564Z",
+      "updatedAt": "2026-05-18T03:46:28.807Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:36:26.629Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:46:28.807Z"
+        }
+      ]
+    },
+    "AIThinkingIndicator": {
+      "version": "1.0.3",
+      "status": "experimental",
+      "type": "folder",
+      "installedAt": "2026-05-18T03:37:17.504Z",
+      "updatedAt": "2026-05-18T03:45:52.617Z",
+      "history": [
+        {
+          "version": "1.0.2",
+          "action": "install",
+          "date": "2026-05-18T03:37:17.504Z"
+        },
+        {
+          "version": "1.0.1",
+          "action": "rollback",
+          "date": "2026-05-18T03:38:35.812Z"
+        },
+        {
+          "version": "1.0.2",
+          "action": "install",
+          "date": "2026-05-18T03:39:02.635Z"
+        },
+        {
+          "version": "1.0.1",
+          "action": "rollback",
+          "date": "2026-05-18T03:39:18.617Z"
+        },
+        {
+          "version": "1.0.2",
+          "action": "update",
+          "date": "2026-05-18T03:39:31.999Z"
+        },
+        {
+          "version": "1.0.3",
+          "action": "update",
+          "date": "2026-05-18T03:45:52.617Z"
+        }
+      ]
     }
   },
   "globalCss": "./src/landing.css"
