@@ -6,14 +6,7 @@ import { useTheme, useHeadings, useActiveHeading } from '../hooks'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '../components/ui/Collapsible'
 import { TableOfContents } from '../components/ui/TableOfContents'
 import { COMPONENT_CATEGORIES } from '../data/components'
-
-const DOC_PAGES = [
-  { path: '/docs', label: 'Introduction' },
-  { path: '/docs/installation', label: 'Installation' },
-  { path: '/docs/theming', label: 'Theming' },
-  { path: '/docs/architecture', label: 'Architecture' },
-  { path: '/docs/versioning', label: 'Versioning' },
-]
+import { getAdjacentPages } from '../data/navigation'
 
 const CATEGORY_ORDER = [
   'Inputs', 'Layout', 'Typography', 'Navigation', 'Feedback', 'Data', 'Media',
@@ -21,22 +14,39 @@ const CATEGORY_ORDER = [
   'Scheduling', 'Misc',
 ]
 
-const ALL_PAGES: { path: string; label: string }[] = [
-  ...DOC_PAGES,
-  ...CATEGORY_ORDER.flatMap((cat) =>
-    (COMPONENT_CATEGORIES[cat] ?? []).map((name) => ({
-      path: `/components/${name.toLowerCase()}`,
-      label: name,
-    }))
-  ),
-]
-
-function PrevNextNav() {
+function PageNav({ compact }: { compact?: boolean }) {
   const { pathname } = useLocation()
-  const idx = ALL_PAGES.findIndex((p) => p.path === pathname)
-  if (idx === -1) return null
-  const prev = idx > 0 ? ALL_PAGES[idx - 1] : null
-  const next = idx < ALL_PAGES.length - 1 ? ALL_PAGES[idx + 1] : null
+  const { prev, next } = getAdjacentPages(pathname)
+  if (!prev && !next) return null
+
+  if (compact) {
+    return (
+      <div className="flex items-center gap-1 ml-auto flex-shrink-0">
+        {prev ? (
+          <Link
+            to={prev.path}
+            title={prev.label}
+            className="p-1 rounded hover:bg-surface-secondary text-text-tertiary hover:text-text-primary transition-colors"
+          >
+            <ChevronLeft className="w-3.5 h-3.5" />
+          </Link>
+        ) : (
+          <span className="p-1 w-[22px]" />
+        )}
+        {next ? (
+          <Link
+            to={next.path}
+            title={next.label}
+            className="p-1 rounded hover:bg-surface-secondary text-text-tertiary hover:text-text-primary transition-colors"
+          >
+            <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+        ) : (
+          <span className="p-1 w-[22px]" />
+        )}
+      </div>
+    )
+  }
 
   return (
     <div className="mt-16 pt-6 border-t border-border-primary flex items-center justify-between gap-4">
@@ -54,12 +64,36 @@ function PrevNextNav() {
       {next ? (
         <Link
           to={next.path}
-          className="group flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors min-w-0 text-right ml-auto"
+          className="group flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors min-w-0 ml-auto"
         >
           <span className="truncate">{next.label}</span>
           <ChevronRight className="w-4 h-4 flex-shrink-0 text-text-tertiary group-hover:text-text-primary transition-colors" />
         </Link>
       ) : null}
+    </div>
+  )
+}
+
+function DocsBreadcrumb() {
+  const { pathname } = useLocation()
+  if (!pathname.startsWith('/docs')) return null
+
+  const labels: Record<string, string> = {
+    '/docs': 'Introduction',
+    '/docs/installation': 'Installation',
+    '/docs/theming': 'Theming',
+    '/docs/architecture': 'Architecture',
+    '/docs/versioning': 'Versioning',
+  }
+  const current = labels[pathname]
+  if (!current) return null
+
+  return (
+    <div className="text-sm text-text-secondary flex items-center gap-2 mb-4 mt-4">
+      <span className="text-text-tertiary">Docs</span>
+      <span className="text-text-tertiary">/</span>
+      <span className="text-text-primary font-medium">{current}</span>
+      <PageNav compact />
     </div>
   )
 }
@@ -144,8 +178,9 @@ export default function DocsLayout() {
         </div>
         <main role="main" className="pt-11 md:pt-8 min-h-screen">
           <div className="max-w-3xl mx-auto px-8 py-10">
+            <DocsBreadcrumb />
             <Outlet />
-            <PrevNextNav />
+            <PageNav />
           </div>
         </main>
         <TableOfContents headings={headings} activeId={activeHeadingId} />

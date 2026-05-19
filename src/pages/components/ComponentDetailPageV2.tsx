@@ -1,7 +1,7 @@
 import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, Copy, Check, Maximize2, X, Search } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Copy, Check, Maximize2, X, Search } from 'lucide-react'
 
 import { Title } from '../../components/ui/Title'
 import { Text } from '../../components/ui/Text'
@@ -9,6 +9,7 @@ import { Button } from '../../components/ui/Button'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../components/ui/Tabs'
 import { CodeBlock } from '../../components/ui/CodeBlock'
 import { ALL_COMPONENTS, COMPONENT_CATEGORIES, ComponentEntry } from '../../data/components'
+import { getAdjacentPages } from '../../data/navigation'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -3760,6 +3761,8 @@ function ComponentDocSections({ componentName }: { componentName: string }) {
 export default function ComponentDetailPageV2() {
   const { componentName } = useParams<{ componentName: string }>()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const { prev, next } = getAdjacentPages(pathname)
 
   if (!componentName) {
     return <div>Component not found</div>
@@ -3814,6 +3817,30 @@ export default function ComponentDetailPageV2() {
           </button>
           <span className="text-text-tertiary">/</span>
           <span className="text-text-primary font-medium">{component.name}</span>
+          <div className="flex items-center gap-1 ml-auto flex-shrink-0">
+            {prev ? (
+              <Link
+                to={prev.path}
+                title={prev.label}
+                className="p-1 rounded hover:bg-surface-secondary text-text-tertiary hover:text-text-primary transition-colors"
+              >
+                <ChevronLeft className="w-3.5 h-3.5" />
+              </Link>
+            ) : (
+              <span className="p-1 w-[22px]" />
+            )}
+            {next ? (
+              <Link
+                to={next.path}
+                title={next.label}
+                className="p-1 rounded hover:bg-surface-secondary text-text-tertiary hover:text-text-primary transition-colors"
+              >
+                <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
+            ) : (
+              <span className="p-1 w-[22px]" />
+            )}
+          </div>
         </div>
 
         <div className="space-y-2">
