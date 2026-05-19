@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, Copy, Check, Maximize2, X } from 'lucide-react'
+import { ChevronLeft, Copy, Check, Maximize2, X, Search } from 'lucide-react'
 
 import { Title } from '../../components/ui/Title'
 import { Text } from '../../components/ui/Text'
@@ -574,7 +574,7 @@ const API_REFERENCE: Record<string, ApiTable[]> = {
       name: 'Modal',
       props: [
         { prop: 'open', type: 'boolean', required: true, description: 'Controls visibility of the modal.' },
-        { prop: 'onClose', type: '() => void', required: true, description: 'Called when the user dismisses the modal.' },
+        { prop: 'onOpenChange', type: '(open: boolean) => void', required: true, description: 'Called when the modal opens or closes — receives the new boolean state.' },
         { prop: 'title', type: 'string', description: 'Heading text in the modal header.' },
         { prop: 'size', type: "'sm' | 'md' | 'lg' | 'xl' | 'full'", default: "'md'", description: 'Max-width preset of the modal panel.' },
         { prop: 'footer', type: 'ReactNode', description: 'Action buttons rendered in the modal footer.' },
@@ -722,12 +722,28 @@ const API_REFERENCE: Record<string, ApiTable[]> = {
   collapsible: [
     {
       name: 'Collapsible',
+      description: 'Root context provider. Wrap CollapsibleTrigger + CollapsibleContent inside.',
       props: [
         { prop: 'open', type: 'boolean', description: 'Controlled open state.' },
         { prop: 'defaultOpen', type: 'boolean', default: 'false', description: 'Initial state (uncontrolled).' },
-        { prop: 'onOpenChange', type: '(open: boolean) => void', description: 'Fired on toggle.' },
-        { prop: 'trigger', type: 'ReactNode', required: true, description: 'The element that controls expand/collapse.' },
-        { prop: 'children', type: 'ReactNode', required: true, description: 'Hidden content revealed when open.' },
+        { prop: 'onOpenChange', type: '(open: boolean) => void', description: 'Fired when the panel opens or closes.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'CollapsibleTrigger and CollapsibleContent elements.' },
+      ],
+    },
+    {
+      name: 'CollapsibleTrigger',
+      description: 'The element that toggles open/close. Renders as a button by default.',
+      props: [
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes for the trigger button.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Trigger label or icon.' },
+      ],
+    },
+    {
+      name: 'CollapsibleContent',
+      description: 'The panel revealed when open. Animated with height transition.',
+      props: [
+        { prop: 'className', type: 'string', description: 'Additional Tailwind classes.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Content to reveal.' },
       ],
     },
   ],
@@ -860,7 +876,7 @@ const API_REFERENCE: Record<string, ApiTable[]> = {
       name: 'Sheet',
       props: [
         { prop: 'open', type: 'boolean', required: true, description: 'Controls visibility.' },
-        { prop: 'onClose', type: '() => void', required: true, description: 'Called when the sheet is dismissed.' },
+        { prop: 'onOpenChange', type: '(open: boolean) => void', required: true, description: 'Called when the sheet opens or closes.' },
         { prop: 'side', type: "'left' | 'right' | 'top' | 'bottom'", default: "'right'", description: 'Side from which the sheet slides in.' },
         { prop: 'title', type: 'string', description: 'Sheet panel heading.' },
         { prop: 'children', type: 'ReactNode', required: true, description: 'Sheet body content.' },
@@ -1155,13 +1171,85 @@ const API_REFERENCE: Record<string, ApiTable[]> = {
   searchinput: [
     {
       name: 'SearchInput',
+      description: 'Root component. Works as a self-contained input or as a compound context provider when children are passed.',
       props: [
-        { prop: 'value', type: 'string', description: 'Controlled search query.' },
-        { prop: 'onChange', type: '(value: string) => void', description: 'Fired on input change.' },
-        { prop: 'onSearch', type: '(value: string) => void', description: 'Fired on Enter key or search button.' },
-        { prop: 'placeholder', type: 'string', default: "'Search…'", description: 'Placeholder text.' },
-        { prop: 'debounceMs', type: 'number', default: '300', description: 'Debounce delay for onChange in ms.' },
-        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input.' },
+        { prop: 'value', type: 'string', required: true, description: 'Controlled search query.' },
+        { prop: 'onChange', type: '(value: string) => void', required: true, description: 'Fired on every input change.' },
+        { prop: 'onSearch', type: '(value: string) => void', description: 'Fired on Enter key (simple mode) or when debounce fires.' },
+        { prop: 'onClear', type: '() => void', description: 'Fired when the clear button is pressed.' },
+        { prop: 'isLoading', type: 'boolean', default: 'false', description: 'Shows a spinner in place of the clear button.' },
+        { prop: 'debounceTime', type: 'number', default: '0', description: 'Debounce delay in ms before onSearch fires. 0 = no debounce.' },
+        { prop: 'placeholder', type: 'string', default: "'Search...'", description: 'Placeholder text for the input.' },
+        { prop: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Controls input height (h-8 / h-10 / h-12) and text size.' },
+        { prop: 'variant', type: "'default' | 'error'", default: "'default'", description: 'Border color variant — use error to show validation state.' },
+        { prop: 'label', type: 'string', description: 'Optional label rendered above the input.' },
+        { prop: 'disabled', type: 'boolean', default: 'false', description: 'Disables the input and all interactive sub-components.' },
+        { prop: 'containerClassName', type: 'string', description: 'Class applied to the outer wrapper div.' },
+        { prop: 'children', type: 'ReactNode', description: 'When provided, switches to compound mode — wraps children in a shared Context provider. The actual input must be rendered via SearchInput.Input.' },
+      ],
+    },
+    {
+      name: 'SearchInput.Input',
+      description: 'The actual <input> element with search icon, clear button, and spinner. Must be used inside SearchInput in compound mode.',
+      props: [
+        { prop: 'value', type: 'string', required: true, description: 'Controlled input value.' },
+        { prop: 'onChange', type: '(value: string) => void', required: true, description: 'Fired on every keystroke.' },
+        { prop: 'onSearch', type: '(value: string) => void', description: 'Fired when the user presses Enter.' },
+        { prop: 'onClear', type: '() => void', description: 'Fired when the clear button is clicked.' },
+        { prop: 'isLoading', type: 'boolean', default: 'false', description: 'Shows a spinner instead of the clear button.' },
+        { prop: 'placeholder', type: 'string', description: 'Placeholder text.' },
+        { prop: 'disabled', type: 'boolean', description: 'Disables the input (also read from context).' },
+      ],
+    },
+    {
+      name: 'SearchInput.Dropdown',
+      description: 'Animated results panel positioned absolutely below the input. Uses AnimatePresence for enter/exit transitions.',
+      props: [
+        { prop: 'show', type: 'boolean', required: true, description: 'Controls visibility — the component mounts/unmounts with animation.' },
+        { prop: 'hasResults', type: 'boolean', default: 'false', description: 'When false and query is non-empty, shows a "No results for…" message.' },
+        { prop: 'query', type: 'string', description: 'Current search query — used in the empty state message.' },
+        { prop: 'maxHeight', type: 'string', default: "'50vh'", description: 'Max height before the panel becomes scrollable.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Sections and items to render inside the dropdown.' },
+      ],
+    },
+    {
+      name: 'SearchInput.Section',
+      description: 'Groups related items under a labelled section header.',
+      props: [
+        { prop: 'title', type: 'string', required: true, description: 'Section header text (rendered uppercase with letter-spacing).' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Items inside this section.' },
+      ],
+    },
+    {
+      name: 'SearchInput.Item',
+      description: 'A single result row. Renders as <button> when onClick is provided, <div> otherwise.',
+      props: [
+        { prop: 'onClick', type: '() => void', description: 'Click handler. When present, the row renders as a focusable, keyboard-accessible button.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Row content — typically ItemIcon + ItemContent + TrailingBadge.' },
+      ],
+    },
+    {
+      name: 'SearchInput.ItemContent',
+      description: 'Two-line text block for a result row (label + optional subtitle).',
+      props: [
+        { prop: 'label', type: 'string', required: true, description: 'Primary label — truncated with ellipsis.' },
+        { prop: 'subtitle', type: 'string', description: 'Secondary line — smaller and muted, also truncated.' },
+      ],
+    },
+    {
+      name: 'SearchInput.ItemIcon',
+      description: 'Icon slot for a result row. Renders a predefined emoji for known resource types, or a custom ReactNode.',
+      props: [
+        { prop: 'type', type: "'paper' | 'book' | 'course' | 'website'", description: 'Renders a predefined emoji (📄/📚/🎓/💻). Ignored when icon is set.' },
+        { prop: 'icon', type: 'ReactNode', description: 'Custom icon node. Takes precedence over type.' },
+      ],
+    },
+    {
+      name: 'SearchInput.TrailingBadge',
+      description: 'Small color-coded badge anchored to the right side of an item row.',
+      props: [
+        { prop: 'variant', type: "'default' | 'primary' | 'success' | 'warning' | 'error'", default: "'default'", description: 'Color variant for the badge.' },
+        { prop: 'children', type: 'ReactNode', required: true, description: 'Badge content — typically a short label or icon.' },
       ],
     },
   ],
@@ -4030,12 +4118,13 @@ function ButtonExamples() {
   return (
     <>
       <ComponentExample
-        title="Basic Variants"
-        description="All available button variants"
+        title="Variants"
+        description="All six visual styles — primary through destructive"
         preview={
           <div className="flex flex-wrap gap-3">
             <Button variant="primary">Primary</Button>
             <Button variant="secondary">Secondary</Button>
+            <Button variant="subtle">Subtle</Button>
             <Button variant="ghost">Ghost</Button>
             <Button variant="outline">Outline</Button>
             <Button variant="destructive">Destructive</Button>
@@ -4048,6 +4137,7 @@ export function Example() {
     <div className="flex flex-wrap gap-3">
       <Button variant="primary">Primary</Button>
       <Button variant="secondary">Secondary</Button>
+      <Button variant="subtle">Subtle</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="destructive">Destructive</Button>
@@ -4058,7 +4148,7 @@ export function Example() {
 
       <ComponentExample
         title="Sizes"
-        description="Different button sizes"
+        description="Three sizes — sm, md (default), lg"
         preview={
           <div className="flex gap-3 items-center flex-wrap">
             <Button size="sm">Small</Button>
@@ -4070,7 +4160,7 @@ export function Example() {
 
 export function Example() {
   return (
-    <div className="flex gap-3 items-center flex-wrap">
+    <div className="flex gap-3 items-center">
       <Button size="sm">Small</Button>
       <Button size="md">Medium</Button>
       <Button size="lg">Large</Button>
@@ -4080,12 +4170,44 @@ export function Example() {
       />
 
       <ComponentExample
+        title="With icons"
+        description="Use leftIcon or rightIcon to slot any ReactNode alongside the label"
+        preview={
+          <div className="flex gap-3 flex-wrap items-center">
+            <Button variant="primary" leftIcon={<Search className="w-4 h-4" />}>Search</Button>
+            <Button variant="secondary" rightIcon={<ChevronLeft className="w-4 h-4 rotate-180" />}>Next</Button>
+            <Button variant="outline" leftIcon={<Copy className="w-4 h-4" />}>Copy link</Button>
+          </div>
+        }
+        code={`import { Button } from '@/components/ui/Button'
+import { Search, ChevronRight, Copy } from 'lucide-react'
+
+export function Example() {
+  return (
+    <div className="flex gap-3 flex-wrap">
+      <Button variant="primary" leftIcon={<Search className="w-4 h-4" />}>
+        Search
+      </Button>
+      <Button variant="secondary" rightIcon={<ChevronRight className="w-4 h-4" />}>
+        Next
+      </Button>
+      <Button variant="outline" leftIcon={<Copy className="w-4 h-4" />}>
+        Copy link
+      </Button>
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
         title="States"
-        description="Button loading and disabled states"
+        description="Loading shows a spinner and sets aria-busy. Disabled prevents all interaction."
         preview={
           <div className="flex gap-3 flex-wrap">
-            <Button variant="primary" loading>Loading...</Button>
+            <Button variant="primary" loading>Saving…</Button>
+            <Button variant="secondary" loading>Loading</Button>
             <Button disabled>Disabled</Button>
+            <Button variant="outline" disabled>Disabled</Button>
           </div>
         }
         code={`import { Button } from '@/components/ui/Button'
@@ -4093,8 +4215,29 @@ export function Example() {
 export function Example() {
   return (
     <div className="flex gap-3 flex-wrap">
-      <Button variant="primary" loading>Loading...</Button>
+      <Button variant="primary" loading>Saving…</Button>
       <Button disabled>Disabled</Button>
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Full width"
+        description="Stretches to fill its container — useful for mobile CTAs or form footers"
+        preview={
+          <div className="w-full max-w-xs space-y-2">
+            <Button variant="primary" fullWidth>Create account</Button>
+            <Button variant="outline" fullWidth>Sign in instead</Button>
+          </div>
+        }
+        code={`import { Button } from '@/components/ui/Button'
+
+export function Example() {
+  return (
+    <div className="space-y-2">
+      <Button variant="primary" fullWidth>Create account</Button>
+      <Button variant="outline" fullWidth>Sign in instead</Button>
     </div>
   )
 }`}
@@ -4114,39 +4257,19 @@ function InputExamples() {
   return (
     <>
       <ComponentExample
-        title="Basic Input"
-        description="Simple text input"
+        title="With label and helper text"
+        description="The label and helperText props render inside the component — no extra wrapper needed"
         preview={
-          <Input
-            placeholder="Enter your name"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            className="max-w-sm"
-          />
-        }
-        code={`import { Input } from '@/components/ui/Input'
-import { useState } from 'react'
-
-export function Example() {
-  const [value, setValue] = useState('')
-  
-  return (
-    <Input
-      placeholder="Enter your name"
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  )
-}`}
-      />
-
-      <ComponentExample
-        title="With Label"
-        description="Input with form label"
-        preview={
-          <div className="space-y-2 max-w-sm">
-            <label className="text-sm font-medium text-text-primary">Email Address</label>
+          <div className="space-y-4 w-full max-w-sm">
             <Input
+              label="Full name"
+              placeholder="Jane Smith"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              helperText="This will appear on your public profile."
+            />
+            <Input
+              label="Email address"
               type="email"
               placeholder="you@example.com"
               value={email}
@@ -4155,38 +4278,107 @@ export function Example() {
           </div>
         }
         code={`import { Input } from '@/components/ui/Input'
+import { useState } from 'react'
 
 export function Example() {
+  const [name, setName] = useState('')
+
   return (
-    <div className="space-y-2">
-      <label className="text-sm font-medium">Email Address</label>
-      <Input
-        type="email"
-        placeholder="you@example.com"
-      />
-    </div>
+    <Input
+      label="Full name"
+      placeholder="Jane Smith"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      helperText="This will appear on your public profile."
+    />
   )
 }`}
       />
 
       <ComponentExample
-        title="Disabled State"
-        description="Disabled input"
+        title="Error state"
+        description="Pass error to show inline validation feedback — replaces helperText"
         preview={
-          <Input
-            placeholder="This input is disabled"
-            disabled
-            className="max-w-sm"
-          />
+          <div className="space-y-4 w-full max-w-sm">
+            <Input
+              label="Email address"
+              type="email"
+              placeholder="you@example.com"
+              defaultValue="not-an-email"
+              error="Please enter a valid email address."
+            />
+            <Input
+              label="Password"
+              type="password"
+              placeholder="••••••••"
+              error="Must be at least 8 characters."
+            />
+          </div>
         }
         code={`import { Input } from '@/components/ui/Input'
 
 export function Example() {
   return (
     <Input
-      placeholder="This input is disabled"
-      disabled
+      label="Email address"
+      type="email"
+      defaultValue="not-an-email"
+      error="Please enter a valid email address."
     />
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="With icons"
+        description="leftIcon and rightIcon accept any ReactNode — typically lucide-react icons"
+        preview={
+          <div className="space-y-3 w-full max-w-sm">
+            <Input
+              placeholder="Search components…"
+              leftIcon={<Search className="w-4 h-4" />}
+            />
+            <Input
+              label="Website"
+              placeholder="https://example.com"
+              leftIcon={<span className="text-xs font-mono text-text-tertiary">URL</span>}
+            />
+          </div>
+        }
+        code={`import { Input } from '@/components/ui/Input'
+import { Search } from 'lucide-react'
+
+export function Example() {
+  return (
+    <Input
+      placeholder="Search components…"
+      leftIcon={<Search className="w-4 h-4" />}
+    />
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Sizes and disabled"
+        description="Three sizes via inputSize. Disabled grays out and prevents interaction."
+        preview={
+          <div className="space-y-3 w-full max-w-sm">
+            <Input inputSize="sm" placeholder="Small input" />
+            <Input inputSize="md" placeholder="Medium input (default)" />
+            <Input inputSize="lg" placeholder="Large input" />
+            <Input placeholder="Disabled input" disabled />
+          </div>
+        }
+        code={`import { Input } from '@/components/ui/Input'
+
+export function Example() {
+  return (
+    <div className="space-y-3">
+      <Input inputSize="sm" placeholder="Small" />
+      <Input inputSize="md" placeholder="Medium" />
+      <Input inputSize="lg" placeholder="Large" />
+      <Input placeholder="Disabled" disabled />
+    </div>
   )
 }`}
       />
@@ -4461,8 +4653,8 @@ function AlertExamples() {
   return (
     <>
       <ComponentExample
-        title="All Variants"
-        description="Five severity levels with auto-selected icons"
+        title="All variants"
+        description="Five severity levels — default, success, warning, destructive, and info — each with an auto-selected icon"
         preview={
           <div className="space-y-3 max-w-md w-full">
             <Alert variant="default">
@@ -4513,6 +4705,30 @@ export function Example() {
         <AlertDescription>Check the changelog for what's new.</AlertDescription>
       </Alert>
     </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Title only"
+        description="AlertDescription is optional — use just AlertTitle for brief one-line messages"
+        preview={
+          <div className="space-y-3 max-w-md w-full">
+            <Alert variant="success">
+              <AlertTitle>Payment confirmed</AlertTitle>
+            </Alert>
+            <Alert variant="destructive">
+              <AlertTitle>Connection lost. Retrying…</AlertTitle>
+            </Alert>
+          </div>
+        }
+        code={`import { Alert, AlertTitle } from '@/components/ui/Alert'
+
+export function Example() {
+  return (
+    <Alert variant="success">
+      <AlertTitle>Payment confirmed</AlertTitle>
+    </Alert>
   )
 }`}
       />
@@ -4703,25 +4919,83 @@ export function Example() {
 import { RadioGroup, RadioGroupItem } from '../../components/ui/RadioGroup'
 
 function RadioGroupExamples() {
-  const [selected, setSelected] = React.useState('option1')
+  const [plan, setPlan] = React.useState('pro')
+  const [notify, setNotify] = React.useState('all')
   return (
     <>
       <ComponentExample
-        title="Basic RadioGroup"
-        description="Radio button selection"
+        title="Plan selector"
+        description="Each option has a label and description. One option is disabled."
         preview={
-          <RadioGroup value={selected} onValueChange={setSelected}>
-            <RadioGroupItem value="option1">Option 1</RadioGroupItem>
-            <RadioGroupItem value="option2">Option 2</RadioGroupItem>
+          <RadioGroup value={plan} onValueChange={setPlan} className="space-y-2 w-full max-w-sm">
+            <RadioGroupItem value="free">
+              <div className="flex flex-col">
+                <span className="text-sm font-medium">Free</span>
+                <span className="text-xs text-text-secondary">Up to 3 projects, community support</span>
+              </div>
+            </RadioGroupItem>
+            <RadioGroupItem value="pro">
+              <div className="flex flex-col">
+                <span className="text-sm font-medium">Pro</span>
+                <span className="text-xs text-text-secondary">Unlimited projects, priority support</span>
+              </div>
+            </RadioGroupItem>
+            <RadioGroupItem value="enterprise" disabled>
+              <div className="flex flex-col">
+                <span className="text-sm font-medium">Enterprise</span>
+                <span className="text-xs text-text-secondary">SSO, SLA, dedicated account manager</span>
+              </div>
+            </RadioGroupItem>
           </RadioGroup>
         }
         code={`import { RadioGroup, RadioGroupItem } from '@/components/ui/RadioGroup'
+
 export function Example() {
-  const [selected, setSelected] = useState('option1')
+  const [plan, setPlan] = useState('pro')
   return (
-    <RadioGroup value={selected} onValueChange={setSelected}>
-      <RadioGroupItem value="option1">Option 1</RadioGroupItem>
-      <RadioGroupItem value="option2">Option 2</RadioGroupItem>
+    <RadioGroup value={plan} onValueChange={setPlan}>
+      <RadioGroupItem value="free">
+        <div className="flex flex-col">
+          <span className="font-medium">Free</span>
+          <span className="text-xs text-text-secondary">Up to 3 projects</span>
+        </div>
+      </RadioGroupItem>
+      <RadioGroupItem value="pro">
+        <div className="flex flex-col">
+          <span className="font-medium">Pro</span>
+          <span className="text-xs text-text-secondary">Unlimited projects</span>
+        </div>
+      </RadioGroupItem>
+      <RadioGroupItem value="enterprise" disabled>
+        <div className="flex flex-col">
+          <span className="font-medium">Enterprise</span>
+          <span className="text-xs text-text-secondary">SSO, SLA, dedicated support</span>
+        </div>
+      </RadioGroupItem>
+    </RadioGroup>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Horizontal layout"
+        description="Use a flex row when options are short labels"
+        preview={
+          <RadioGroup value={notify} onValueChange={setNotify} className="flex gap-6">
+            <RadioGroupItem value="all">All</RadioGroupItem>
+            <RadioGroupItem value="mentions">Mentions only</RadioGroupItem>
+            <RadioGroupItem value="none">None</RadioGroupItem>
+          </RadioGroup>
+        }
+        code={`import { RadioGroup, RadioGroupItem } from '@/components/ui/RadioGroup'
+
+export function Example() {
+  const [notify, setNotify] = useState('all')
+  return (
+    <RadioGroup value={notify} onValueChange={setNotify} className="flex gap-6">
+      <RadioGroupItem value="all">All</RadioGroupItem>
+      <RadioGroupItem value="mentions">Mentions only</RadioGroupItem>
+      <RadioGroupItem value="none">None</RadioGroupItem>
     </RadioGroup>
   )
 }`}
@@ -4805,15 +5079,71 @@ export function Example() {
 import { Spinner } from '../../components/ui/Spinner'
 
 function SpinnerExamples() {
+  const [saving, setSaving] = React.useState(false)
   return (
     <>
       <ComponentExample
-        title="Loading Spinner"
-        description="Animated loading indicator"
-        preview={<Spinner size="md" />}
+        title="Sizes"
+        description="Three sizes — sm for inline use, md default, lg for full-area loading"
+        preview={
+          <div className="flex items-center gap-6">
+            <div className="flex flex-col items-center gap-1">
+              <Spinner size="sm" />
+              <span className="text-xs text-text-secondary">sm</span>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <Spinner size="md" />
+              <span className="text-xs text-text-secondary">md</span>
+            </div>
+            <div className="flex flex-col items-center gap-1">
+              <Spinner size="lg" />
+              <span className="text-xs text-text-secondary">lg</span>
+            </div>
+          </div>
+        }
         code={`import { Spinner } from '@/components/ui/Spinner'
+
 export function Example() {
-  return <Spinner size="md" />
+  return (
+    <div className="flex items-center gap-6">
+      <Spinner size="sm" />
+      <Spinner size="md" />
+      <Spinner size="lg" />
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Inline in button"
+        description="Use size sm inside a Button to indicate async work"
+        preview={
+          <div className="flex gap-3">
+            <Button
+              onClick={() => { setSaving(true); setTimeout(() => setSaving(false), 2000) }}
+              disabled={saving}
+            >
+              {saving ? <><Spinner size="sm" /><span>Saving…</span></> : 'Save changes'}
+            </Button>
+            <Button variant="secondary" disabled={saving}>Cancel</Button>
+          </div>
+        }
+        code={`import { Spinner } from '@/components/ui/Spinner'
+import { Button } from '@/components/ui/Button'
+import { useState } from 'react'
+
+export function Example() {
+  const [saving, setSaving] = useState(false)
+  return (
+    <Button onClick={() => setSaving(true)} disabled={saving}>
+      {saving ? (
+        <>
+          <Spinner size="sm" />
+          <span>Saving…</span>
+        </>
+      ) : 'Save changes'}
+    </Button>
+  )
 }`}
       />
     </>
@@ -4827,20 +5157,70 @@ function SkeletonExamples() {
   return (
     <>
       <ComponentExample
-        title="Skeleton Loader"
-        description="Animated loading placeholder"
+        title="Card skeleton"
+        description="Mimic a content card while data loads — match shapes to your real layout"
         preview={
-          <div className="space-y-4 w-full max-w-md">
-            <Skeleton className="h-12 w-full" />
-            <Skeleton className="h-8 w-3/4" />
+          <div className="w-full max-w-sm rounded-xl border border-border-primary p-4 space-y-4">
+            <Skeleton className="h-40 w-full rounded-lg" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+            </div>
+            <div className="flex gap-2">
+              <Skeleton className="h-8 w-20 rounded-full" />
+              <Skeleton className="h-8 w-20 rounded-full" />
+            </div>
           </div>
         }
         code={`import { Skeleton } from '@/components/ui/Skeleton'
+
 export function Example() {
   return (
-    <div className="space-y-4">
-      <Skeleton className="h-12 w-full" />
-      <Skeleton className="h-8 w-3/4" />
+    <div className="rounded-xl border p-4 space-y-4">
+      <Skeleton className="h-40 w-full rounded-lg" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+      </div>
+      <div className="flex gap-2">
+        <Skeleton className="h-8 w-20 rounded-full" />
+        <Skeleton className="h-8 w-20 rounded-full" />
+      </div>
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Profile row skeleton"
+        description="Avatar + two lines of text — common list/comment pattern"
+        preview={
+          <div className="space-y-3 w-full max-w-sm">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="flex items-center gap-3">
+                <Skeleton className="h-10 w-10 rounded-full flex-shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-3.5 w-1/2" />
+                  <Skeleton className="h-3 w-3/4" />
+                </div>
+              </div>
+            ))}
+          </div>
+        }
+        code={`import { Skeleton } from '@/components/ui/Skeleton'
+
+export function Example() {
+  return (
+    <div className="space-y-3">
+      {[0, 1, 2].map((i) => (
+        <div key={i} className="flex items-center gap-3">
+          <Skeleton className="h-10 w-10 rounded-full" />
+          <div className="flex-1 space-y-2">
+            <Skeleton className="h-3.5 w-1/2" />
+            <Skeleton className="h-3 w-3/4" />
+          </div>
+        </div>
+      ))}
     </div>
   )
 }`}
@@ -4967,29 +5347,149 @@ export function Example() {
 import { Textarea } from '../../components/ui/Textarea'
 
 function TextareaExamples() {
-  const [text, setText] = React.useState('')
+  const [bio, setBio] = React.useState('')
+  const [feedback, setFeedback] = React.useState('')
+  const MAX = 200
   return (
     <>
       <ComponentExample
-        title="Basic Textarea"
-        description="Multi-line text input"
+        title="With label and helper text"
+        description="Compose a label element above the Textarea and a helper line below"
         preview={
-          <Textarea
-            placeholder="Enter your message..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="max-w-md"
-          />
+          <div className="w-full max-w-md space-y-1">
+            <label className="text-sm font-medium text-text-primary" htmlFor="bio">Bio</label>
+            <Textarea
+              id="bio"
+              placeholder="Tell us a bit about yourself…"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+            />
+            <p className="text-xs text-text-secondary">This will appear on your public profile.</p>
+          </div>
         }
         code={`import { Textarea } from '@/components/ui/Textarea'
+
 export function Example() {
-  const [text, setText] = useState('')
+  const [bio, setBio] = useState('')
   return (
-    <Textarea
-      placeholder="Enter your message..."
-      value={text}
-      onChange={(e) => setText(e.target.value)}
-    />
+    <div className="space-y-1">
+      <label className="text-sm font-medium" htmlFor="bio">Bio</label>
+      <Textarea
+        id="bio"
+        placeholder="Tell us a bit about yourself…"
+        value={bio}
+        onChange={(e) => setBio(e.target.value)}
+      />
+      <p className="text-xs text-text-secondary">
+        This will appear on your public profile.
+      </p>
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Error state"
+        description="Apply a red ring via className and render an error message below"
+        preview={
+          <div className="w-full max-w-md space-y-1">
+            <label className="text-sm font-medium text-text-primary" htmlFor="cancel-reason">Reason for cancellation</label>
+            <Textarea
+              id="cancel-reason"
+              placeholder="Please explain…"
+              className="border-status-error focus-visible:ring-status-error"
+              aria-invalid="true"
+            />
+            <p className="text-xs text-status-error">This field is required before you can proceed.</p>
+          </div>
+        }
+        code={`import { Textarea } from '@/components/ui/Textarea'
+
+export function Example() {
+  return (
+    <div className="space-y-1">
+      <label className="text-sm font-medium" htmlFor="reason">Reason</label>
+      <Textarea
+        id="reason"
+        placeholder="Please explain…"
+        className="border-status-error focus-visible:ring-status-error"
+        aria-invalid="true"
+      />
+      <p className="text-xs text-status-error">
+        This field is required.
+      </p>
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Character counter"
+        description="Track value.length in state — stop accepting input once the limit is hit"
+        preview={
+          <div className="w-full max-w-md space-y-1">
+            <label className="text-sm font-medium text-text-primary" htmlFor="feedback">Feedback</label>
+            <Textarea
+              id="feedback"
+              placeholder={`Max ${MAX} characters`}
+              value={feedback}
+              onChange={(e) => { if (e.target.value.length <= MAX) setFeedback(e.target.value) }}
+            />
+            <p className="text-xs text-text-secondary text-right">
+              {feedback.length} / {MAX}
+            </p>
+          </div>
+        }
+        code={`import { Textarea } from '@/components/ui/Textarea'
+import { useState } from 'react'
+
+const MAX = 200
+export function Example() {
+  const [feedback, setFeedback] = useState('')
+  return (
+    <div className="space-y-1">
+      <label className="text-sm font-medium" htmlFor="feedback">Feedback</label>
+      <Textarea
+        id="feedback"
+        placeholder={\`Max \${MAX} characters\`}
+        value={feedback}
+        onChange={(e) => {
+          if (e.target.value.length <= MAX) setFeedback(e.target.value)
+        }}
+      />
+      <p className="text-xs text-text-secondary text-right">
+        {feedback.length} / {MAX}
+      </p>
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Disabled"
+        description="A pre-filled read-only textarea — user cannot edit"
+        preview={
+          <div className="w-full max-w-md space-y-1">
+            <label className="text-sm font-medium text-text-primary">System notes</label>
+            <Textarea
+              value="Auto-generated by the onboarding flow on 2025-03-12."
+              disabled
+              readOnly
+            />
+          </div>
+        }
+        code={`import { Textarea } from '@/components/ui/Textarea'
+
+export function Example() {
+  return (
+    <div className="space-y-1">
+      <label className="text-sm font-medium">System notes</label>
+      <Textarea
+        value="Auto-generated by the onboarding flow on 2025-03-12."
+        disabled
+        readOnly
+      />
+    </div>
   )
 }`}
       />
@@ -5318,15 +5818,20 @@ function AvatarGroupExamples() {
       <ComponentExample
         title="Avatar Group"
         description="Multiple user avatars"
-        preview={<AvatarGroup avatars={[{name: 'John'}, {name: 'Jane'}, {name: 'Bob'}]} />}
+        preview={<AvatarGroup items={[{alt: 'Alice', fallback: 'AL'}, {alt: 'Bob', fallback: 'BO'}, {alt: 'Clara', fallback: 'CL'}, {alt: 'Dan', fallback: 'DA'}, {alt: 'Eve', fallback: 'EV'}]} max={4} />}
         code={`import { AvatarGroup } from '@/components/ui/AvatarGroup'
 export function Example() {
   return (
-    <AvatarGroup avatars={[
-      {name: 'John'},
-      {name: 'Jane'},
-      {name: 'Bob'}
-    ]} />
+    <AvatarGroup
+      items={[
+        { alt: 'Alice', fallback: 'AL' },
+        { alt: 'Bob', fallback: 'BO' },
+        { alt: 'Clara', fallback: 'CL' },
+        { alt: 'Dan', fallback: 'DA' },
+        { alt: 'Eve', fallback: 'EV' },
+      ]}
+      max={4}
+    />
   )
 }`}
       />
@@ -5338,25 +5843,98 @@ export function Example() {
 import { Chip } from '../../components/ui/Chip'
 
 function ChipExamples() {
+  const [chips, setChips] = React.useState(['React', 'TypeScript', 'Tailwind', 'Vite'])
   return (
     <>
       <ComponentExample
-        title="Chip Tags"
-        description="Removable chip/tag components"
+        title="Variants"
+        description="Six semantic color variants — use them to convey meaning at a glance"
         preview={
           <div className="flex flex-wrap gap-2">
-            <Chip label="React" />
-            <Chip label="TypeScript" />
-            <Chip label="UI" />
+            <Chip label="Default" variant="default" />
+            <Chip label="Primary" variant="primary" />
+            <Chip label="Success" variant="success" />
+            <Chip label="Warning" variant="warning" />
+            <Chip label="Error" variant="error" />
+            <Chip label="Info" variant="info" />
           </div>
         }
         code={`import { Chip } from '@/components/ui/Chip'
+
 export function Example() {
   return (
-    <div className="flex gap-2">
-      <Chip label="React" />
-      <Chip label="TypeScript" />
+    <div className="flex flex-wrap gap-2">
+      <Chip label="Default" variant="default" />
+      <Chip label="Primary" variant="primary" />
+      <Chip label="Success" variant="success" />
+      <Chip label="Warning" variant="warning" />
+      <Chip label="Error" variant="error" />
+      <Chip label="Info" variant="info" />
     </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Removable chips"
+        description="Pass onDelete to show the × button — click to remove from the list"
+        preview={
+          <div className="flex flex-wrap gap-2">
+            {chips.map((c) => (
+              <Chip
+                key={c}
+                label={c}
+                variant="primary"
+                onDelete={() => setChips((prev) => prev.filter((x) => x !== c))}
+              />
+            ))}
+          </div>
+        }
+        code={`import { Chip } from '@/components/ui/Chip'
+import { useState } from 'react'
+
+export function Example() {
+  const [chips, setChips] = useState(['React', 'TypeScript', 'Tailwind', 'Vite'])
+  return (
+    <div className="flex flex-wrap gap-2">
+      {chips.map((c) => (
+        <Chip
+          key={c}
+          label={c}
+          variant="primary"
+          onDelete={() => setChips((prev) => prev.filter((x) => x !== c))}
+        />
+      ))}
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Sizes and disabled"
+        description="Three sizes. Disabled chips suppress the delete button."
+        preview={
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Chip label="Small" size="sm" variant="success" />
+              <Chip label="Medium" size="md" variant="success" />
+              <Chip label="Large" size="lg" variant="success" />
+            </div>
+            <div className="flex gap-2">
+              <Chip label="Disabled" variant="primary" disabled onDelete={() => {}} />
+            </div>
+          </div>
+        }
+        code={`import { Chip } from '@/components/ui/Chip'
+
+export function Example() {
+  return (
+    <>
+      <Chip label="Small" size="sm" />
+      <Chip label="Medium" size="md" />
+      <Chip label="Large" size="lg" />
+      <Chip label="Disabled" disabled onDelete={() => {}} />
+    </>
   )
 }`}
       />
@@ -5368,24 +5946,81 @@ export function Example() {
 import { Tag } from '../../components/ui/Tag'
 
 function TagExamples() {
+  const [selectedTags, setSelectedTags] = React.useState<string[]>(['active'])
+  const toggle = (v: string) => setSelectedTags((p) => p.includes(v) ? p.filter((x) => x !== v) : [...p, v])
   return (
     <>
       <ComponentExample
-        title="Tag Labels"
-        description="Text tag labels"
+        title="Variants"
+        description="Seven variants — default, primary, outline, and four semantic colors"
         preview={
           <div className="flex flex-wrap gap-2">
-            <Tag>Active</Tag>
-            <Tag>Pending</Tag>
-            <Tag>Completed</Tag>
+            <Tag label="Default" variant="default" />
+            <Tag label="Primary" variant="primary" />
+            <Tag label="Outline" variant="outline" />
+            <Tag label="Success" variant="success" />
+            <Tag label="Warning" variant="warning" />
+            <Tag label="Error" variant="error" />
+            <Tag label="Info" variant="info" />
           </div>
         }
         code={`import { Tag } from '@/components/ui/Tag'
+
 export function Example() {
   return (
-    <div className="flex gap-2">
-      <Tag>Active</Tag>
-      <Tag>Pending</Tag>
+    <div className="flex flex-wrap gap-2">
+      <Tag label="Default" variant="default" />
+      <Tag label="Primary" variant="primary" />
+      <Tag label="Outline" variant="outline" />
+      <Tag label="Success" variant="success" />
+      <Tag label="Warning" variant="warning" />
+      <Tag label="Error" variant="error" />
+      <Tag label="Info" variant="info" />
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Clickable and removable"
+        description="onClick makes the tag interactive; onRemove adds an × button"
+        preview={
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-2">
+              {(['active', 'pending', 'archived'] as const).map((v) => (
+                <Tag
+                  key={v}
+                  label={v.charAt(0).toUpperCase() + v.slice(1)}
+                  variant={selectedTags.includes(v) ? 'primary' : 'outline'}
+                  onClick={() => toggle(v)}
+                />
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Tag label="React" variant="info" onRemove={() => {}} />
+              <Tag label="TypeScript" variant="info" onRemove={() => {}} />
+              <Tag label="Node.js" variant="info" onRemove={() => {}} />
+            </div>
+          </div>
+        }
+        code={`import { Tag } from '@/components/ui/Tag'
+import { useState } from 'react'
+
+export function Example() {
+  const [selected, setSelected] = useState(['active'])
+  const toggle = (v: string) =>
+    setSelected((p) => p.includes(v) ? p.filter((x) => x !== v) : [...p, v])
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      {['active', 'pending', 'archived'].map((v) => (
+        <Tag
+          key={v}
+          label={v}
+          variant={selected.includes(v) ? 'primary' : 'outline'}
+          onClick={() => toggle(v)}
+        />
+      ))}
     </div>
   )
 }`}
@@ -5398,17 +6033,67 @@ export function Example() {
 import { TagsInput } from '../../components/ui/TagsInput'
 
 function TagsInputExamples() {
-  const [tags, setTags] = React.useState(['tag1', 'tag2'])
+  const [skills, setSkills] = React.useState(['React', 'TypeScript'])
+  const [limited, setLimited] = React.useState(['design'])
   return (
     <>
       <ComponentExample
-        title="Tags Input"
-        description="Add and remove multiple tags"
-        preview={<TagsInput value={tags} onChange={setTags} />}
+        title="Basic tags input"
+        description="Type and press Enter or comma to add a tag. Backspace removes the last one."
+        preview={
+          <TagsInput
+            label="Skills"
+            placeholder="Add a skill…"
+            helperText="Press Enter or comma to confirm each tag"
+            value={skills}
+            onChange={setSkills}
+            className="max-w-md"
+          />
+        }
         code={`import { TagsInput } from '@/components/ui/TagsInput'
+import { useState } from 'react'
+
 export function Example() {
-  const [tags, setTags] = useState(['tag1', 'tag2'])
-  return <TagsInput value={tags} onChange={setTags} />
+  const [skills, setSkills] = useState(['React', 'TypeScript'])
+  return (
+    <TagsInput
+      label="Skills"
+      placeholder="Add a skill…"
+      helperText="Press Enter or comma to confirm each tag"
+      value={skills}
+      onChange={setSkills}
+    />
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="With maxTags limit"
+        description="maxTags stops new entries once the cap is reached"
+        preview={
+          <TagsInput
+            label="Topics (max 3)"
+            placeholder="Add topic…"
+            value={limited}
+            onChange={setLimited}
+            maxTags={3}
+            className="max-w-md"
+          />
+        }
+        code={`import { TagsInput } from '@/components/ui/TagsInput'
+import { useState } from 'react'
+
+export function Example() {
+  const [topics, setTopics] = useState(['design'])
+  return (
+    <TagsInput
+      label="Topics (max 3)"
+      placeholder="Add topic…"
+      value={topics}
+      onChange={setTopics}
+      maxTags={3}
+    />
+  )
 }`}
       />
     </>
@@ -5422,12 +6107,37 @@ function CalloutExamples() {
   return (
     <>
       <ComponentExample
-        title="Callout Box"
-        description="Informational callout box"
-        preview={<Callout>This is an important callout message.</Callout>}
+        title="All variants"
+        description="Callout highlights inline content — use it for tips, warnings, and important notes within documentation or onboarding flows"
+        preview={
+          <div className="space-y-3 w-full max-w-md">
+            <Callout>
+              <strong>Tip:</strong> You can press <kbd className="text-xs bg-surface-tertiary border border-border-primary px-1.5 py-0.5 rounded font-mono">⌘K</kbd> to open the command menu from anywhere.
+            </Callout>
+            <Callout variant="warning">
+              <strong>Warning:</strong> This action will affect all users in your workspace — not just your account.
+            </Callout>
+            <Callout variant="error">
+              <strong>Destructive:</strong> Deleting this item is permanent. Make sure you have a backup before continuing.
+            </Callout>
+          </div>
+        }
         code={`import { Callout } from '@/components/ui/Callout'
+
 export function Example() {
-  return <Callout>Important information</Callout>
+  return (
+    <div className="space-y-3">
+      <Callout>
+        Tip: Press ⌘K to open the command menu.
+      </Callout>
+      <Callout variant="warning">
+        Warning: This affects all users in your workspace.
+      </Callout>
+      <Callout variant="error">
+        Destructive: This action is permanent.
+      </Callout>
+    </div>
+  )
 }`}
       />
     </>
@@ -5441,15 +6151,52 @@ function EmptyStateExamples() {
   return (
     <>
       <ComponentExample
-        title="Empty State"
-        description="Display when no data is available"
-        preview={<EmptyState title="No items" description="Nothing to display here" />}
+        title="With icon and action"
+        description="icon, title, description, and action props — combine them to build meaningful zero-state screens"
+        preview={
+          <EmptyState
+            icon={<span className="text-4xl">📭</span>}
+            title="No messages yet"
+            description="When someone sends you a message it will appear here. You can also start a new conversation."
+            action={<Button variant="primary" size="sm">Start a conversation</Button>}
+          />
+        }
         code={`import { EmptyState } from '@/components/ui/EmptyState'
+import { Button } from '@/components/ui/Button'
+
 export function Example() {
   return (
-    <EmptyState 
-      title="No items" 
-      description="Nothing to display" 
+    <EmptyState
+      icon={<span className="text-4xl">📭</span>}
+      title="No messages yet"
+      description="When someone sends you a message it will appear here."
+      action={<Button variant="primary" size="sm">Start a conversation</Button>}
+    />
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Minimal — title only"
+        description="icon and action are optional — a title alone is enough for simple cases"
+        preview={
+          <div className="flex gap-8 flex-wrap justify-center">
+            <EmptyState title="No results found" description="Try adjusting your search or filters." />
+            <EmptyState
+              icon={<span className="text-3xl">🔒</span>}
+              title="Access restricted"
+              description="Contact your admin to request access."
+              action={<Button variant="outline" size="sm">Request access</Button>}
+            />
+          </div>
+        }
+        code={`import { EmptyState } from '@/components/ui/EmptyState'
+
+export function Example() {
+  return (
+    <EmptyState
+      title="No results found"
+      description="Try adjusting your search or filters."
     />
   )
 }`}
@@ -5459,20 +6206,109 @@ export function Example() {
 }
 
 // ─── COLLAPSIBLE EXAMPLES ───
-import { Collapsible } from '../../components/ui/Collapsible'
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '../../components/ui/Collapsible'
 
 function CollapsibleExamples() {
   return (
     <>
       <ComponentExample
-        title="Collapsible Section"
-        description="Expandable and collapsible panel"
-        preview={<Collapsible title="Click to expand">Hidden content revealed when expanded</Collapsible>}
-        code={`import { Collapsible } from '@/components/ui/Collapsible'
+        title="Basic"
+        description="Use CollapsibleTrigger to control the toggle and CollapsibleContent for the hidden panel"
+        preview={
+          <div className="w-full max-w-md space-y-2">
+            <Collapsible defaultOpen>
+              <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-primary bg-surface-secondary/40 text-sm font-medium text-text-primary hover:bg-surface-secondary transition-colors">
+                <span>What is the refund policy?</span>
+                <ChevronLeft className="w-4 h-4 -rotate-90 transition-transform ui-open:rotate-90" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="px-4 py-3 text-sm text-text-secondary">
+                  We offer a full refund within 30 days of purchase, no questions asked. After 30 days, refunds are reviewed case by case.
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+
+            <Collapsible>
+              <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 rounded-lg border border-border-primary bg-surface-secondary/40 text-sm font-medium text-text-primary hover:bg-surface-secondary transition-colors">
+                <span>Can I change my plan?</span>
+                <ChevronLeft className="w-4 h-4 -rotate-90 transition-transform" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="px-4 py-3 text-sm text-text-secondary">
+                  Yes, you can upgrade or downgrade at any time. Changes take effect at the start of your next billing cycle.
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
+          </div>
+        }
+        code={`import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from '@/components/ui/Collapsible'
+
 export function Example() {
   return (
-    <Collapsible title="Click to expand">
-      Hidden content
+    <Collapsible defaultOpen>
+      <CollapsibleTrigger className="flex items-center justify-between w-full px-4 py-3 rounded-lg border text-sm font-medium">
+        What is the refund policy?
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <p className="px-4 py-3 text-sm text-text-secondary">
+          We offer a full refund within 30 days of purchase.
+        </p>
+      </CollapsibleContent>
+    </Collapsible>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Controlled"
+        description="Manage open state externally with onOpenChange"
+        preview={
+          (() => {
+            const [open, setOpen] = React.useState(false)
+            return (
+              <div className="w-full max-w-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm text-text-secondary">Panel is {open ? 'open' : 'closed'}</span>
+                  <Button size="sm" variant="ghost" onClick={() => setOpen(o => !o)}>
+                    {open ? 'Collapse' : 'Expand'}
+                  </Button>
+                </div>
+                <Collapsible open={open} onOpenChange={setOpen}>
+                  <CollapsibleTrigger className="w-full text-left px-4 py-3 rounded-lg border border-border-primary bg-surface-secondary/40 text-sm font-medium text-text-primary hover:bg-surface-secondary transition-colors">
+                    Advanced settings
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <div className="mt-2 px-4 py-3 rounded-lg border border-border-primary text-sm text-text-secondary space-y-2">
+                      <p>Debug mode: off</p>
+                      <p>API timeout: 30s</p>
+                      <p>Cache TTL: 60s</p>
+                    </div>
+                  </CollapsibleContent>
+                </Collapsible>
+              </div>
+            )
+          })()
+        }
+        code={`import {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+} from '@/components/ui/Collapsible'
+import { useState } from 'react'
+
+export function Example() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <CollapsibleTrigger>Advanced settings</CollapsibleTrigger>
+      <CollapsibleContent>
+        <p>Debug mode: off</p>
+      </CollapsibleContent>
     </Collapsible>
   )
 }`}
@@ -5485,17 +6321,62 @@ export function Example() {
 import { Slider } from '../../components/ui/Slider'
 
 function SliderExamples() {
-  const [value, setValue] = React.useState([50])
+  const [volume, setVolume] = React.useState(60)
+  const [brightness, setBrightness] = React.useState(40)
   return (
     <>
       <ComponentExample
-        title="Range Slider"
-        description="Adjustable range slider control"
-        preview={<Slider value={value} onValueChange={setValue} max={100} className="w-64" />}
+        title="Basic"
+        description="Controlled via value + onValueChange — value is a number"
+        preview={
+          <div className="w-full max-w-sm space-y-6">
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-text-secondary">Volume</span>
+                <span className="font-mono text-text-primary">{volume}</span>
+              </div>
+              <Slider value={volume} onValueChange={setVolume} max={100} />
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span className="text-text-secondary">Brightness</span>
+                <span className="font-mono text-text-primary">{brightness}%</span>
+              </div>
+              <Slider value={brightness} onValueChange={setBrightness} max={100} step={5} />
+            </div>
+          </div>
+        }
         code={`import { Slider } from '@/components/ui/Slider'
+import { useState } from 'react'
+
 export function Example() {
-  const [value, setValue] = useState([50])
-  return <Slider value={value} onValueChange={setValue} max={100} />
+  const [volume, setVolume] = useState(60)
+
+  return (
+    <div className="space-y-2">
+      <div className="flex justify-between text-sm">
+        <span>Volume</span>
+        <span>{volume}</span>
+      </div>
+      <Slider value={volume} onValueChange={setVolume} max={100} />
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Disabled"
+        description="Pass disabled to prevent interaction — useful in read-only views"
+        preview={
+          <div className="w-full max-w-sm space-y-4">
+            <Slider value={75} disabled max={100} />
+            <p className="text-xs text-text-tertiary">Storage used: 75%</p>
+          </div>
+        }
+        code={`import { Slider } from '@/components/ui/Slider'
+
+export function Example() {
+  return <Slider value={75} disabled max={100} />
 }`}
       />
     </>
@@ -5597,19 +6478,70 @@ export function Example() {
 import { Stepper } from '../../components/ui/Stepper'
 
 function StepperExamples() {
+  const steps = [
+    { id: 1, title: 'Account', description: 'Email & password' },
+    { id: 2, title: 'Profile', description: 'Your details' },
+    { id: 3, title: 'Billing', description: 'Payment method' },
+    { id: 4, title: 'Review', description: 'Confirm & submit' },
+  ]
+  const [current, setCurrent] = React.useState(0)
+
   return (
     <>
       <ComponentExample
-        title="Step Stepper"
-        description="Multi-step progress indicator"
-        preview={<Stepper steps={['Step 1', 'Step 2', 'Step 3', 'Complete']} currentStep={2} />}
-        code={`import { Stepper } from '@/components/ui/Stepper'
+        title="Interactive"
+        description="Controlled via activeStep — wire it to your form's step state"
+        preview={
+          <div className="w-full max-w-md space-y-6">
+            <Stepper steps={steps} activeStep={current} />
+            <div className="flex justify-between">
+              <Button
+                variant="ghost"
+                size="sm"
+                disabled={current === 0}
+                onClick={() => setCurrent(s => s - 1)}
+              >
+                Back
+              </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                disabled={current === steps.length - 1}
+                onClick={() => setCurrent(s => s + 1)}
+              >
+                {current === steps.length - 2 ? 'Finish' : 'Next'}
+              </Button>
+            </div>
+          </div>
+        }
+        code={`import { Stepper, type Step } from '@/components/ui/Stepper'
+import { useState } from 'react'
+
+const steps: Step[] = [
+  { id: 1, title: 'Account', description: 'Email & password' },
+  { id: 2, title: 'Profile', description: 'Your details' },
+  { id: 3, title: 'Billing', description: 'Payment method' },
+  { id: 4, title: 'Review', description: 'Confirm & submit' },
+]
+
 export function Example() {
+  const [current, setCurrent] = useState(0)
+
   return (
-    <Stepper 
-      steps={['Step 1', 'Step 2', 'Step 3']} 
-      currentStep={2} 
-    />
+    <div className="space-y-6">
+      <Stepper steps={steps} activeStep={current} />
+      <div className="flex justify-between">
+        <button disabled={current === 0} onClick={() => setCurrent(s => s - 1)}>
+          Back
+        </button>
+        <button
+          disabled={current === steps.length - 1}
+          onClick={() => setCurrent(s => s + 1)}
+        >
+          Next
+        </button>
+      </div>
+    </div>
   )
 }`}
       />
@@ -5771,15 +6703,93 @@ export function Example() {
 import { Snackbar } from '../../components/ui/Snackbar'
 
 function SnackbarExamples() {
+  const [snackbar, setSnackbar] = React.useState<{ show: boolean; message: string; variant: 'default' | 'success' | 'error' | 'warning' }>({
+    show: false,
+    message: '',
+    variant: 'default',
+  })
+
+  const show = (message: string, variant: typeof snackbar.variant) =>
+    setSnackbar({ show: true, message, variant })
+
   return (
     <>
       <ComponentExample
-        title="Snackbar Message"
-        description="Bottom notification bar"
-        preview={<Snackbar message="Informational snackbar message" />}
+        title="All variants"
+        description="Snackbar requires open, message, and onClose — use variant to communicate status"
+        preview={
+          <div className="flex flex-wrap gap-2">
+            <Button size="sm" variant="secondary" onClick={() => show('File saved successfully', 'success')}>Success</Button>
+            <Button size="sm" variant="secondary" onClick={() => show('Upload failed — please retry', 'error')}>Error</Button>
+            <Button size="sm" variant="secondary" onClick={() => show('Your session expires in 5 minutes', 'warning')}>Warning</Button>
+            <Button size="sm" variant="secondary" onClick={() => show('3 items moved to archive', 'default')}>Default</Button>
+            <Snackbar
+              show={snackbar.show}
+              message={snackbar.message}
+              variant={snackbar.variant}
+              onClose={() => setSnackbar(s => ({ ...s, show: false }))}
+              duration={3000}
+            />
+          </div>
+        }
         code={`import { Snackbar } from '@/components/ui/Snackbar'
+import { useState } from 'react'
+
 export function Example() {
-  return <Snackbar message="Information" />
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Show snackbar</button>
+      <Snackbar
+        open={open}
+        message="File saved successfully"
+        variant="success"
+        onClose={() => setOpen(false)}
+        duration={4000}
+      />
+    </>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="With action"
+        description="action takes { label, onClick } — the button is rendered by Snackbar internally"
+        preview={
+          (() => {
+            const [show, setShow] = React.useState(false)
+            return (
+              <>
+                <Button size="sm" variant="secondary" onClick={() => setShow(true)}>Delete item</Button>
+                <Snackbar
+                  show={show}
+                  message="Item deleted"
+                  onClose={() => setShow(false)}
+                  duration={5000}
+                  action={{ label: 'Undo', onClick: () => setShow(false) }}
+                />
+              </>
+            )
+          })()
+        }
+        code={`import { Snackbar } from '@/components/ui/Snackbar'
+import { useState } from 'react'
+
+export function Example() {
+  const [show, setShow] = useState(false)
+
+  return (
+    <>
+      <button onClick={() => setShow(true)}>Delete item</button>
+      <Snackbar
+        show={show}
+        message="Item deleted"
+        onClose={() => setShow(false)}
+        action={{ label: 'Undo', onClick: () => setShow(false) }}
+      />
+    </>
+  )
 }`}
       />
     </>
@@ -5790,20 +6800,87 @@ export function Example() {
 import { Table } from '../../components/ui/Table'
 
 function TableExamples() {
-  const columns = [{label: 'Name', key: 'name'}, {label: 'Email', key: 'email'}]
-  const data = [{name: 'John', email: 'john@example.com'}, {name: 'Jane', email: 'jane@example.com'}]
+  type User = { name: string; role: string; status: string; joined: string }
+  const columns = [
+    { header: 'Name', key: 'name' as const, sortable: true },
+    { header: 'Role', key: 'role' as const },
+    {
+      header: 'Status', key: 'status' as const,
+      render: (value: string) => (
+        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
+          value === 'Active' ? 'bg-status-success/10 text-status-success' :
+          value === 'Invited' ? 'bg-status-warning/10 text-status-warning' :
+          'bg-surface-secondary text-text-secondary'
+        }`}>{value}</span>
+      ),
+    },
+    { header: 'Joined', key: 'joined' as const },
+  ]
+  const data: User[] = [
+    { name: 'Alice Martin', role: 'Admin', status: 'Active', joined: '2024-01-10' },
+    { name: 'Bob Chen', role: 'Developer', status: 'Active', joined: '2024-03-22' },
+    { name: 'Clara Diaz', role: 'Designer', status: 'Invited', joined: '2024-05-01' },
+    { name: 'Dan Wright', role: 'Viewer', status: 'Inactive', joined: '2023-11-14' },
+  ]
   return (
     <>
       <ComponentExample
-        title="Data Table"
-        description="Display tabular data"
+        title="Data table with sortable columns"
+        description="Click a sortable header to toggle asc/desc. Rows stripe by default."
         preview={<Table columns={columns} data={data} />}
         code={`import { Table } from '@/components/ui/Table'
+
+type User = { name: string; role: string; status: string; joined: string }
+
+const columns = [
+  { header: 'Name', key: 'name' as const, sortable: true },
+  { header: 'Role', key: 'role' as const },
+  {
+    header: 'Status', key: 'status' as const,
+    render: (value: string) => (
+      <span className={value === 'Active' ? 'text-green-600' : 'text-text-secondary'}>
+        {value}
+      </span>
+    ),
+  },
+  { header: 'Joined', key: 'joined' as const },
+]
+
+const data: User[] = [
+  { name: 'Alice Martin', role: 'Admin', status: 'Active', joined: '2024-01-10' },
+  { name: 'Bob Chen', role: 'Developer', status: 'Active', joined: '2024-03-22' },
+  { name: 'Clara Diaz', role: 'Designer', status: 'Invited', joined: '2024-05-01' },
+]
+
+export function Example() {
+  return <Table columns={columns} data={data} />
+}`}
+      />
+
+      <ComponentExample
+        title="Compact density, no stripe"
+        description="Use density compact for dense data views; disable striped for a flat look"
+        preview={
+          <Table
+            columns={[
+              { header: 'Name', key: 'name' as const },
+              { header: 'Role', key: 'role' as const },
+              { header: 'Status', key: 'status' as const },
+            ]}
+            data={data}
+            density="compact"
+            striped={false}
+          />
+        }
+        code={`import { Table } from '@/components/ui/Table'
+
 export function Example() {
   return (
-    <Table 
-      columns={[{label: 'Name', key: 'name'}]}
-      data={[{name: 'John'}]}
+    <Table
+      columns={columns}
+      data={data}
+      density="compact"
+      striped={false}
     />
   )
 }`}
@@ -5819,12 +6896,67 @@ function TooltipExamples() {
   return (
     <>
       <ComponentExample
-        title="Tooltip"
-        description="Hover to display help text"
-        preview={<Tooltip content="This is helpful information">Hover over me</Tooltip>}
+        title="Basic"
+        description="Wrap any element — the tooltip appears on hover and keyboard focus"
+        preview={
+          <div className="flex gap-6 items-center flex-wrap">
+            <Tooltip content="This is helpful information">
+              <Button variant="secondary" size="sm">Hover me</Button>
+            </Tooltip>
+            <Tooltip content="Copy to clipboard">
+              <button className="p-2 rounded-lg border border-border-primary hover:bg-surface-secondary transition-colors">
+                <Copy className="w-4 h-4 text-text-secondary" />
+              </button>
+            </Tooltip>
+            <Tooltip content="Required field — cannot be empty">
+              <span className="text-sm text-text-secondary underline decoration-dotted cursor-help">
+                Why is this required?
+              </span>
+            </Tooltip>
+          </div>
+        }
         code={`import { Tooltip } from '@/components/ui/Tooltip'
+
 export function Example() {
-  return <Tooltip content="Help text">Hover me</Tooltip>
+  return (
+    <Tooltip content="This is helpful information">
+      <button>Hover me</button>
+    </Tooltip>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Placement"
+        description="Control which side the tooltip appears with the side prop"
+        preview={
+          <div className="flex gap-4 items-center justify-center flex-wrap py-4">
+            {(['top', 'bottom', 'left', 'right'] as const).map((side) => (
+              <Tooltip key={side} content={`Appears on the ${side}`} side={side}>
+                <Button variant="outline" size="sm">{side}</Button>
+              </Tooltip>
+            ))}
+          </div>
+        }
+        code={`import { Tooltip } from '@/components/ui/Tooltip'
+
+export function Example() {
+  return (
+    <div className="flex gap-4">
+      <Tooltip content="Appears on the top" side="top">
+        <button>top</button>
+      </Tooltip>
+      <Tooltip content="Appears on the bottom" side="bottom">
+        <button>bottom</button>
+      </Tooltip>
+      <Tooltip content="Appears on the left" side="left">
+        <button>left</button>
+      </Tooltip>
+      <Tooltip content="Appears on the right" side="right">
+        <button>right</button>
+      </Tooltip>
+    </div>
+  )
 }`}
       />
     </>
@@ -5832,20 +6964,87 @@ export function Example() {
 }
 
 // ─── POPOVER EXAMPLES ───
-import { Popover } from '../../components/ui/Popover'
+import { Popover, PopoverTrigger, PopoverContent } from '../../components/ui/Popover'
 
 function PopoverExamples() {
   return (
     <>
       <ComponentExample
-        title="Popover Menu"
-        description="Floating content popover"
-        preview={<Popover trigger={<Button>Open Popover</Button>}>Popover content goes here</Popover>}
-        code={`import { Popover } from '@/components/ui/Popover'
+        title="Basic popover"
+        description="Compound API — PopoverTrigger wraps the element; PopoverContent holds the panel"
+        preview={
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="secondary">Open popover</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <div className="space-y-2 p-1">
+                <p className="text-sm font-medium text-text-primary">Settings</p>
+                <p className="text-xs text-text-secondary">Manage your preferences and account settings from this panel.</p>
+              </div>
+            </PopoverContent>
+          </Popover>
+        }
+        code={`import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/Popover'
+
 export function Example() {
   return (
-    <Popover trigger={<Button>Open</Button>}>
-      Content
+    <Popover>
+      <PopoverTrigger asChild>
+        <button>Open</button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <p>Popover content</p>
+      </PopoverContent>
+    </Popover>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Action menu"
+        description="Icon button trigger with a list of actions inside"
+        preview={
+          <Popover>
+            <PopoverTrigger asChild>
+              <button className="p-2 rounded-lg border border-border-primary hover:bg-surface-secondary transition-colors">
+                <Copy className="w-4 h-4 text-text-secondary" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent>
+            <div className="min-w-[160px] py-1">
+              {['Edit', 'Duplicate', 'Share'].map((action) => (
+                <button
+                  key={action}
+                  className="w-full text-left px-3 py-2 text-sm text-text-primary hover:bg-surface-secondary transition-colors rounded-md"
+                >
+                  {action}
+                </button>
+              ))}
+              <div className="my-1 border-t border-border-primary" />
+              <button className="w-full text-left px-3 py-2 text-sm text-status-error hover:bg-surface-secondary transition-colors rounded-md">
+                Delete
+              </button>
+            </div>
+          </PopoverContent>
+          </Popover>
+        }
+        code={`import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/Popover'
+
+export function Example() {
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <button>•••</button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <div className="min-w-[160px] py-1">
+          <button className="w-full text-left px-3 py-2 text-sm hover:bg-surface-secondary rounded-md">Edit</button>
+          <button className="w-full text-left px-3 py-2 text-sm hover:bg-surface-secondary rounded-md">Duplicate</button>
+          <div className="my-1 border-t" />
+          <button className="w-full text-left px-3 py-2 text-sm text-status-error hover:bg-surface-secondary rounded-md">Delete</button>
+        </div>
+      </PopoverContent>
     </Popover>
   )
 }`}
@@ -5859,27 +7058,96 @@ import { Modal } from '../../components/ui/Modal'
 
 function ModalExamples() {
   const [open, setOpen] = React.useState(false)
+  const [confirmOpen, setConfirmOpen] = React.useState(false)
   return (
     <>
       <ComponentExample
-        title="Modal Dialog"
-        description="Centered modal dialog box"
+        title="Basic modal"
+        description="Centered overlay dialog — controlled via open / onOpenChange"
         preview={
           <>
-            <Button onClick={() => setOpen(true)}>Open Modal</Button>
-            <Modal open={open} onOpenChange={setOpen} title="Modal Title">
-              <Text>This is modal content</Text>
+            <Button onClick={() => setOpen(true)}>Open modal</Button>
+            <Modal open={open} onOpenChange={setOpen}>
+              <div className="space-y-4 p-6">
+                <h2 className="text-lg font-semibold text-text-primary">Edit profile</h2>
+                <Text color="secondary" variant="small">Update your public profile information below.</Text>
+                <Input label="Display name" placeholder="Jane Smith" />
+                <Input label="Bio" placeholder="Something about you…" />
+                <div className="flex justify-end gap-2 pt-2">
+                  <Button variant="ghost" size="sm" onClick={() => setOpen(false)}>Cancel</Button>
+                  <Button variant="primary" size="sm" onClick={() => setOpen(false)}>Save</Button>
+                </div>
+              </div>
             </Modal>
           </>
         }
         code={`import { Modal } from '@/components/ui/Modal'
+import { useState } from 'react'
+
 export function Example() {
   const [open, setOpen] = useState(false)
+
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Open</Button>
-      <Modal open={open} onOpenChange={setOpen} title="Title">
-        Content
+      <Button onClick={() => setOpen(true)}>Open modal</Button>
+      <Modal open={open} onOpenChange={setOpen}>
+        <div className="p-6 space-y-4">
+          <h2 className="text-lg font-semibold">Edit profile</h2>
+          <p className="text-sm text-text-secondary">
+            Update your public profile information below.
+          </p>
+          <Input label="Display name" placeholder="Jane Smith" />
+          <div className="flex justify-end gap-2 pt-2">
+            <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={() => setOpen(false)}>Save</Button>
+          </div>
+        </div>
+      </Modal>
+    </>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Destructive confirmation"
+        description="Embed the title and footer actions directly inside children — Modal has no title or footer props"
+        preview={
+          <>
+            <Button variant="destructive" size="sm" onClick={() => setConfirmOpen(true)}>Delete account</Button>
+            <Modal open={confirmOpen} onOpenChange={setConfirmOpen} size="sm">
+              <div className="p-6 space-y-4">
+                <h2 className="text-lg font-semibold text-text-primary">Delete account</h2>
+                <Text color="secondary" variant="small">
+                  This action is permanent and cannot be undone. All your data will be removed within 24 hours.
+                </Text>
+                <div className="flex gap-2 justify-end pt-2">
+                  <Button variant="ghost" size="sm" onClick={() => setConfirmOpen(false)}>Cancel</Button>
+                  <Button variant="destructive" size="sm" onClick={() => setConfirmOpen(false)}>Delete</Button>
+                </div>
+              </div>
+            </Modal>
+          </>
+        }
+        code={`import { Modal } from '@/components/ui/Modal'
+import { useState } from 'react'
+
+export function Example() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <Button variant="destructive" onClick={() => setOpen(true)}>Delete account</Button>
+      <Modal open={open} onOpenChange={setOpen} size="sm">
+        <div className="p-6 space-y-4">
+          <h2 className="text-lg font-semibold">Delete account</h2>
+          <p className="text-sm text-text-secondary">
+            This action is permanent and cannot be undone.
+          </p>
+          <div className="flex gap-2 justify-end pt-2">
+            <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+            <Button variant="destructive" onClick={() => setOpen(false)}>Delete</Button>
+          </div>
+        </div>
       </Modal>
     </>
   )
@@ -5890,28 +7158,108 @@ export function Example() {
 }
 
 // ─── SHEET EXAMPLES ───
-import { Sheet } from '../../components/ui/Sheet'
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../../components/ui/Sheet'
 
 function SheetExamples() {
-  const [open, setOpen] = React.useState(false)
+  const [rightOpen, setRightOpen] = React.useState(false)
+  const [bottomOpen, setBottomOpen] = React.useState(false)
+
   return (
     <>
       <ComponentExample
-        title="Side Sheet"
-        description="Slide-in side panel"
+        title="Right sheet — settings panel"
+        description="Slides in from the right — ideal for detail panels, filters, and settings"
         preview={
           <>
-            <Button onClick={() => setOpen(true)}>Open Sheet</Button>
-            <Sheet open={open} onOpenChange={setOpen}>Sheet content</Sheet>
+            <Button variant="secondary" onClick={() => setRightOpen(true)}>Open settings</Button>
+            <Sheet open={rightOpen} onOpenChange={setRightOpen}>
+              <SheetContent side="right">
+                <SheetHeader>
+                  <SheetTitle>Notification settings</SheetTitle>
+                </SheetHeader>
+                <div className="space-y-4 p-4">
+                  <p className="text-sm text-text-secondary">Choose which notifications you receive.</p>
+                  <div className="space-y-3">
+                    {['Email digest', 'Push notifications', 'Slack alerts', 'SMS alerts'].map(item => (
+                      <div key={item} className="flex items-center justify-between">
+                        <span className="text-sm text-text-primary">{item}</span>
+                        <input type="checkbox" defaultChecked={item !== 'SMS alerts'} className="w-4 h-4 accent-accent-blue" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </>
         }
-        code={`import { Sheet } from '@/components/ui/Sheet'
+        code={`import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/Sheet'
+import { useState } from 'react'
+
 export function Example() {
   const [open, setOpen] = useState(false)
+
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Open</Button>
-      <Sheet open={open} onOpenChange={setOpen}>Content</Sheet>
+      <Button onClick={() => setOpen(true)}>Open settings</Button>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetContent side="right">
+          <SheetHeader>
+            <SheetTitle>Notification settings</SheetTitle>
+          </SheetHeader>
+          <div className="p-4">
+            <p>Sheet content goes here</p>
+          </div>
+        </SheetContent>
+      </Sheet>
+    </>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Bottom sheet — mobile action panel"
+        description="Slides up from the bottom — common for mobile-style action menus"
+        preview={
+          <>
+            <Button variant="secondary" onClick={() => setBottomOpen(true)}>Share document</Button>
+            <Sheet open={bottomOpen} onOpenChange={setBottomOpen}>
+              <SheetContent side="bottom">
+                <SheetHeader>
+                  <SheetTitle>Share</SheetTitle>
+                </SheetHeader>
+                <div className="p-4 space-y-2">
+                  {['Copy link', 'Send via email', 'Export as PDF', 'Download'].map(action => (
+                    <button
+                      key={action}
+                      className="w-full text-left px-4 py-3 rounded-lg text-sm text-text-primary hover:bg-surface-secondary transition-colors"
+                      onClick={() => setBottomOpen(false)}
+                    >
+                      {action}
+                    </button>
+                  ))}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </>
+        }
+        code={`import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/Sheet'
+import { useState } from 'react'
+
+export function Example() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Share</Button>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetContent side="bottom">
+          <SheetHeader>
+            <SheetTitle>Share</SheetTitle>
+          </SheetHeader>
+          <div className="p-4">
+          <button onClick={() => setOpen(false)}>Copy link</button>
+        </div>
+      </Sheet>
     </>
   )
 }`}
@@ -5924,19 +7272,90 @@ export function Example() {
 import { ConfirmDialog } from '../../components/ui/ConfirmDialog'
 
 function ConfirmDialogExamples() {
+  const [defaultOpen, setDefaultOpen] = React.useState(false)
+  const [destructiveOpen, setDestructiveOpen] = React.useState(false)
+
   return (
     <>
       <ComponentExample
-        title="Confirm Dialog"
-        description="Confirmation dialog box"
-        preview={<ConfirmDialog title="Confirm Action?" description="Are you sure?" />}
+        title="Default confirmation"
+        description="open, onConfirm, and onCancel are all required — ConfirmDialog is fully controlled"
+        preview={
+          <>
+            <Button variant="secondary" size="sm" onClick={() => setDefaultOpen(true)}>Publish changes</Button>
+            <ConfirmDialog
+              open={defaultOpen}
+              onOpenChange={setDefaultOpen}
+              title="Publish changes?"
+              description="This will make your changes visible to all users immediately. You can revert later from the history panel."
+              confirmLabel="Publish"
+              cancelLabel="Keep editing"
+              onConfirm={() => setDefaultOpen(false)}
+              onCancel={() => setDefaultOpen(false)}
+            />
+          </>
+        }
         code={`import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { useState } from 'react'
+
 export function Example() {
+  const [open, setOpen] = useState(false)
+
   return (
-    <ConfirmDialog 
-      title="Confirm?" 
-      description="Are you sure?" 
-    />
+    <>
+      <button onClick={() => setOpen(true)}>Publish changes</button>
+      <ConfirmDialog
+        open={open}
+        title="Publish changes?"
+        description="This will make your changes visible to all users."
+        confirmLabel="Publish"
+        cancelLabel="Keep editing"
+        onConfirm={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+      />
+    </>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Destructive variant"
+        description={'Use variant="destructive" to make the confirm button red — ideal for delete or reset flows'}
+        preview={
+          <>
+            <Button variant="destructive" size="sm" onClick={() => setDestructiveOpen(true)}>Reset workspace</Button>
+            <ConfirmDialog
+              open={destructiveOpen}
+              onOpenChange={setDestructiveOpen}
+              title="Reset workspace?"
+              description="All projects, members, and settings will be permanently deleted. This cannot be undone."
+              confirmLabel="Reset everything"
+              cancelLabel="Cancel"
+              variant="destructive"
+              onConfirm={() => setDestructiveOpen(false)}
+              onCancel={() => setDestructiveOpen(false)}
+            />
+          </>
+        }
+        code={`import { ConfirmDialog } from '@/components/ui/ConfirmDialog'
+import { useState } from 'react'
+
+export function Example() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Reset workspace</button>
+      <ConfirmDialog
+        open={open}
+        title="Reset workspace?"
+        description="This cannot be undone."
+        confirmLabel="Reset everything"
+        variant="destructive"
+        onConfirm={() => setOpen(false)}
+        onCancel={() => setOpen(false)}
+      />
+    </>
   )
 }`}
       />
@@ -5945,30 +7364,93 @@ export function Example() {
 }
 
 // ─── SELECT EXAMPLES ───
-import { Select } from '../../components/ui/Select'
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../../components/ui/Select'
 
 function SelectExamples() {
+  const [role, setRole] = React.useState('')
+  const [timezone, setTimezone] = React.useState('utc')
+
   return (
     <>
       <ComponentExample
-        title="Select Dropdown"
-        description="Dropdown select input"
+        title="With placeholder"
+        description="Compound API — SelectTrigger > SelectValue; options via SelectItem inside SelectContent"
         preview={
-          <Select 
-            options={[
-              {label: 'Option 1', value: '1'},
-              {label: 'Option 2', value: '2'},
-              {label: 'Option 3', value: '3'}
-            ]} 
-          />
+          <div className="w-full max-w-xs">
+            <Select value={role} onValueChange={setRole}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a role…" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="admin">Admin</SelectItem>
+                <SelectItem value="editor">Editor</SelectItem>
+                <SelectItem value="viewer">Viewer</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         }
-        code={`import { Select } from '@/components/ui/Select'
+        code={`import {
+  Select, SelectTrigger, SelectValue, SelectContent, SelectItem
+} from '@/components/ui/Select'
+import { useState } from 'react'
+
 export function Example() {
+  const [role, setRole] = useState('')
+
   return (
-    <Select options={[
-      {label: 'Option 1', value: '1'},
-      {label: 'Option 2', value: '2'}
-    ]} />
+    <Select value={role} onValueChange={setRole}>
+      <SelectTrigger>
+        <SelectValue placeholder="Select a role…" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="admin">Admin</SelectItem>
+        <SelectItem value="editor">Editor</SelectItem>
+        <SelectItem value="viewer">Viewer</SelectItem>
+      </SelectContent>
+    </Select>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="With default value and disabled option"
+        description="Pass defaultValue for uncontrolled; disabled prop on SelectItem prevents selection"
+        preview={
+          <div className="w-full max-w-xs">
+            <Select value={timezone} onValueChange={setTimezone}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="utc">UTC</SelectItem>
+                <SelectItem value="et">America/New_York (ET)</SelectItem>
+                <SelectItem value="pt">America/Los_Angeles (PT)</SelectItem>
+                <SelectItem value="gmt">Europe/London (GMT)</SelectItem>
+                <SelectItem value="jst" disabled>Asia/Tokyo (JST) — coming soon</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        }
+        code={`import {
+  Select, SelectTrigger, SelectValue, SelectContent, SelectItem
+} from '@/components/ui/Select'
+import { useState } from 'react'
+
+export function Example() {
+  const [timezone, setTimezone] = useState('utc')
+
+  return (
+    <Select value={timezone} onValueChange={setTimezone}>
+      <SelectTrigger>
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="utc">UTC</SelectItem>
+        <SelectItem value="et">Eastern Time</SelectItem>
+        <SelectItem value="pt">Pacific Time</SelectItem>
+        <SelectItem value="jst" disabled>Asia/Tokyo — coming soon</SelectItem>
+      </SelectContent>
+    </Select>
   )
 }`}
       />
@@ -5986,21 +7468,30 @@ function ComboboxExamples() {
         title="Searchable Combobox"
         description="Searchable dropdown select"
         preview={
-          <Combobox 
-            options={[
-              {label: 'React', value: 'react'},
-              {label: 'Vue', value: 'vue'},
-              {label: 'Svelte', value: 'svelte'}
-            ]} 
+          <Combobox
+            items={[
+              { label: 'React', value: 'react' },
+              { label: 'Vue', value: 'vue' },
+              { label: 'Svelte', value: 'svelte' },
+              { label: 'Angular', value: 'angular' },
+              { label: 'SolidJS', value: 'solid' },
+            ]}
+            placeholder="Pick a framework…"
+            className="max-w-xs"
           />
         }
         code={`import { Combobox } from '@/components/ui/Combobox'
+
 export function Example() {
   return (
-    <Combobox options={[
-      {label: 'React', value: 'react'},
-      {label: 'Vue', value: 'vue'}
-    ]} />
+    <Combobox
+      items={[
+        { label: 'React', value: 'react' },
+        { label: 'Vue', value: 'vue' },
+        { label: 'Svelte', value: 'svelte' },
+      ]}
+      placeholder="Pick a framework…"
+    />
   )
 }`}
       />
@@ -6013,21 +7504,128 @@ import { SearchInput } from '../../components/ui/SearchInput'
 
 function SearchInputExamples() {
   const [search, setSearch] = React.useState('')
+  const [compoundSearch, setCompoundSearch] = React.useState('')
+  const [isOpen, setIsOpen] = React.useState(false)
+
+  const resources = [
+    { label: 'Introduction to React', subtitle: 'Beginner · 2h', type: 'book' as const },
+    { label: 'TypeScript Handbook', subtitle: 'Intermediate · 3h', type: 'course' as const },
+    { label: 'Advanced Patterns', subtitle: 'Expert · 5h', type: 'paper' as const },
+    { label: 'Smart Coder Labs', subtitle: 'smartcoder.io', type: 'website' as const },
+  ]
+
+  const filtered = resources.filter(r =>
+    compoundSearch.length > 0 &&
+    r.label.toLowerCase().includes(compoundSearch.toLowerCase())
+  )
+
   return (
     <>
       <ComponentExample
-        title="Search Input"
-        description="Search field with clear button"
-        preview={<SearchInput value={search} onChange={setSearch} placeholder="Search..." className="w-64" />}
+        title="Simple mode"
+        description="Drop-in search field with built-in clear button and loading state. No children required."
+        preview={
+          <SearchInput
+            value={search}
+            onChange={setSearch}
+            placeholder="Search..."
+            className="w-72"
+          />
+        }
         code={`import { SearchInput } from '@/components/ui/SearchInput'
+import { useState } from 'react'
+
 export function Example() {
   const [search, setSearch] = useState('')
+
   return (
-    <SearchInput 
-      value={search} 
+    <SearchInput
+      value={search}
       onChange={setSearch}
       placeholder="Search..."
     />
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Compound mode — with dropdown"
+        description="Pass children to take full control. Use SearchInput.Input for the field and SearchInput.Dropdown for the results panel."
+        preview={
+          <div className="w-80 relative">
+            <SearchInput
+              value={compoundSearch}
+              onChange={setCompoundSearch}
+              containerClassName="w-full"
+            >
+              <SearchInput.Input
+                value={compoundSearch}
+                onChange={(v) => { setCompoundSearch(v); setIsOpen(v.length > 0) }}
+                onClear={() => { setCompoundSearch(''); setIsOpen(false) }}
+                placeholder="Search resources..."
+              />
+              <SearchInput.Dropdown
+                show={isOpen}
+                hasResults={filtered.length > 0}
+                query={compoundSearch}
+              >
+                {filtered.length > 0 && (
+                  <SearchInput.Section title="Resources">
+                    {filtered.map(r => (
+                      <SearchInput.Item
+                        key={r.label}
+                        onClick={() => { setCompoundSearch(r.label); setIsOpen(false) }}
+                      >
+                        <SearchInput.ItemIcon type={r.type} />
+                        <SearchInput.ItemContent label={r.label} subtitle={r.subtitle} />
+                        <SearchInput.TrailingBadge variant="primary">{r.type}</SearchInput.TrailingBadge>
+                      </SearchInput.Item>
+                    ))}
+                  </SearchInput.Section>
+                )}
+              </SearchInput.Dropdown>
+            </SearchInput>
+          </div>
+        }
+        code={`import { SearchInput } from '@/components/ui/SearchInput'
+import { useState } from 'react'
+
+const resources = [
+  { label: 'Introduction to React', subtitle: 'Beginner · 2h', type: 'book' },
+  { label: 'TypeScript Handbook', subtitle: 'Intermediate · 3h', type: 'course' },
+  { label: 'Advanced Patterns', subtitle: 'Expert · 5h', type: 'paper' },
+]
+
+export function Example() {
+  const [search, setSearch] = useState('')
+  const [isOpen, setIsOpen] = useState(false)
+
+  const filtered = resources.filter(r =>
+    search.length > 0 && r.label.toLowerCase().includes(search.toLowerCase())
+  )
+
+  return (
+    <SearchInput value={search} onChange={setSearch}>
+      <SearchInput.Input
+        value={search}
+        onChange={(v) => { setSearch(v); setIsOpen(v.length > 0) }}
+        onClear={() => { setSearch(''); setIsOpen(false) }}
+        placeholder="Search resources..."
+      />
+      <SearchInput.Dropdown show={isOpen} hasResults={filtered.length > 0} query={search}>
+        {filtered.length > 0 && (
+          <SearchInput.Section title="Resources">
+            {filtered.map(r => (
+              <SearchInput.Item key={r.label} onClick={() => { setSearch(r.label); setIsOpen(false) }}>
+                <SearchInput.ItemIcon type={r.type} />
+                <SearchInput.ItemContent label={r.label} subtitle={r.subtitle} />
+                <SearchInput.TrailingBadge variant="primary">{r.type}</SearchInput.TrailingBadge>
+              </SearchInput.Item>
+            ))}
+          </SearchInput.Section>
+        )}
+      </SearchInput.Dropdown>
+    </SearchInput>
   )
 }`}
       />
@@ -6129,28 +7727,105 @@ function DefaultExample({ componentName }: { componentName: string }) {
 import { Progress } from '../../components/ui/Progress'
 
 function ProgressExamples() {
+  const [upload, setUpload] = React.useState(0)
+  React.useEffect(() => {
+    if (upload >= 100) return
+    const t = setInterval(() => setUpload((v) => Math.min(v + 2, 100)), 80)
+    return () => clearInterval(t)
+  }, [upload])
   return (
     <>
       <ComponentExample
-        title="Progress Variants"
-        description="Linear progress bar at different values"
+        title="Labeled progress bars"
+        description="Pair each bar with a label and value for clarity — storage, tasks, quotas"
         preview={
           <div className="space-y-4 w-full max-w-md">
-            <Progress value={25} />
-            <Progress value={50} />
-            <Progress value={75} />
-            <Progress value={100} />
+            {[
+              { label: 'Storage', value: 68, sub: '6.8 GB of 10 GB used' },
+              { label: 'Tasks complete', value: 42, sub: '21 of 50 tasks done' },
+              { label: 'Profile', value: 90, sub: 'Almost there!' },
+              { label: 'Quota', value: 100, sub: 'Limit reached' },
+            ].map(({ label, value, sub }) => (
+              <div key={label} className="space-y-1">
+                <div className="flex justify-between text-sm">
+                  <span className="text-text-primary font-medium">{label}</span>
+                  <span className="text-text-secondary">{value}%</span>
+                </div>
+                <Progress value={value} />
+                <p className="text-xs text-text-secondary">{sub}</p>
+              </div>
+            ))}
           </div>
         }
         code={`import { Progress } from '@/components/ui/Progress'
 
+const items = [
+  { label: 'Storage', value: 68, sub: '6.8 GB of 10 GB used' },
+  { label: 'Tasks complete', value: 42, sub: '21 of 50 tasks done' },
+]
+
 export function Example() {
   return (
     <div className="space-y-4">
-      <Progress value={25} />
-      <Progress value={50} />
-      <Progress value={75} />
-      <Progress value={100} />
+      {items.map(({ label, value, sub }) => (
+        <div key={label} className="space-y-1">
+          <div className="flex justify-between text-sm">
+            <span>{label}</span>
+            <span className="text-text-secondary">{value}%</span>
+          </div>
+          <Progress value={value} />
+          <p className="text-xs text-text-secondary">{sub}</p>
+        </div>
+      ))}
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Animated upload"
+        description="Drive value from state to animate — Progress responds to changes automatically"
+        preview={
+          <div className="w-full max-w-md space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-text-primary font-medium">Uploading file…</span>
+              <span className="text-text-secondary">{upload}%</span>
+            </div>
+            <Progress value={upload} />
+            {upload === 100 && (
+              <div className="flex items-center gap-2 text-sm text-status-success">
+                <span>Upload complete</span>
+              </div>
+            )}
+            {upload < 100 && (
+              <button
+                className="text-xs text-text-secondary underline"
+                onClick={() => setUpload(0)}
+              >
+                Reset
+              </button>
+            )}
+          </div>
+        }
+        code={`import { Progress } from '@/components/ui/Progress'
+import { useState, useEffect } from 'react'
+
+export function Example() {
+  const [upload, setUpload] = useState(0)
+  useEffect(() => {
+    if (upload >= 100) return
+    const t = setInterval(() => setUpload((v) => Math.min(v + 2, 100)), 80)
+    return () => clearInterval(t)
+  }, [upload])
+
+  return (
+    <div className="space-y-2">
+      <div className="flex justify-between text-sm">
+        <span>Uploading…</span>
+        <span>{upload}%</span>
+      </div>
+      <Progress value={upload} />
+      {upload === 100 && <p className="text-status-success text-sm">Done!</p>}
     </div>
   )
 }`}
@@ -6434,18 +8109,82 @@ import { OTPInput } from '../../components/ui/OTPInput'
 
 function OTPInputExamples() {
   const [otp, setOtp] = React.useState('')
+  const [verified, setVerified] = React.useState(false)
+  const [errorOtp, setErrorOtp] = React.useState('123')
   return (
     <>
       <ComponentExample
-        title="OTP Input"
-        description="One-time password input with auto-advance"
-        preview={<OTPInput length={6} value={otp} onChange={setOtp} />}
+        title="Basic — with onComplete callback"
+        description="Auto-advances focus between cells. onComplete fires when all digits are filled."
+        preview={
+          <div className="space-y-3">
+            <OTPInput
+              length={6}
+              value={otp}
+              onChange={setOtp}
+              onComplete={(v) => setVerified(v.length === 6)}
+            />
+            {verified && (
+              <p className="text-sm text-status-success font-medium">Code accepted</p>
+            )}
+            {!verified && otp.length > 0 && otp.length < 6 && (
+              <p className="text-sm text-text-secondary">{6 - otp.length} digits remaining</p>
+            )}
+          </div>
+        }
         code={`import { OTPInput } from '@/components/ui/OTPInput'
 import { useState } from 'react'
 
 export function Example() {
   const [otp, setOtp] = useState('')
-  return <OTPInput length={6} value={otp} onChange={setOtp} />
+  const [verified, setVerified] = useState(false)
+  return (
+    <div className="space-y-3">
+      <OTPInput
+        length={6}
+        value={otp}
+        onChange={setOtp}
+        onComplete={() => setVerified(true)}
+      />
+      {verified && <p className="text-status-success">Code accepted</p>}
+    </div>
+  )
+}`}
+      />
+
+      <ComponentExample
+        title="Error state"
+        description="Pass error={true} to highlight all cells in red — use after a failed verification"
+        preview={
+          <div className="space-y-3">
+            <OTPInput
+              length={6}
+              value={errorOtp}
+              onChange={setErrorOtp}
+              error
+            />
+            <p className="text-sm text-status-error">Invalid code — please try again.</p>
+          </div>
+        }
+        code={`import { OTPInput } from '@/components/ui/OTPInput'
+import { useState } from 'react'
+
+export function Example() {
+  const [otp, setOtp] = useState('')
+  const [hasError, setHasError] = useState(false)
+
+  const verify = () => {
+    if (otp !== '123456') setHasError(true)
+  }
+
+  return (
+    <div className="space-y-3">
+      <OTPInput length={6} value={otp} onChange={setOtp} error={hasError} />
+      {hasError && (
+        <p className="text-sm text-status-error">Invalid code — please try again.</p>
+      )}
+    </div>
+  )
 }`}
       />
     </>
@@ -6499,11 +8238,29 @@ function PeerTagInputExamples() {
       <ComponentExample
         title="Peer Tag Input"
         description="Tag input with autocomplete for peers"
-        preview={<PeerTagInput className="max-w-sm" />}
+        preview={
+          <PeerTagInput
+            contacts={[
+              { id: '1', tag: '@alice', name: 'Alice Martin' },
+              { id: '2', tag: '@bob', name: 'Bob Chen' },
+              { id: '3', tag: '@clara', name: 'Clara Diaz' },
+              { id: '4', tag: '@dan', name: 'Dan Wright' },
+            ]}
+            className="max-w-sm"
+          />
+        }
         code={`import { PeerTagInput } from '@/components/ui/PeerTagInput'
 
 export function Example() {
-  return <PeerTagInput />
+  return (
+    <PeerTagInput
+      contacts={[
+        { tag: '@alice', name: 'Alice Martin' },
+        { tag: '@bob', name: 'Bob Chen' },
+        { tag: '@clara', name: 'Clara Diaz' },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -7936,15 +9693,15 @@ function LoadingOverlayExamples() {
             <Button size="sm" onClick={() => { setShow(true); setTimeout(() => setShow(false), 2000) }} className="absolute top-2 left-2">
               Show Overlay
             </Button>
-            {show && <LoadingOverlay />}
+            {show && <LoadingOverlay isLoading message="Processing…" />}
           </div>
         }
         code={`import { LoadingOverlay } from '@/components/ui/LoadingOverlay'
 
 export function Example() {
   return (
-    <div className="relative">
-      <LoadingOverlay />
+    <div className="relative h-32">
+      <LoadingOverlay isLoading message="Processing…" />
     </div>
   )
 }`}
@@ -8774,11 +10531,11 @@ function BarcodeGeneratorExamples() {
       <ComponentExample
         title="Barcode Generator"
         description="Generate and display barcodes"
-        preview={<BarcodeGenerator value="1234567890" />}
+        preview={<BarcodeGenerator defaultValue="1234567890" />}
         code={`import { BarcodeGenerator } from '@/components/ui/BarcodeGenerator'
 
 export function Example() {
-  return <BarcodeGenerator value="1234567890" />
+  return <BarcodeGenerator defaultValue="1234567890" />
 }`}
       />
     </>
@@ -8989,11 +10746,11 @@ function QRCodeGeneratorExamples() {
       <ComponentExample
         title="QR Code Generator"
         description="Generate QR codes from a URL or string"
-        preview={<QRCodeGenerator value="https://example.com" />}
+        preview={<QRCodeGenerator defaultValue="https://example.com" />}
         code={`import { QRCodeGenerator } from '@/components/ui/QRCodeGenerator'
 
 export function Example() {
-  return <QRCodeGenerator value="https://example.com" />
+  return <QRCodeGenerator defaultValue="https://example.com" />
 }`}
       />
     </>
@@ -9640,22 +11397,23 @@ function InfiniteHorizontalLoopExamples() {
         title="Infinite Horizontal Loop"
         description="Infinite marquee loop for logos or text"
         preview={
-          <InfiniteHorizontalLoop>
-            {['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'Vite'].map(t => (
+          <InfiniteHorizontalLoop
+            items={['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'Vite', 'Node.js'].map((t) => (
               <span key={t} className="px-4 py-2 bg-surface-secondary rounded-full text-sm text-text-secondary mx-2">{t}</span>
             ))}
-          </InfiniteHorizontalLoop>
+            speed={25}
+          />
         }
         code={`import { InfiniteHorizontalLoop } from '@/components/ui/InfiniteHorizontalLoop'
 
 export function Example() {
-  return (
-    <InfiniteHorizontalLoop>
-      <span>React</span>
-      <span>TypeScript</span>
-      <span>Tailwind</span>
-    </InfiniteHorizontalLoop>
-  )
+  const items = ['React', 'TypeScript', 'Tailwind', 'Vite'].map((t) => (
+    <span key={t} className="px-4 py-2 bg-surface-secondary rounded-full text-sm">
+      {t}
+    </span>
+  ))
+
+  return <InfiniteHorizontalLoop items={items} speed={25} />
 }`}
       />
     </>
@@ -9780,11 +11538,29 @@ function ScrollRevealCardsExamples() {
       <ComponentExample
         title="Scroll Reveal Cards"
         description="Cards that reveal with animation on scroll"
-        preview={<ScrollRevealCards />}
+        preview={
+          <ScrollRevealCards
+            items={[
+              { title: 'Ship faster', description: 'Pre-built components ready to copy into your project.' },
+              { title: 'Stay consistent', description: 'Design tokens and CVA variants baked in.' },
+              { title: 'Own your code', description: 'Copy-owned — no runtime dependency.' },
+            ]}
+            columns={3}
+          />
+        }
         code={`import { ScrollRevealCards } from '@/components/ui/ScrollRevealCards'
 
 export function Example() {
-  return <ScrollRevealCards />
+  return (
+    <ScrollRevealCards
+      items={[
+        { title: 'Ship faster', description: 'Pre-built components ready to copy.' },
+        { title: 'Stay consistent', description: 'Design tokens baked in.' },
+        { title: 'Own your code', description: 'No runtime dependency.' },
+      ]}
+      columns={3}
+    />
+  )
 }`}
       />
     </>
@@ -9797,11 +11573,34 @@ function StickyImageTextSwapExamples() {
       <ComponentExample
         title="Sticky Image Text Swap"
         description="Sticky scroll section that swaps text and image"
-        preview={<StickyImageTextSwap />}
+        preview={
+          <StickyImageTextSwap
+            items={[
+              { title: 'Component library', description: 'Drop-in components built with design tokens and CVA.', image: 'https://placehold.co/600x400/1a1a2e/ffffff?text=Components' },
+              { title: 'CLI tooling', description: 'Add, update, or rollback any component from the terminal.', image: 'https://placehold.co/600x400/16213e/ffffff?text=CLI' },
+              { title: 'Copy ownership', description: 'No runtime package — the code lives in your repo.', image: 'https://placehold.co/600x400/0f3460/ffffff?text=Ownership' },
+            ]}
+          />
+        }
         code={`import { StickyImageTextSwap } from '@/components/ui/StickyImageTextSwap'
 
 export function Example() {
-  return <StickyImageTextSwap />
+  return (
+    <StickyImageTextSwap
+      items={[
+        {
+          title: 'Component library',
+          description: 'Drop-in components built with design tokens.',
+          image: '/images/components.png',
+        },
+        {
+          title: 'CLI tooling',
+          description: 'Add, update, or rollback any component.',
+          image: '/images/cli.png',
+        },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -9871,11 +11670,30 @@ function PromptSuggestionChipsExamples() {
       <ComponentExample
         title="Prompt Suggestion Chips"
         description="Suggested prompts as clickable chips"
-        preview={<PromptSuggestionChips />}
+        preview={
+          <PromptSuggestionChips
+            suggestions={[
+              { id: '1', text: 'Summarize this document' },
+              { id: '2', text: 'Translate to Spanish' },
+              { id: '3', text: 'Find action items' },
+              { id: '4', text: 'Write a follow-up email' },
+            ]}
+            onSuggestionClick={(s) => console.log(s.text)}
+          />
+        }
         code={`import { PromptSuggestionChips } from '@/components/ui/PromptSuggestionChips'
 
 export function Example() {
-  return <PromptSuggestionChips />
+  return (
+    <PromptSuggestionChips
+      suggestions={[
+        { id: '1', text: 'Summarize this document' },
+        { id: '2', text: 'Translate to Spanish' },
+        { id: '3', text: 'Find action items' },
+      ]}
+      onSuggestionClick={(s) => console.log(s.text)}
+    />
+  )
 }`}
       />
     </>
@@ -9888,11 +11706,21 @@ function SmartInsightsCardExamples() {
       <ComponentExample
         title="Smart Insights Card"
         description="AI-generated insights card with confidence score"
-        preview={<SmartInsightsCard />}
+        preview={
+          <SmartInsightsCard
+            title="Revenue up 24% this month"
+            summary="Driven by a surge in enterprise signups and a 12% reduction in churn. The cohort from Q1 campaign shows the highest lifetime value so far."
+          />
+        }
         code={`import { SmartInsightsCard } from '@/components/ui/SmartInsightsCard'
 
 export function Example() {
-  return <SmartInsightsCard />
+  return (
+    <SmartInsightsCard
+      title="Revenue up 24% this month"
+      summary="Driven by a surge in enterprise signups and a 12% reduction in churn."
+    />
+  )
 }`}
       />
     </>
@@ -9969,11 +11797,25 @@ function IdentityVerificationStepExamples() {
       <ComponentExample
         title="Identity Verification Step"
         description="Step-by-step identity verification flow"
-        preview={<IdentityVerificationStep />}
+        preview={
+          <IdentityVerificationStep
+            documents={[
+              { id: 'passport', label: 'Passport', status: 'pending' },
+              { id: 'selfie', label: 'Selfie', status: 'pending' },
+            ]}
+          />
+        }
         code={`import { IdentityVerificationStep } from '@/components/ui/IdentityVerificationStep'
 
 export function Example() {
-  return <IdentityVerificationStep />
+  return (
+    <IdentityVerificationStep
+      documents={[
+        { id: 'passport', label: 'Passport', status: 'pending' },
+        { id: 'selfie', label: 'Selfie', status: 'pending' },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10003,11 +11845,43 @@ function PermissionsMatrixExamples() {
       <ComponentExample
         title="Permissions Matrix"
         description="Role-permission matrix table with toggles"
-        preview={<PermissionsMatrix />}
+        preview={
+          <PermissionsMatrix
+            roles={[
+              { id: 'admin', name: 'Admin' },
+              { id: 'editor', name: 'Editor' },
+              { id: 'viewer', name: 'Viewer' },
+            ]}
+            permissions={[
+              { id: 'read', name: 'Read' },
+              { id: 'write', name: 'Write' },
+              { id: 'delete', name: 'Delete' },
+            ]}
+            rolePermissions={{ admin: ['read', 'write', 'delete'], editor: ['read', 'write'], viewer: ['read'] }}
+          />
+        }
         code={`import { PermissionsMatrix } from '@/components/ui/PermissionsMatrix'
 
 export function Example() {
-  return <PermissionsMatrix />
+  return (
+    <PermissionsMatrix
+      roles={[
+        { id: 'admin', name: 'Admin' },
+        { id: 'editor', name: 'Editor' },
+        { id: 'viewer', name: 'Viewer' },
+      ]}
+      permissions={[
+        { id: 'read', name: 'Read' },
+        { id: 'write', name: 'Write' },
+        { id: 'delete', name: 'Delete' },
+      ]}
+      rolePermissions={{
+        admin: ['read', 'write', 'delete'],
+        editor: ['read', 'write'],
+        viewer: ['read'],
+      }}
+    />
+  )
 }`}
       />
     </>
@@ -10020,11 +11894,22 @@ function RecoveryCodeDisplayExamples() {
       <ComponentExample
         title="Recovery Code Display"
         description="Recovery codes display with copy and download"
-        preview={<RecoveryCodeDisplay />}
+        preview={
+          <RecoveryCodeDisplay
+            codes={[
+              'ABCD-1234', 'EFGH-5678', 'IJKL-9012',
+              'MNOP-3456', 'QRST-7890', 'UVWX-2345',
+            ]}
+          />
+        }
         code={`import { RecoveryCodeDisplay } from '@/components/ui/RecoveryCodeDisplay'
 
 export function Example() {
-  return <RecoveryCodeDisplay />
+  return (
+    <RecoveryCodeDisplay
+      codes={['ABCD-1234', 'EFGH-5678', 'IJKL-9012', 'MNOP-3456', 'QRST-7890', 'UVWX-2345']}
+    />
+  )
 }`}
       />
     </>
@@ -10037,11 +11922,26 @@ function SecurityActivityLogExamples() {
       <ComponentExample
         title="Security Activity Log"
         description="Log of recent security events and logins"
-        preview={<SecurityActivityLog />}
+        preview={
+          <SecurityActivityLog
+            events={[
+              { id: '1', type: 'login', description: 'Login from Chrome on macOS', timestamp: new Date('2025-05-18T09:00:00'), location: 'Buenos Aires, AR' },
+              { id: '2', type: 'password_change', description: 'Password changed', timestamp: new Date('2025-05-17T14:30:00'), location: 'Buenos Aires, AR' },
+              { id: '3', type: 'login', description: 'Login from Safari on iPhone', timestamp: new Date('2025-05-16T20:10:00'), location: 'Montevideo, UY' },
+            ]}
+          />
+        }
         code={`import { SecurityActivityLog } from '@/components/ui/SecurityActivityLog'
 
 export function Example() {
-  return <SecurityActivityLog />
+  return (
+    <SecurityActivityLog
+      events={[
+        { id: '1', type: 'login', description: 'Login from Chrome on macOS', timestamp: new Date(), location: 'Buenos Aires, AR' },
+        { id: '2', type: 'password_change', description: 'Password changed', timestamp: new Date(), location: 'Buenos Aires, AR' },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10113,11 +12013,25 @@ function CartPreviewExamples() {
       <ComponentExample
         title="Cart Preview"
         description="Mini cart preview with items and checkout button"
-        preview={<CartPreview />}
+        preview={
+          <CartPreview
+            items={[
+              { id: '1', name: 'Wireless Headphones', price: 79.99, quantity: 1, image: 'https://placehold.co/60x60/1a1a2e/ffffff?text=HP' },
+              { id: '2', name: 'USB-C Cable', price: 12.50, quantity: 2, image: 'https://placehold.co/60x60/16213e/ffffff?text=USB' },
+            ]}
+          />
+        }
         code={`import { CartPreview } from '@/components/ui/CartPreview'
 
 export function Example() {
-  return <CartPreview />
+  return (
+    <CartPreview
+      items={[
+        { id: '1', name: 'Wireless Headphones', price: 79.99, quantity: 1 },
+        { id: '2', name: 'USB-C Cable', price: 12.50, quantity: 2 },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10130,11 +12044,40 @@ function InvoicePreviewExamples() {
       <ComponentExample
         title="Invoice Preview"
         description="Printable invoice preview with line items"
-        preview={<InvoicePreview />}
+        preview={
+          <InvoicePreview
+            invoiceNumber="INV-2025-001"
+            dateIssued="2025-05-01"
+            dueDate="2025-05-31"
+            status="pending"
+            from={{ name: 'Acme Corp', address: '123 Main St, NY', email: 'billing@acme.com' }}
+            to={{ name: 'Jane Smith', address: '456 Oak Ave, CA', email: 'jane@example.com' }}
+            items={[
+              { description: 'Design system setup', quantity: 1, unitPrice: 2500, total: 2500 },
+              { description: 'Component library', quantity: 3, unitPrice: 800, total: 2400 },
+            ]}
+            subtotal={4900}
+            tax={490}
+            total={5390}
+          />
+        }
         code={`import { InvoicePreview } from '@/components/ui/InvoicePreview'
 
 export function Example() {
-  return <InvoicePreview />
+  return (
+    <InvoicePreview
+      invoiceNumber="INV-2025-001"
+      dateIssued="2025-05-01"
+      dueDate="2025-05-31"
+      status="pending"
+      from={{ name: 'Acme Corp', address: '123 Main St', email: 'billing@acme.com' }}
+      to={{ name: 'Jane Smith', address: '456 Oak Ave', email: 'jane@example.com' }}
+      items={[{ description: 'Design system setup', quantity: 1, unitPrice: 2500, total: 2500 }]}
+      subtotal={2500}
+      tax={250}
+      total={2750}
+    />
+  )
 }`}
       />
     </>
@@ -10147,11 +12090,26 @@ function OrderSummaryExamples() {
       <ComponentExample
         title="Order Summary"
         description="Order summary with subtotal, tax and total"
-        preview={<OrderSummary />}
+        preview={
+          <OrderSummary
+            items={[
+              { id: '1', name: 'Wireless Headphones', price: 79.99, quantity: 1 },
+              { id: '2', name: 'USB-C Cable', price: 12.50, quantity: 2 },
+              { id: '3', name: 'Phone Case', price: 19.99, quantity: 1 },
+            ]}
+          />
+        }
         code={`import { OrderSummary } from '@/components/ui/OrderSummary'
 
 export function Example() {
-  return <OrderSummary />
+  return (
+    <OrderSummary
+      items={[
+        { id: '1', name: 'Wireless Headphones', price: 79.99, quantity: 1 },
+        { id: '2', name: 'USB-C Cable', price: 12.50, quantity: 2 },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10164,11 +12122,23 @@ function PriceDisplayExamples() {
       <ComponentExample
         title="Price Display"
         description="Formatted price with currency and discount"
-        preview={<PriceDisplay />}
+        preview={
+          <div className="flex flex-wrap gap-6 items-center">
+            <PriceDisplay amount={99.99} />
+            <PriceDisplay amount={149.00} originalAmount={199.00} />
+            <PriceDisplay amount={0} label="Free" />
+          </div>
+        }
         code={`import { PriceDisplay } from '@/components/ui/PriceDisplay'
 
 export function Example() {
-  return <PriceDisplay />
+  return (
+    <div className="flex gap-6">
+      <PriceDisplay amount={99.99} />
+      <PriceDisplay amount={149.00} originalAmount={199.00} />
+      <PriceDisplay amount={0} label="Free" />
+    </div>
+  )
 }`}
       />
     </>
@@ -10181,11 +12151,33 @@ function ProductCardExamples() {
       <ComponentExample
         title="Product Card"
         description="E-commerce product card with image, price and CTA"
-        preview={<ProductCard />}
+        preview={
+          <div className="flex flex-wrap gap-4">
+            <ProductCard
+              id="1"
+              name="Wireless Headphones"
+              price={79.99}
+              image="https://placehold.co/200x200/1a1a2e/ffffff?text=HP"
+            />
+            <ProductCard
+              id="2"
+              name="USB-C Hub"
+              price={49.99}
+              image="https://placehold.co/200x200/16213e/ffffff?text=HUB"
+            />
+          </div>
+        }
         code={`import { ProductCard } from '@/components/ui/ProductCard'
 
 export function Example() {
-  return <ProductCard />
+  return (
+    <ProductCard
+      id="1"
+      name="Wireless Headphones"
+      price={79.99}
+      image="/images/headphones.jpg"
+    />
+  )
 }`}
       />
     </>
@@ -10198,11 +12190,27 @@ function RetailSwapInterfaceExamples() {
       <ComponentExample
         title="Retail Swap Interface"
         description="Product swap / exchange interface"
-        preview={<RetailSwapInterface />}
+        preview={
+          <RetailSwapInterface
+            assets={[
+              { id: 'btc', symbol: 'BTC', name: 'Bitcoin', balance: 0.0234, price: 67500 },
+              { id: 'eth', symbol: 'ETH', name: 'Ethereum', balance: 1.45, price: 3200 },
+              { id: 'usdc', symbol: 'USDC', name: 'USD Coin', balance: 500, price: 1 },
+            ]}
+          />
+        }
         code={`import { RetailSwapInterface } from '@/components/ui/RetailSwapInterface'
 
 export function Example() {
-  return <RetailSwapInterface />
+  return (
+    <RetailSwapInterface
+      assets={[
+        { id: 'btc', symbol: 'BTC', name: 'Bitcoin', balance: 0.02, price: 67500 },
+        { id: 'eth', symbol: 'ETH', name: 'Ethereum', balance: 1.4, price: 3200 },
+        { id: 'usdc', symbol: 'USDC', name: 'USD Coin', balance: 500, price: 1 },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10237,31 +12245,121 @@ import { TransferForm } from '../../components/ui/TransferForm'
 import { VirtualCardPreview } from '../../components/ui/VirtualCardPreview'
 
 function AchTransactionsVisualizerExamples() {
-  return (<><ComponentExample title="ACH Transactions Visualizer" description="Visualizes ACH transaction flow and status" preview={<AchTransactionsVisualizer />} code={`import { AchTransactionsVisualizer } from '@/components/ui/AchTransactionsVisualizer'\nexport function Example() { return <AchTransactionsVisualizer /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="ACH Transactions Visualizer"
+        description="Visualizes ACH transaction flow and status"
+        preview={
+          <AchTransactionsVisualizer
+            transactions={[
+              { id: '1', amount: 1250.00, type: 'CREDIT', status: 'completed', date: 'May 15', title: 'Payroll deposit' },
+              { id: '2', amount: 89.99, type: 'DEBIT', status: 'pending', date: 'May 16', title: 'Netflix subscription' },
+              { id: '3', amount: 500.00, type: 'CREDIT', status: 'completed', date: 'May 17', title: 'Client payment' },
+            ]}
+          />
+        }
+        code={`import { AchTransactionsVisualizer } from '@/components/ui/AchTransactionsVisualizer'
+
+export function Example() {
+  return (
+    <AchTransactionsVisualizer
+      transactions={[
+        { id: '1', amount: 1250, type: 'CREDIT', status: 'completed', date: 'May 15', title: 'Payroll deposit' },
+        { id: '2', amount: 89.99, type: 'DEBIT', status: 'pending', date: 'May 16', title: 'Netflix' },
+      ]}
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function BankAccountCardExamples() {
   return (<><ComponentExample title="Bank Account Card" description="Bank account card with balance" preview={<BankAccountCard />} code={`import { BankAccountCard } from '@/components/ui/BankAccountCard'\nexport function Example() { return <BankAccountCard /> }`} /></>)
 }
 function CashbackWidgetExamples() {
-  return (<><ComponentExample title="Cashback Widget" description="Cashback earned widget with progress" preview={<CashbackWidget />} code={`import { CashbackWidget } from '@/components/ui/CashbackWidget'\nexport function Example() { return <CashbackWidget /> }`} /></>)
+  return (<><ComponentExample title="Cashback Widget" description="Cashback earned widget with progress" preview={<CashbackWidget earned={47.50} />} code={`import { CashbackWidget } from '@/components/ui/CashbackWidget'\nexport function Example() { return <CashbackWidget earned={47.50} /> }`} /></>)
 }
 function CreditLimitManagerExamples() {
-  return (<><ComponentExample title="Credit Limit Manager" description="Credit limit display and adjustment controls" preview={<CreditLimitManager />} code={`import { CreditLimitManager } from '@/components/ui/CreditLimitManager'\nexport function Example() { return <CreditLimitManager /> }`} /></>)
+  return (<><ComponentExample title="Credit Limit Manager" description="Credit limit display and adjustment controls" preview={<CreditLimitManager maxLimit={10000} />} code={`import { CreditLimitManager } from '@/components/ui/CreditLimitManager'\nexport function Example() { return <CreditLimitManager maxLimit={10000} /> }`} /></>)
 }
 function CreditScoreSimulatorExamples() {
   return (<><ComponentExample title="Credit Score Simulator" description="Interactive credit score simulator" preview={<CreditScoreSimulator />} code={`import { CreditScoreSimulator } from '@/components/ui/CreditScoreSimulator'\nexport function Example() { return <CreditScoreSimulator /> }`} /></>)
 }
 function CurrencyConverterWidgetExamples() {
-  return (<><ComponentExample title="Currency Converter Widget" description="Real-time currency converter" preview={<CurrencyConverterWidget />} code={`import { CurrencyConverterWidget } from '@/components/ui/CurrencyConverterWidget'\nexport function Example() { return <CurrencyConverterWidget /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Currency Converter Widget"
+        description="Real-time currency converter with fee and delivery estimate"
+        preview={
+          <CurrencyConverterWidget
+            currencies={[
+              { code: 'USD', flag: '🇺🇸', name: 'US Dollar' },
+              { code: 'EUR', flag: '🇪🇺', name: 'Euro' },
+              { code: 'ARS', flag: '🇦🇷', name: 'Argentine Peso' },
+            ]}
+            exchangeRate={0.92}
+            feePercentage={1.5}
+            estimatedDelivery="1–2 business days"
+          />
+        }
+        code={`import { CurrencyConverterWidget } from '@/components/ui/CurrencyConverterWidget'
+
+export function Example() {
+  return (
+    <CurrencyConverterWidget
+      currencies={[
+        { code: 'USD', flag: '🇺🇸', name: 'US Dollar' },
+        { code: 'EUR', flag: '🇪🇺', name: 'Euro' },
+      ]}
+      exchangeRate={0.92}
+      feePercentage={1.5}
+      estimatedDelivery="1–2 business days"
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function EarlyPaymentDiscountExamples() {
-  return (<><ComponentExample title="Early Payment Discount" description="Early payment discount calculator" preview={<EarlyPaymentDiscount />} code={`import { EarlyPaymentDiscount } from '@/components/ui/EarlyPaymentDiscount'\nexport function Example() { return <EarlyPaymentDiscount /> }`} /></>)
+  return (<><ComponentExample title="Early Payment Discount" description="Early payment discount calculator" preview={<EarlyPaymentDiscount totalInterestRemaining={3200} remainingMonths={24} monthlyPayment={450} />} code={`import { EarlyPaymentDiscount } from '@/components/ui/EarlyPaymentDiscount'\nexport function Example() { return <EarlyPaymentDiscount totalInterestRemaining={3200} remainingMonths={24} monthlyPayment={450} /> }`} /></>)
 }
 function ExpenseCategorizerExamples() {
   return (<><ComponentExample title="Expense Categorizer" description="Drag-and-drop expense categorization" preview={<ExpenseCategorizer />} code={`import { ExpenseCategorizer } from '@/components/ui/ExpenseCategorizer'\nexport function Example() { return <ExpenseCategorizer /> }`} /></>)
 }
 function FairUseLimitTrackerExamples() {
-  return (<><ComponentExample title="Fair Use Limit Tracker" description="Fair use limit tracker with usage bar" preview={<FairUseLimitTracker />} code={`import { FairUseLimitTracker } from '@/components/ui/FairUseLimitTracker'\nexport function Example() { return <FairUseLimitTracker /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Fair Use Limit Tracker"
+        description="Fair use limit tracker with usage bars per category"
+        preview={
+          <FairUseLimitTracker
+            categories={[
+              { id: 'transfers', title: 'Transfers', used: 3200, total: 5000 },
+              { id: 'withdrawals', title: 'Withdrawals', used: 800, total: 1000 },
+              { id: 'payments', title: 'Payments', used: 150, total: 500 },
+            ]}
+          />
+        }
+        code={`import { FairUseLimitTracker } from '@/components/ui/FairUseLimitTracker'
+
+export function Example() {
+  return (
+    <FairUseLimitTracker
+      categories={[
+        { id: 'transfers', title: 'Transfers', used: 3200, total: 5000 },
+        { id: 'withdrawals', title: 'Withdrawals', used: 800, total: 1000 },
+      ]}
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function FinancialGoalTrackerExamples() {
   return (<><ComponentExample title="Financial Goal Tracker" description="Financial savings goal with progress ring" preview={<FinancialGoalTracker />} code={`import { FinancialGoalTracker } from '@/components/ui/FinancialGoalTracker'\nexport function Example() { return <FinancialGoalTracker /> }`} /></>)
@@ -10273,22 +12371,110 @@ function GamifiedRewardTierExamples() {
   return (<><ComponentExample title="Gamified Reward Tier" description="Reward tier progress with gamification badges" preview={<GamifiedRewardTier />} code={`import { GamifiedRewardTier } from '@/components/ui/GamifiedRewardTier'\nexport function Example() { return <GamifiedRewardTier /> }`} /></>)
 }
 function InstallmentSimulatorExamples() {
-  return (<><ComponentExample title="Installment Simulator" description="Loan installment calculator and preview" preview={<InstallmentSimulator />} code={`import { InstallmentSimulator } from '@/components/ui/InstallmentSimulator'\nexport function Example() { return <InstallmentSimulator /> }`} /></>)
+  return (<><ComponentExample title="Installment Simulator" description="Loan installment calculator and preview" preview={<InstallmentSimulator purchaseAmount={1200} />} code={`import { InstallmentSimulator } from '@/components/ui/InstallmentSimulator'\nexport function Example() { return <InstallmentSimulator purchaseAmount={1200} /> }`} /></>)
 }
 function InteractiveBillSplitterExamples() {
-  return (<><ComponentExample title="Interactive Bill Splitter" description="Interactive bill splitter among participants" preview={<InteractiveBillSplitter />} code={`import { InteractiveBillSplitter } from '@/components/ui/InteractiveBillSplitter'\nexport function Example() { return <InteractiveBillSplitter /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Interactive Bill Splitter"
+        description="Split the bill equally or by custom amounts among friends"
+        preview={
+          <InteractiveBillSplitter
+            billAmount={124.50}
+            friends={[
+              { id: '1', name: 'Alice' },
+              { id: '2', name: 'Bob' },
+              { id: '3', name: 'Clara' },
+            ]}
+          />
+        }
+        code={`import { InteractiveBillSplitter } from '@/components/ui/InteractiveBillSplitter'
+
+export function Example() {
+  return (
+    <InteractiveBillSplitter
+      billAmount={124.50}
+      friends={[
+        { id: '1', name: 'Alice' },
+        { id: '2', name: 'Bob' },
+        { id: '3', name: 'Clara' },
+      ]}
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function MultiCurrencyWalletExamples() {
-  return (<><ComponentExample title="Multi Currency Wallet" description="Multi-currency wallet with balances" preview={<MultiCurrencyWallet />} code={`import { MultiCurrencyWallet } from '@/components/ui/MultiCurrencyWallet'\nexport function Example() { return <MultiCurrencyWallet /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Multi Currency Wallet"
+        description="Wallet balances across multiple currencies"
+        preview={
+          <MultiCurrencyWallet
+            wallets={[
+              { id: '1', currencyCode: 'USD', currencyName: 'US Dollar', flag: '🇺🇸', balance: 1250.00 },
+              { id: '2', currencyCode: 'EUR', currencyName: 'Euro', flag: '🇪🇺', balance: 890.50 },
+              { id: '3', currencyCode: 'GBP', currencyName: 'British Pound', flag: '🇬🇧', balance: 320.75 },
+            ]}
+          />
+        }
+        code={`import { MultiCurrencyWallet } from '@/components/ui/MultiCurrencyWallet'
+
+export function Example() {
+  return (
+    <MultiCurrencyWallet
+      wallets={[
+        { id: '1', currencyCode: 'USD', currencyName: 'US Dollar', flag: '🇺🇸', balance: 1250 },
+        { id: '2', currencyCode: 'EUR', currencyName: 'Euro', flag: '🇪🇺', balance: 890 },
+      ]}
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function PaymentConfirmationModalExamples() {
-  return (<><ComponentExample title="Payment Confirmation Modal" description="Payment confirmation modal with details" preview={<PaymentConfirmationModal />} code={`import { PaymentConfirmationModal } from '@/components/ui/PaymentConfirmationModal'\nexport function Example() { return <PaymentConfirmationModal /> }`} /></>)
+  return (<><ComponentExample title="Payment Confirmation Modal" description="Payment confirmation modal with details" preview={<PaymentConfirmationModal data={{ recipientName: 'Bob Chen', amount: 250, currency: 'USD' }} />} code={`import { PaymentConfirmationModal } from '@/components/ui/PaymentConfirmationModal'\nexport function Example() { return <PaymentConfirmationModal data={{ recipientName: 'Bob Chen', amount: 250, currency: 'USD' }} /> }`} /></>)
 }
 function PaymentMethodSelectorExamples() {
-  return (<><ComponentExample title="Payment Method Selector" description="Payment method selection with card previews" preview={<PaymentMethodSelector />} code={`import { PaymentMethodSelector } from '@/components/ui/PaymentMethodSelector'\nexport function Example() { return <PaymentMethodSelector /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Payment Method Selector"
+        description="Select from saved payment methods"
+        preview={
+          <PaymentMethodSelector
+            methods={[
+              { id: '1', type: 'card', last4: '4242', brand: 'Visa' },
+              { id: '2', type: 'applepay' },
+              { id: '3', type: 'paypal' },
+            ]}
+          />
+        }
+        code={`import { PaymentMethodSelector } from '@/components/ui/PaymentMethodSelector'
+
+export function Example() {
+  return (
+    <PaymentMethodSelector
+      methods={[
+        { id: '1', type: 'card', last4: '4242', brand: 'Visa' },
+        { id: '2', type: 'applepay' },
+        { id: '3', type: 'paypal' },
+      ]}
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function QuickTransferBarExamples() {
-  return (<><ComponentExample title="Quick Transfer Bar" description="Quick transfer bar with recent contacts" preview={<QuickTransferBar />} code={`import { QuickTransferBar } from '@/components/ui/QuickTransferBar'\nexport function Example() { return <QuickTransferBar /> }`} /></>)
+  return (<><ComponentExample title="Quick Transfer Bar" description="Quick transfer bar with recent contacts" preview={<QuickTransferBar contacts={[{ id: '1', name: 'Alice' }, { id: '2', name: 'Bob' }, { id: '3', name: 'Clara' }, { id: '4', name: 'Dan' }]} />} code={`import { QuickTransferBar } from '@/components/ui/QuickTransferBar'\nexport function Example() { return <QuickTransferBar contacts={[{ id: '1', name: 'Alice' }, { id: '2', name: 'Bob' }]} /> }`} /></>)
 }
 function RecurringInvestConfiguratorExamples() {
   return (<><ComponentExample title="Recurring Invest Configurator" description="Recurring investment configuration form" preview={<RecurringInvestConfigurator />} code={`import { RecurringInvestConfigurator } from '@/components/ui/RecurringInvestConfigurator'\nexport function Example() { return <RecurringInvestConfigurator /> }`} /></>)
@@ -10297,13 +12483,68 @@ function RoundUpSavingsToggleExamples() {
   return (<><ComponentExample title="Round Up Savings Toggle" description="Round-up savings toggle with projected amount" preview={<RoundUpSavingsToggle />} code={`import { RoundUpSavingsToggle } from '@/components/ui/RoundUpSavingsToggle'\nexport function Example() { return <RoundUpSavingsToggle /> }`} /></>)
 }
 function SocialPaymentFeedExamples() {
-  return (<><ComponentExample title="Social Payment Feed" description="Social-style payment activity feed" preview={<SocialPaymentFeed />} code={`import { SocialPaymentFeed } from '@/components/ui/SocialPaymentFeed'\nexport function Example() { return <SocialPaymentFeed /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Social Payment Feed"
+        description="Social-style payment activity feed"
+        preview={
+          <SocialPaymentFeed
+            payments={[
+              { id: '1', senderName: 'Alice', receiverName: 'Bob', note: 'Dinner last night 🍕', timestamp: new Date('2025-05-18T19:00:00'), likes: 3, comments: 1, privacy: 'public' },
+              { id: '2', senderName: 'Clara', receiverName: 'Dan', note: 'Concert tickets 🎸', timestamp: new Date('2025-05-17T15:30:00'), likes: 7, comments: 2, privacy: 'friends' },
+            ]}
+          />
+        }
+        code={`import { SocialPaymentFeed } from '@/components/ui/SocialPaymentFeed'
+
+export function Example() {
+  return (
+    <SocialPaymentFeed
+      payments={[
+        { id: '1', senderName: 'Alice', receiverName: 'Bob', note: 'Dinner', timestamp: new Date(), likes: 3, comments: 1, privacy: 'public' },
+      ]}
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function SubscriptionManagerExamples() {
   return (<><ComponentExample title="Subscription Manager" description="Subscription plan manager with billing info" preview={<SubscriptionManager />} code={`import { SubscriptionManager } from '@/components/ui/SubscriptionManager'\nexport function Example() { return <SubscriptionManager /> }`} /></>)
 }
 function TransactionListExamples() {
-  return (<><ComponentExample title="Transaction List" description="Transaction history list with filters" preview={<TransactionList />} code={`import { TransactionList } from '@/components/ui/TransactionList'\nexport function Example() { return <TransactionList /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Transaction List"
+        description="Transaction history with income and expense entries"
+        preview={
+          <TransactionList
+            transactions={[
+              { id: '1', title: 'Payroll deposit', amount: 3500, type: 'income', date: '2025-05-15' },
+              { id: '2', title: 'Netflix', amount: 17.99, type: 'expense', date: '2025-05-14' },
+              { id: '3', title: 'Freelance project', amount: 800, type: 'income', date: '2025-05-12' },
+              { id: '4', title: 'Grocery store', amount: 124.50, type: 'expense', date: '2025-05-11' },
+            ]}
+          />
+        }
+        code={`import { TransactionList } from '@/components/ui/TransactionList'
+
+export function Example() {
+  return (
+    <TransactionList
+      transactions={[
+        { id: '1', title: 'Payroll deposit', amount: 3500, type: 'income', date: '2025-05-15' },
+        { id: '2', title: 'Netflix', amount: 17.99, type: 'expense', date: '2025-05-14' },
+      ]}
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function TransferFormExamples() {
   return (<><ComponentExample title="Transfer Form" description="Money transfer form with recipient and amount" preview={<TransferForm />} code={`import { TransferForm } from '@/components/ui/TransferForm'\nexport function Example() { return <TransferForm /> }`} /></>)
@@ -10369,11 +12610,26 @@ function CommentThreadExamples() {
       <ComponentExample
         title="Comment Thread"
         description="Nested comment thread with replies and reactions"
-        preview={<CommentThread />}
+        preview={
+          <CommentThread
+            comments={[
+              { id: '1', author: 'Alice Martin', content: 'Great work on this feature!', timestamp: new Date('2025-05-18T10:00:00'), likes: 4 },
+              { id: '2', author: 'Bob Chen', content: 'Agreed — the animation is really smooth.', timestamp: new Date('2025-05-18T10:15:00'), likes: 2 },
+              { id: '3', author: 'Clara Diaz', content: 'Can we add dark mode support?', timestamp: new Date('2025-05-18T11:00:00'), likes: 1 },
+            ]}
+          />
+        }
         code={`import { CommentThread } from '@/components/ui/CommentThread'
 
 export function Example() {
-  return <CommentThread />
+  return (
+    <CommentThread
+      comments={[
+        { id: '1', author: 'Alice Martin', content: 'Great work!', timestamp: new Date(), likes: 4 },
+        { id: '2', author: 'Bob Chen', content: 'Agreed!', timestamp: new Date(), likes: 2 },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10386,11 +12642,27 @@ function MessageReactionsExamples() {
       <ComponentExample
         title="Message Reactions"
         description="Emoji reaction picker and display for messages"
-        preview={<MessageReactions />}
+        preview={
+          <MessageReactions
+            reactions={[
+              { emoji: '👍', count: 5, reacted: true },
+              { emoji: '❤️', count: 3, reacted: false },
+              { emoji: '😂', count: 2, reacted: false },
+            ]}
+          />
+        }
         code={`import { MessageReactions } from '@/components/ui/MessageReactions'
 
 export function Example() {
-  return <MessageReactions />
+  return (
+    <MessageReactions
+      reactions={[
+        { emoji: '👍', count: 5, reacted: true },
+        { emoji: '❤️', count: 3, reacted: false },
+        { emoji: '😂', count: 2, reacted: false },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10403,11 +12675,26 @@ function NotificationCenterPanelExamples() {
       <ComponentExample
         title="Notification Center Panel"
         description="Notification center with grouped and unread"
-        preview={<NotificationCenterPanel />}
+        preview={
+          <NotificationCenterPanel
+            notifications={[
+              { id: '1', title: 'New comment', message: 'Alice commented on your post', read: false, timestamp: new Date('2025-05-18T09:00:00') },
+              { id: '2', title: 'Payment received', message: 'You received $250 from Bob', read: false, timestamp: new Date('2025-05-18T08:30:00') },
+              { id: '3', title: 'Security alert', message: 'New login from Chrome on macOS', read: true, timestamp: new Date('2025-05-17T22:00:00') },
+            ]}
+          />
+        }
         code={`import { NotificationCenterPanel } from '@/components/ui/NotificationCenterPanel'
 
 export function Example() {
-  return <NotificationCenterPanel />
+  return (
+    <NotificationCenterPanel
+      notifications={[
+        { id: '1', title: 'New comment', message: 'Alice commented on your post', read: false, timestamp: new Date() },
+        { id: '2', title: 'Payment received', message: 'You received $250 from Bob', read: true, timestamp: new Date() },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10424,11 +12711,28 @@ function AgendaViewExamples() {
       <ComponentExample
         title="Agenda View"
         description="Day/week agenda view for events"
-        preview={<AgendaView />}
+        preview={
+          <AgendaView
+            currentDate={new Date('2025-05-18')}
+            events={[
+              { id: '1', date: new Date('2025-05-18T09:00:00'), title: 'Team standup' },
+              { id: '2', date: new Date('2025-05-18T14:00:00'), title: 'Design review' },
+              { id: '3', date: new Date('2025-05-19T10:00:00'), title: 'Sprint planning' },
+            ]}
+          />
+        }
         code={`import { AgendaView } from '@/components/ui/AgendaView'
 
 export function Example() {
-  return <AgendaView />
+  return (
+    <AgendaView
+      currentDate={new Date()}
+      events={[
+        { id: '1', date: new Date(), title: 'Team standup' },
+        { id: '2', date: new Date(), title: 'Design review' },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10441,11 +12745,32 @@ function SchedulerTimelineExamples() {
       <ComponentExample
         title="Scheduler Timeline"
         description="Horizontal timeline scheduler for resources"
-        preview={<SchedulerTimeline />}
+        preview={
+          <SchedulerTimeline
+            date={new Date('2025-05-18')}
+            resources={[
+              { id: 'r1', name: 'Alice' },
+              { id: 'r2', name: 'Bob' },
+            ]}
+            events={[
+              { id: 'e1', resourceId: 'r1', title: 'Client call', startTime: '09:00', endTime: '10:00' },
+              { id: 'e2', resourceId: 'r1', title: 'Design review', startTime: '14:00', endTime: '15:30' },
+              { id: 'e3', resourceId: 'r2', title: 'Sprint planning', startTime: '10:00', endTime: '11:00' },
+            ]}
+          />
+        }
         code={`import { SchedulerTimeline } from '@/components/ui/SchedulerTimeline'
 
 export function Example() {
-  return <SchedulerTimeline />
+  return (
+    <SchedulerTimeline
+      date={new Date()}
+      resources={[{ id: 'r1', name: 'Alice' }, { id: 'r2', name: 'Bob' }]}
+      events={[
+        { id: 'e1', resourceId: 'r1', title: 'Client call', startTime: '09:00', endTime: '10:00' },
+      ]}
+    />
+  )
 }`}
       />
     </>
@@ -10481,20 +12806,149 @@ function ContextualTrustBadgeExamples() {
   return (<><ComponentExample title="Contextual Trust Badge" description="Contextual trust badge for verified status" preview={<ContextualTrustBadge />} code={`import { ContextualTrustBadge } from '@/components/ui/ContextualTrustBadge'\nexport function Example() { return <ContextualTrustBadge /> }`} /></>)
 }
 function DeviceListExamples() {
-  return (<><ComponentExample title="Device List" description="List of connected/trusted devices with actions" preview={<DeviceList />} code={`import { DeviceList } from '@/components/ui/DeviceList'\nexport function Example() { return <DeviceList /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Device List"
+        description="List of connected and trusted devices"
+        preview={
+          <DeviceList
+            devices={[
+              { id: '1', name: 'MacBook Pro', type: 'laptop', status: 'active' },
+              { id: '2', name: 'iPhone 15', type: 'phone', status: 'active' },
+              { id: '3', name: 'iPad Air', type: 'tablet', status: 'inactive' },
+            ]}
+          />
+        }
+        code={`import { DeviceList } from '@/components/ui/DeviceList'
+
+export function Example() {
+  return (
+    <DeviceList
+      devices={[
+        { id: '1', name: 'MacBook Pro', type: 'laptop', status: 'active' },
+        { id: '2', name: 'iPhone 15', type: 'phone', status: 'active' },
+      ]}
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function FileIntelligencePreviewExamples() {
-  return (<><ComponentExample title="File Intelligence Preview" description="AI-powered file preview with extracted metadata" preview={<FileIntelligencePreview />} code={`import { FileIntelligencePreview } from '@/components/ui/FileIntelligencePreview'\nexport function Example() { return <FileIntelligencePreview /> }`} /></>)
+  return (<><ComponentExample title="File Intelligence Preview" description="AI-powered file preview with extracted metadata" preview={<FileIntelligencePreview file={{ name: 'Q1-Report.pdf', type: 'application/pdf' }} />} code={`import { FileIntelligencePreview } from '@/components/ui/FileIntelligencePreview'\nexport function Example() { return <FileIntelligencePreview file={{ name: 'Q1-Report.pdf', type: 'application/pdf' }} /> }`} /></>)
 }
 function MicroCommitmentStepperExamples() {
   return (<><ComponentExample title="Micro Commitment Stepper" description="Micro-commitment stepper for onboarding flows" preview={<MicroCommitmentStepper />} code={`import { MicroCommitmentStepper } from '@/components/ui/MicroCommitmentStepper'\nexport function Example() { return <MicroCommitmentStepper /> }`} /></>)
 }
 function ProgressiveDisclosurePanelExamples() {
-  return (<><ComponentExample title="Progressive Disclosure Panel" description="Panel that reveals detail progressively" preview={<ProgressiveDisclosurePanel />} code={`import { ProgressiveDisclosurePanel } from '@/components/ui/ProgressiveDisclosurePanel'\nexport function Example() { return <ProgressiveDisclosurePanel /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Progressive Disclosure Panel"
+        description="Summary shown by default; details revealed on expand"
+        preview={
+          <ProgressiveDisclosurePanel
+            summary={<p className="text-sm font-medium text-text-primary">Your plan renews on June 1, 2025</p>}
+            details={
+              <div className="space-y-2 text-sm text-text-secondary">
+                <p>Current plan: <strong>Pro</strong></p>
+                <p>Billing cycle: Monthly</p>
+                <p>Next charge: $49.00 on June 1</p>
+                <p>Payment method: Visa ending in 4242</p>
+              </div>
+            }
+          />
+        }
+        code={`import { ProgressiveDisclosurePanel } from '@/components/ui/ProgressiveDisclosurePanel'
+
+export function Example() {
+  return (
+    <ProgressiveDisclosurePanel
+      summary={<p>Your plan renews on June 1, 2025</p>}
+      details={<p>Current plan: Pro · $49/month · Visa ···4242</p>}
+    />
+  )
+}`}
+      />
+    </>
+  )
 }
 function SlideToDeleteExamples() {
-  return (<><ComponentExample title="Slide to Delete" description="iOS-style swipe-to-delete gesture row" preview={<SlideToDelete />} code={`import { SlideToDelete } from '@/components/ui/SlideToDelete'\nexport function Example() { return <SlideToDelete /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Slide to Delete"
+        description="iOS-style swipe-to-delete — slide left to reveal the delete action"
+        preview={
+          <div className="w-full max-w-sm space-y-2">
+            <SlideToDelete onDelete={() => console.log('deleted')}>
+              <div className="flex items-center gap-3 p-3 bg-surface-primary rounded-lg border border-border-primary">
+                <div className="w-8 h-8 rounded-full bg-accent-blue/10 flex items-center justify-center text-accent-blue text-sm font-medium">A</div>
+                <div>
+                  <p className="text-sm font-medium text-text-primary">Alice Martin</p>
+                  <p className="text-xs text-text-secondary">alice@example.com</p>
+                </div>
+              </div>
+            </SlideToDelete>
+            <SlideToDelete onDelete={() => console.log('deleted')}>
+              <div className="flex items-center gap-3 p-3 bg-surface-primary rounded-lg border border-border-primary">
+                <div className="w-8 h-8 rounded-full bg-status-success/10 flex items-center justify-center text-status-success text-sm font-medium">B</div>
+                <div>
+                  <p className="text-sm font-medium text-text-primary">Bob Chen</p>
+                  <p className="text-xs text-text-secondary">bob@example.com</p>
+                </div>
+              </div>
+            </SlideToDelete>
+          </div>
+        }
+        code={`import { SlideToDelete } from '@/components/ui/SlideToDelete'
+
+export function Example() {
+  return (
+    <SlideToDelete onDelete={() => console.log('deleted')}>
+      <div className="p-3 rounded-lg border">
+        <p className="font-medium">Alice Martin</p>
+        <p className="text-sm text-text-secondary">alice@example.com</p>
+      </div>
+    </SlideToDelete>
+  )
+}`}
+      />
+    </>
+  )
 }
 function VoiceCommandOverlayExamples() {
-  return (<><ComponentExample title="Voice Command Overlay" description="Voice command listening overlay with transcript" preview={<VoiceCommandOverlay />} code={`import { VoiceCommandOverlay } from '@/components/ui/VoiceCommandOverlay'\nexport function Example() { return <VoiceCommandOverlay /> }`} /></>)
+  return (
+    <>
+      <ComponentExample
+        title="Voice Command Overlay"
+        description="isOpen and onClose are required — wire them to a button to toggle the overlay"
+        preview={
+          (() => {
+            const [open, setOpen] = React.useState(false)
+            return (
+              <div className="flex flex-col items-center gap-3">
+                <Button variant="secondary" size="sm" onClick={() => setOpen(true)}>Activate voice command</Button>
+                <VoiceCommandOverlay isOpen={open} onClose={() => setOpen(false)} />
+              </div>
+            )
+          })()
+        }
+        code={`import { VoiceCommandOverlay } from '@/components/ui/VoiceCommandOverlay'
+import { useState } from 'react'
+
+export function Example() {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Activate</button>
+      <VoiceCommandOverlay isOpen={open} onClose={() => setOpen(false)} />
+    </>
+  )
+}`}
+      />
+    </>
+  )
 }

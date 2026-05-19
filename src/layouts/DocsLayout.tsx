@@ -1,16 +1,68 @@
 import React from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, Link } from 'react-router-dom'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import SiteNav from '../components/SiteNav'
 import { useTheme, useHeadings, useActiveHeading } from '../hooks'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '../components/ui/Collapsible'
 import { TableOfContents } from '../components/ui/TableOfContents'
 import { COMPONENT_CATEGORIES } from '../data/components'
 
+const DOC_PAGES = [
+  { path: '/docs', label: 'Introduction' },
+  { path: '/docs/installation', label: 'Installation' },
+  { path: '/docs/theming', label: 'Theming' },
+  { path: '/docs/architecture', label: 'Architecture' },
+  { path: '/docs/versioning', label: 'Versioning' },
+]
+
 const CATEGORY_ORDER = [
   'Inputs', 'Layout', 'Typography', 'Navigation', 'Feedback', 'Data', 'Media',
   'Charts', 'Animations', 'AI', 'Auth', 'Commerce', 'Fintech', 'Communication',
   'Scheduling', 'Misc',
 ]
+
+const ALL_PAGES: { path: string; label: string }[] = [
+  ...DOC_PAGES,
+  ...CATEGORY_ORDER.flatMap((cat) =>
+    (COMPONENT_CATEGORIES[cat] ?? []).map((name) => ({
+      path: `/components/${name.toLowerCase()}`,
+      label: name,
+    }))
+  ),
+]
+
+function PrevNextNav() {
+  const { pathname } = useLocation()
+  const idx = ALL_PAGES.findIndex((p) => p.path === pathname)
+  if (idx === -1) return null
+  const prev = idx > 0 ? ALL_PAGES[idx - 1] : null
+  const next = idx < ALL_PAGES.length - 1 ? ALL_PAGES[idx + 1] : null
+
+  return (
+    <div className="mt-16 pt-6 border-t border-border-primary flex items-center justify-between gap-4">
+      {prev ? (
+        <Link
+          to={prev.path}
+          className="group flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors min-w-0"
+        >
+          <ChevronLeft className="w-4 h-4 flex-shrink-0 text-text-tertiary group-hover:text-text-primary transition-colors" />
+          <span className="truncate">{prev.label}</span>
+        </Link>
+      ) : (
+        <span />
+      )}
+      {next ? (
+        <Link
+          to={next.path}
+          className="group flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary transition-colors min-w-0 text-right ml-auto"
+        >
+          <span className="truncate">{next.label}</span>
+          <ChevronRight className="w-4 h-4 flex-shrink-0 text-text-tertiary group-hover:text-text-primary transition-colors" />
+        </Link>
+      ) : null}
+    </div>
+  )
+}
 
 function SidebarLink({ to, children }: { to: string; children: React.ReactNode }) {
   return (
@@ -46,6 +98,8 @@ function Sidebar() {
               <SidebarLink to="/docs">Introduction</SidebarLink>
               <SidebarLink to="/docs/installation">Installation</SidebarLink>
               <SidebarLink to="/docs/theming">Theming</SidebarLink>
+              <SidebarLink to="/docs/architecture">Architecture</SidebarLink>
+              <SidebarLink to="/docs/versioning">Versioning</SidebarLink>
             </div>
           </CollapsibleContent>
         </Collapsible>
@@ -91,6 +145,7 @@ export default function DocsLayout() {
         <main role="main" className="pt-11 md:pt-8 min-h-screen">
           <div className="max-w-3xl mx-auto px-8 py-10">
             <Outlet />
+            <PrevNextNav />
           </div>
         </main>
         <TableOfContents headings={headings} activeId={activeHeadingId} />
