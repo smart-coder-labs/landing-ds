@@ -10,6 +10,13 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../components/ui/Ta
 import { CodeBlock } from '../../components/ui/CodeBlock'
 import { ALL_COMPONENTS, COMPONENT_CATEGORIES, ComponentEntry } from '../../data/components'
 import { getAdjacentPages } from '../../data/navigation'
+import dsJson from '../../../design-system.json'
+
+const STATUS_STYLES: Record<string, string> = {
+  stable: 'bg-status-success/10 text-status-success border border-status-success/20',
+  beta: 'bg-status-warning/10 text-status-warning border border-status-warning/20',
+  experimental: 'bg-status-error/10 text-status-error border border-status-error/20',
+}
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -3772,6 +3779,10 @@ export default function ComponentDetailPageV2() {
     (c) => c.name.toLowerCase() === componentName.toLowerCase()
   )
 
+  const dsMeta = component
+    ? (dsJson.components as Record<string, { version: string; status: string }>)[component.name]
+    : undefined
+
   if (!component) {
     return (
       <div className="space-y-4">
@@ -3845,6 +3856,16 @@ export default function ComponentDetailPageV2() {
 
         <div className="space-y-2">
           <Title level={2}>{component.name}</Title>
+          {dsMeta && (
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono text-accent-blue bg-accent-blue/10 px-2.5 py-0.5 rounded-full">
+                v{dsMeta.version}
+              </span>
+              <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${STATUS_STYLES[dsMeta.status] ?? 'bg-surface-secondary text-text-secondary'}`}>
+                {dsMeta.status}
+              </span>
+            </div>
+          )}
           <Text color="secondary" className="text-base">{component.description}</Text>
         </div>
 

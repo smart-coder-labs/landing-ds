@@ -1,7 +1,77 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import ThemeToggle from './ThemeToggle'
 import { cn } from '../lib/utils'
+import { SearchInput } from './ui/SearchInput'
+import { ALL_COMPONENTS } from '../data/components'
+
+const DOC_ITEMS = [
+  { name: 'Introduction', path: '/docs', category: 'Docs' },
+  { name: 'Installation', path: '/docs/installation', category: 'Docs' },
+  { name: 'Theming', path: '/docs/theming', category: 'Docs' },
+  { name: 'Architecture', path: '/docs/architecture', category: 'Docs' },
+  { name: 'Versioning', path: '/docs/versioning', category: 'Docs' },
+]
+
+function GlobalSearch() {
+  const [query, setQuery] = React.useState('')
+  const [open, setOpen] = React.useState(false)
+  const navigate = useNavigate()
+
+  const results = React.useMemo(() => {
+    if (!query.trim()) return []
+    const q = query.toLowerCase()
+    const components = ALL_COMPONENTS
+      .filter((c) => c.name.toLowerCase().includes(q))
+      .slice(0, 7)
+      .map((c) => ({ name: c.name, path: `/components/${c.name.toLowerCase()}`, category: c.category }))
+    const docs = DOC_ITEMS.filter((d) => d.name.toLowerCase().includes(q))
+    return [...docs, ...components]
+  }, [query])
+
+  const grouped = React.useMemo(() => {
+    const map = new Map<string, typeof results>()
+    for (const item of results) {
+      if (!map.has(item.category)) map.set(item.category, [])
+      map.get(item.category)!.push(item)
+    }
+    return map
+  }, [results])
+
+  const select = (path: string) => {
+    navigate(path)
+    setQuery('')
+    setOpen(false)
+  }
+
+  return (
+    <SearchInput value={query} onChange={setQuery} containerClassName="w-56">
+      <SearchInput.Input
+        value={query}
+        onChange={setQuery}
+        placeholder="Search..."
+        onFocus={() => setOpen(true)}
+        onBlur={() => setTimeout(() => setOpen(false), 150)}
+        className="h-7 text-xs rounded-lg pl-8 pr-8"
+      />
+      <SearchInput.Dropdown
+        show={open && query.length > 0}
+        hasResults={results.length > 0}
+        query={query}
+      >
+        {Array.from(grouped.entries()).map(([cat, items]) => (
+          <SearchInput.Section key={cat} title={cat}>
+            {items.map((item) => (
+              <SearchInput.Item key={item.path} onClick={() => select(item.path)}>
+                <SearchInput.ItemContent label={item.name} />
+              </SearchInput.Item>
+            ))}
+          </SearchInput.Section>
+        ))}
+      </SearchInput.Dropdown>
+    </SearchInput>
+  )
+}
 
 function LogoIcon() {
   return (
@@ -144,7 +214,11 @@ export default function SiteNav({ landingMode = false }: SiteNavProps) {
           </a>
         </div>
 
-        {/* Spacer */}
+        {/* Spacer + Search */}
+        <div className="flex-1" />
+        <div className="hidden md:block">
+          <GlobalSearch />
+        </div>
         <div className="flex-1" />
 
         {/* Right side */}
